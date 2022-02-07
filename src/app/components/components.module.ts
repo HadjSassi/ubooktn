@@ -16,7 +16,6 @@ import {NgbdModalComponent} from './modal/modal.component';
 import {NgbdModalContent} from './modal/modal.component';
 import {AboutComponent} from './about/about.component';
 import {AcceuilComponent} from './acceuil/acceuil.component';
-import {AuthComponent} from './auth/auth.component';
 import {BackgroundComponent} from './background/background.component';
 import {DocumentsComponent} from './documents/documents.component';
 import {EnivronnementUniversitaireComponent} from './enivronnement-universitaire/enivronnement-universitaire.component';
@@ -65,7 +64,6 @@ import {OneProfilComponent} from './profils/one-profil/one-profil.component';
         NgbdModalContent,
         AboutComponent,
         AcceuilComponent,
-        AuthComponent,
         BackgroundComponent,
         DocumentsComponent,
         EnivronnementUniversitaireComponent,
