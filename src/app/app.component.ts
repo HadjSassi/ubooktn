@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
     // tslint:disable-next-line:max-line-length
-    constructor(private renderer: Renderer2, private router: Router, @Inject(DOCUMENT,) private document: any, private element: ElementRef, public location: Location) {
+    constructor(private renderer: Renderer2, private router: Router, @Inject(DOCUMENT) private document: any, private element: ElementRef, public location: Location) {
     }
 
     ngOnInit() {
@@ -58,10 +58,6 @@ export class AppComponent implements OnInit {
     removeFooter() {
         let titlee = this.location.prepareExternalUrl(this.location.path());
         titlee = titlee.slice(1);
-        if (titlee === 'signup' || titlee === 'nucleoicons') {
-            return false;
-        } else {
-            return true;
-        }
+        return !(titlee === '/signup' || titlee === '/nucleoicons');
     }
 }

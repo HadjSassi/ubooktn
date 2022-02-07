@@ -28,6 +28,16 @@
   }
 }
 
+.btn-register {
+  color: $font-background-light-grey !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $font-hover-background-light-grey !important;
+  }
+}
+
 .btn-linkedin {
   color: $social-linkedin !important;
 
