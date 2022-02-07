@@ -5,9 +5,9 @@ import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
-import * as firebase from 'firebase';
 import {Document} from '../../model/Document';
 import {Observable} from 'rxjs';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-profils',

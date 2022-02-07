@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import * as firebase from 'firebase';
 import {Examen} from '../model/Examen';
+import * as firebase from 'firebase';
 
 @Injectable({
     providedIn: 'root'

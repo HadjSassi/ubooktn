@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import * as firebase from 'firebase';
 import {User} from '../model/User';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserService} from './user.service';
+import * as firebase from 'firebase';
+import {AngularFireModule, FirebaseApp} from '@angular/fire';
 
 @Injectable({
     providedIn: 'root'

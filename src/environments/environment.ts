@@ -8,13 +8,12 @@ export const environment = {
   apiBaseUrl: 'http://localhost:8081',
   admine: 'mahdihadjsassi1@gmail.com',
   firebase: {
-    apiKey: 'AIzaSyCLDdR-mNcsDA9hHSk9Au4kQMXW3_qheHA',
-    authDomain: 'gigantic-podium-student.firebaseapp.com',
-    databaseURL: 'https://gigantic-podium-student-default-rtdb.europe-west1.firebasedatabase.app',
-    projectId: 'gigantic-podium-student',
-    storageBucket: 'gigantic-podium-student.appspot.com',
-    messagingSenderId: '908012976149',
-    appId: '1:908012976149:web:c01f7f87995a9b5c5fb61c',
-    measurementId: 'G-F8ZHSPHT03'
+    apiKey: 'AIzaSyCUa1-RGYctGMX9T44QHhTPVQL43whB60I',
+    authDomain: 'u-book-6ac29.firebaseapp.com',
+    projectId: 'u-book-6ac29',
+    storageBucket: 'u-book-6ac29.appspot.com',
+    messagingSenderId: '285478163789',
+    appId: '1:285478163789:web:e6f2cc43bde72648f7d304',
+    measurementId: 'G-9R4LGNCSSP'
   }
 };

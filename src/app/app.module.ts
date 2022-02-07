@@ -11,35 +11,6 @@ import {FooterComponent} from './shared/footer/footer.component';
 
 import {ComponentsModule} from './components/components.module';
 import {ExamplesModule} from './examples/examples.module';
-import {PubComponent} from './components/pub/pub.component';
-import {DocumentsComponent} from './components/documents/documents.component';
-import {OneDocumentComponent} from './components/documents/one-document/one-document.component';
-import {ReglementComponent} from './components/documents/reglement/reglement.component';
-import {NewDocumentComponent} from './components/documents/new-document/new-document.component';
-import {ExamsComponent} from './components/exams/exams.component';
-import {OneExamenComponent} from './components/exams/one-examen/one-examen.component';
-import {NewExamenComponent} from './components/exams/new-examen/new-examen.component';
-import {ReglementExamenComponent} from './components/exams/reglement-examen/reglement-examen.component';
-import {BackgroundComponent} from './components/background/background.component';
-import {NotFoundComponent} from './components/not-found/not-found.component';
-import {ProfilsComponent} from './components/profils/profils.component';
-import {OneProfilComponent} from './components/profils/one-profil/one-profil.component';
-import {SignInComponent} from './components/auth/sign-in/sign-in.component';
-import {SignUpComponent} from './components/auth/sign-up/sign-up.component';
-import {ClubsComponent} from './components/enivronnement-universitaire/clubs/clubs.component';
-import {InstitusComponent} from './components/enivronnement-universitaire/institus/institus.component';
-import {AcceuilComponent} from './components/acceuil/acceuil.component';
-import {OneInstitusComponent} from './components/enivronnement-universitaire/one-institus/one-institus.component';
-import {OneClubComponent} from './components/enivronnement-universitaire/one-club/one-club.component';
-import {AllProfilsComponent} from './components/profils/all-profils/all-profils.component';
-import {CompetitionsComponent} from './components/events/competitions/competitions.component';
-import {CertificationsComponent} from './components/events/certifications/certifications.component';
-import {FormationsComponent} from './components/events/formations/formations.component';
-import {EventsComponent} from './components/events/events.component';
-import {GuideComponent} from './components/guide/guide.component';
-import {FaqComponent} from './components/faq/faq.component';
-import {AboutComponent} from './components/about/about.component';
-import {EnivronnementUniversitaireComponent} from './components/enivronnement-universitaire/enivronnement-universitaire.component'
 import {HttpClientModule} from '@angular/common/http';
 import {InstitusService} from './services/institus.service';
 import {CommentExamService} from './services/comment-exam.service';
@@ -55,6 +26,11 @@ import {DocumentService} from './services/document.service';
 
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire'
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import * as firebase from 'firebase';
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
     declarations: [
@@ -100,13 +76,15 @@ import {AngularFireModule} from '@angular/fire'
         ExamplesModule,
         AppRoutingModule,
         HttpClientModule,
-        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+        AngularFireStorageModule
 
     ],
     providers: [
         AuthGuard,
         AuthService,
         DocumentService,
+        AngularFireAuth,
         UserService,
         CommentDocumentService,
         CommentExamService,

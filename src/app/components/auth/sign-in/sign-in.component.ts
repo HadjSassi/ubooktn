@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AuthService} from '../../../services/auth.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
     selector: 'app-sign-in',
@@ -11,7 +15,17 @@ export class SignInComponent implements OnInit {
     focus;
     focus1;
 
-    constructor(private router: Router) {
+    ferm = false;
+    valid = true;
+    name = '';
+    email = '';
+    pass = '';
+    repass = '';
+    errorMessage = '';
+
+    constructor(private authService: AuthService,
+                private router: Router
+    ) {
     }
 
     ngOnInit(): void {
@@ -19,6 +33,23 @@ export class SignInComponent implements OnInit {
 
     OnClick() {
         this.router.navigate(['auth/signup']);
+    }
+
+    onSubmit(form: NgForm) {
+        this.ferm = true;
+        this.email = form.value['email'];
+        this.pass = form.value['pass'];
+        this.name = form.value['name'];
+        console.log('hey');
+        this.authService.createNewUser(this.email, this.pass).then(
+            () => {
+                this.router.navigate(['acceuil']);
+            },
+            (error) => {
+                this.errorMessage = 'Veuillez Changer les cordonnée.';
+            }
+        );
+
     }
 
 }

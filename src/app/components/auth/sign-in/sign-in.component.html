@@ -17,7 +17,7 @@
                                 <i class="fa fa-twitter"></i>
                             </a>
                         </div>
-                        <form class="register-form">
+                        <form #form="ngForm" class="register-form">
                             <label>User Name</label>
                             <div class="input-group form-group-no-border"
                                  [ngClass]="{'input-group-focus':focus===true}">
@@ -27,8 +27,9 @@
                                   </span>
                                 </div>
 
-                                <input type="text" class="form-control" placeholder="User Name" (focus)="focus=true"
-                                       (blur)="focus=false">
+                                <input name="name" type="text" class="form-control" placeholder="User Name"
+                                       (focus)="focus=true"
+                                       (blur)="focus=false" ngModel>
                             </div>
 
                             <label>Email</label>
@@ -40,8 +41,9 @@
                                   </span>
                                 </div>
 
-                                <input type="text" class="form-control" placeholder="Email" (focus)="focus=true"
-                                       (blur)="focus=false">
+                                <input name="email" type="text" class="form-control" placeholder="Email"
+                                       (focus)="focus=true"
+                                       (blur)="focus=false" ngModel>
                             </div>
 
                             <label>Password</label>
@@ -52,12 +54,14 @@
                                       <i class="nc-icon nc-key-25"></i>
                                   </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Password" (focus)="focus1=true"
-                                       (blur)="focus1=false">
+                                <input name="pass" type="text" class="form-control" placeholder="Password"
+                                       (focus)="focus1=true"
+                                       (blur)="focus1=false" ngModel>
 
 
                             </div>
-                            <button class="btn btn-github-bg btn-block btn-round">Register</button>
+                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round">Register
+                            </button>
                         </form>
                         <div class="forgot">
                             <a (click)="OnClick()" class="btn btn-link btn-register">Already have an account?</a>

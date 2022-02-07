@@ -3,7 +3,6 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Club} from '../model/Club';
-import * as firebase from 'firebase';
 
 @Injectable({
     providedIn: 'root'
