@@ -33,8 +33,14 @@
                             class="nc-icon nc-single-copy-04"></i> Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a routerLinkActive="active" routerLink="profils" class="nav-link"><i
-                            class="nc-icon nc-single-02"></i> Profile</a>
+                    <div class="dropdown">
+                        <a routerLinkActive="active" routerLink="profils" class="nav-link"><i
+                                class="nc-icon nc-single-02"></i> Profile</a>
+                        <div class="dropdown-content">
+                            <a routerLink="profils">My Profile</a>
+                            <a routerLink="profils/all">Other Profiles</a>
+                        </div>
+                    </div>
                 </li>
                 <!--<li class="nav-item" *ngIf="isHome()">
                     <a routerLinkActive="active" routerLink="signup"  class="btn btn-danger btn-round">Sign in / Sign up</a>

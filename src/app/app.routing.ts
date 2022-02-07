@@ -72,7 +72,7 @@ const routes: Routes = [
     {path: 'exams/reglementions', canActivate: [AuthGuard], component: ReglementExamenComponent},
     {path: 'exams/view/:id', canActivate: [AuthGuard], component: OneExamenComponent},
     {path: 'profils', canActivate: [AuthGuard], component: ProfilsComponent},
-    {path: 'profils/tousprofils', canActivate: [AuthGuard], component: AllProfilsComponent},
+    {path: 'profils/all', canActivate: [AuthGuard], component: AllProfilsComponent},
     {path: 'profils/view/:id', canActivate: [AuthGuard], component: OneProfilComponent},
     {path: '404NotFound', component: NotFoundComponent},
     {path: '**', redirectTo: '/404NotFound'}
