@@ -46,7 +46,11 @@
                     <a routerLinkActive="active" routerLink="signup"  class="btn btn-danger btn-round">Sign in / Sign up</a>
                 </li>-->
                 <li class="nav-item">
-                    <a routerLink="auth/signup" class="btn btn-danger btn-round">Sign in / Sign up</a>
+                    <a *ngIf="!isRegistred ; else logouts" routerLink="auth/signup" class="btn btn-danger btn-round">Sign
+                        in / Sign up</a>
+                    <ng-template #logouts><a (click)="logout()" class="btn btn-danger btn-round"
+                                             routerLink="auth/signup">Log out</a>
+                    </ng-template>
                 </li>
             </ul>
         </div>

@@ -1,5 +1,7 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {AuthService} from '../../services/auth.service';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-navbar',
@@ -9,9 +11,20 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
+    isRegistred: boolean;
 
-    constructor(public location: Location, private element: ElementRef) {
+    constructor(public location: Location, private element: ElementRef, private authServie: AuthService) {
         this.sidebarVisible = false;
+        firebase.auth().onAuthStateChanged(
+            (user) => {
+                if (user) {
+                    console.log(user);
+                    this.isRegistred = true;
+                } else {
+                    this.isRegistred = false;
+                }
+            }
+        );
     }
 
     ngOnInit() {
@@ -73,5 +86,9 @@ export class NavbarComponent implements OnInit {
         } else {
             return false;
         }
+    }
+
+    logout() {
+        this.authServie.signOutUser();
     }
 }

@@ -40,7 +40,6 @@ export class SignInComponent implements OnInit {
         this.email = form.value['email'];
         this.pass = form.value['pass'];
         this.name = form.value['name'];
-        console.log('hey');
         this.authService.createNewUser(this.email, this.pass).then(
             () => {
                 this.router.navigate(['acceuil']);

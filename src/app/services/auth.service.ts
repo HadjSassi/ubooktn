@@ -76,5 +76,21 @@ export class AuthService {
         firebase.auth().signOut();
     }
 
+    getCurrentUser(): string {
+        let mail = '';
+        firebase.auth().onAuthStateChanged(
+            (user) => {
+                if (user) {
+                    console.log(user);
+                    mail = user.email;
+                } else {
+                    console.log('no user is connected!');
+                    mail = null;
+                }
+            }
+        );
+        return mail;
+    }
+
 
 }
