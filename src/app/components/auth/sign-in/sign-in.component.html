@@ -31,36 +31,42 @@
                                        (focus)="focus=true"
                                        (blur)="focus=false" ngModel>
                             </div>
-
-                            <label>Email</label>
-                            <div class="input-group form-group-no-border"
-                                 [ngClass]="{'input-group-focus':focus===true}">
+                            <label [ngClass]="{'text-danger':isInvalidMail}">Email</label>
+                            <div class="input-group form-group-no-border "
+                                 [ngClass]="{'input-group-focus':focus===true , 'inv':isInvalidMail}">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text">
+                                  <span class="input-group-text" [ngClass]="{'icon-danger':isInvalidMail}">
                                       <i class="nc-icon nc-email-85"></i>
                                   </span>
                                 </div>
 
-                                <input name="email" type="text" class="form-control" placeholder="Email"
+                                <input name="email" type="email" class="form-control" placeholder="Email"
                                        (focus)="focus=true"
-                                       (blur)="focus=false" ngModel>
+                                       (blur)="focus=false"
+                                       required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                       ngModel>
+                                <div *ngIf="isInvalidMail" class="form-control-feedback">Invalid Email !</div>
                             </div>
-
-                            <label>Password</label>
+                            <label [ngClass]="{'text-danger':isInvalidPass}">Password</label>
                             <div class="input-group form-group-no-border"
-                                 [ngClass]="{'input-group-focus':focus1===true}">
+                                 [ngClass]="{'input-group-focus':focus1===true , 'inv':isInvalidPass}">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text">
+                                  <span class="input-group-text" [ngClass]="{'icon-danger':isInvalidPass}">
                                       <i class="nc-icon nc-key-25"></i>
                                   </span>
                                 </div>
-                                <input name="pass" type="text" class="form-control" placeholder="Password"
+                                <input name="pass" type="password" class="form-control" placeholder="Password"
                                        (focus)="focus1=true"
-                                       (blur)="focus1=false" ngModel>
-
-
+                                       (blur)="focus1=false" ngModel
+                                       (ngModelChange)="ontype1(key1.value)" #key1="ngModel" required>
+                                <div *ngIf="isInvalidPass" class="form-control-feedback">Password can't be less than 6
+                                    characters !
+                                </div>
                             </div>
-                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round">Register
+                            <!--                            <label class="text-danger">Password can't be less than 6 characters !</label>-->
+                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round"
+                                    [disabled]="form.invalid||this.isInvalidPass"
+                            >Register
                             </button>
                         </form>
                         <div class="forgot">

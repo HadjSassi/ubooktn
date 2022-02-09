@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {NgForm} from '@angular/forms';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-sign-up',
@@ -17,13 +18,21 @@ export class SignUpComponent implements OnInit {
     email = '';
     pass = '';
     errorMessage = '';
-
+    isError = false;
     constructor(private authService: AuthService,
                 private router: Router,
     ) {
     }
 
     ngOnInit(): void {
+        // if it's connected then it will be redirected to the home page.
+        firebase.auth().onAuthStateChanged(
+            (user) => {
+                if (user) {
+                    this.router.navigate(['home']);
+                }
+            }
+        );
     }
 
     OnClick() {
@@ -42,6 +51,7 @@ export class SignUpComponent implements OnInit {
             },
             (error) => {
                 console.log(error);
+                this.isError = true;
                 this.errorMessage = 'Veuillez vérifier les cordonnée.';
             }
         );

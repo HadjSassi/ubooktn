@@ -1,5 +1,47 @@
 <div class="wrapper">
-    <div class="page-header" style="background-image: url('./assets/img/library/24.jpg');">
+    <div class="page-header page-header-xs" data-parallax="true"
+         style="background-image: url('./assets/img/library/54.jpg');">
         <div class="filter"></div>
+    </div>
+
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div>
+                    <div>
+                        <form>
+                            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                                   placeholder="Rechercher">
+                        </form>
+
+                        <div class="" *ngFor="let u of this.usersA ; let i = index">
+                            <table width="400">
+                                <tr>
+                                    <td>
+                                        <a href="#/profils/view/{{u.idUser}}" class=""
+                                           style="width: 100%; text-decoration: none; color: black">
+                                            <span> #{{this.rang.indexOf(u) + 1}}</span>
+                                            <img src="{{u.urlPicUser}}"
+                                                 style=" margin-left: 3%; margin-right: 3%;  border-radius: 100%; clip-path: circle()"
+                                                 width="40"
+                                                 alt="">
+                                            <span style="">{{u.prenomUser}} {{u.nomUser}}</span>
+                                        </a>
+                                    </td>
+                                    <td class="float-end">
+                                        <span style=""><b>{{u.score}}</b></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
     </div>
 </div>

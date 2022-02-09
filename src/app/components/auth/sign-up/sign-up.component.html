@@ -17,6 +17,7 @@
                                 <i class="fa fa-twitter"></i>
                             </a>
                         </div>
+
                         <form #form="ngForm" class="register-form">
                             <label>Email</label>
                             <div class="input-group form-group-no-border"
@@ -27,8 +28,9 @@
                                   </span>
                                 </div>
 
-                                <input name="email" type="text" class="form-control" placeholder="Email"
+                                <input name="email" type="email" class="form-control" placeholder="Email"
                                        (focus)="focus=true"
+                                       required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                        (blur)="focus=false" ngModel>
                             </div>
 
@@ -40,11 +42,14 @@
                                       <i class="nc-icon nc-key-25"></i>
                                   </span>
                                 </div>
-                                <input name="pass" type="text" class="form-control" placeholder="Password"
-                                       (focus)="focus1=true"
+                                <input name="pass" type="password" class="form-control" placeholder="Password"
+                                       (focus)="focus1=true" required
                                        (blur)="focus1=false" ngModel>
                             </div>
-                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round">Register
+                            <label *ngIf="isError" class="text-danger " style="margin-left: 28%;">Wrong coordinates
+                                !</label>
+                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round"
+                                    [disabled]="form.invalid">Register
                             </button>
                         </form>
                         <div class="forgot">

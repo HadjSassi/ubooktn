@@ -5,8 +5,6 @@ import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
-import {Document} from '../../model/Document';
-import {Observable} from 'rxjs';
 import * as firebase from 'firebase';
 
 @Component({
@@ -16,16 +14,14 @@ import * as firebase from 'firebase';
 })
 export class ProfilsComponent implements OnInit {
     users: User[] = [];
-    // @ts-ignore
+    usersA: User[] = [];
     foulen: User;
     rang = 0;
-    // @ts-ignore
     file: File = null; // Variable to store file
     fileUploaded = false;
     fileIsUploading = false;
     fileUrl = '';
     message = '';
-
 
     constructor(private router: Router,
                 private authService: AuthService,
@@ -33,11 +29,7 @@ export class ProfilsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-    }
-
-
-    onSignout() {
-        this.authService.signOutUser();
+        this.init();
     }
 
 
@@ -66,6 +58,18 @@ export class ProfilsComponent implements OnInit {
                 for (const i of this.users) {
                     if (i.uid === uid) {
                         this.foulen = i;
+                        break;
+                    }
+                }
+                this.usersA = this.users.slice(0);
+                this.usersA.sort(
+                    function (a, b) {
+                        return b.score - a.score;
+                    }
+                );
+                for (const u of this.usersA) {
+                    if (u.idUser.toString() === this.foulen.idUser.toString()) {
+                        this.rang = this.usersA.indexOf(u) + 1;
                         break;
                     }
                 }
@@ -150,7 +154,7 @@ export class ProfilsComponent implements OnInit {
 
 
     onUploadFile(file: File) {
-        if (this.foulen.urlPicUser !== 'assets/img/icon.png') {
+        if (this.foulen.urlPicUser !== '../../../../assets/img/icon.png') {
             const storageRef = firebase.storage().refFromURL(this.foulen.urlPicUser);
             storageRef.delete().then(
                 () => {

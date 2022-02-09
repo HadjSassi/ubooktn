@@ -37,13 +37,12 @@ export class UserService {
                 const upload = firebase.storage().ref()
                     .child('PicUser/' + file.name)
                     .put(file);
-                console.log(upload);
                 upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
                     () => {
                         console.log('Chargement...');
                     },
                     (error) => {
-                        console.log('Erreur de chargement : ' + error);
+                        console.log('Erreur de chargement : ' + error.message);
                         reject();
                     },
                     () => {

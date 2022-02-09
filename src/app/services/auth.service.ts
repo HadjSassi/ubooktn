@@ -14,7 +14,7 @@ export class AuthService {
     }
 
 
-    createNewUser(email: string, pass: string) {
+    createNewUser(email: string, pass: string, name: string) {
         return new Promise<void>(
             (resolve, reject) => {
                 firebase.auth().createUserWithEmailAndPassword(email, pass).then(
@@ -26,9 +26,9 @@ export class AuthService {
                             // @ts-ignore
                             uid: test.user.uid.toString(),
                             mailUser: email,
-                            nomUser: '',
+                            nomUser: name,
                             prenomUser: '',
-                            urlPicUser: 'assets/img/icon.png',
+                            urlPicUser: '../../../../assets/img/icon.png',
                             job: '',
                             urlFacebook: '',
                             urlLinkedIn: '',

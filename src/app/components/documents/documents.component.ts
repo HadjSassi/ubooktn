@@ -1,4 +1,12 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {SettingsService} from '../../services/settings.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NgForm} from '@angular/forms';
+import {DocumentService} from '../../services/document.service';
+import {Settings} from '../../model/Settings';
+import {Document} from '../../model/Document';
+
 
 @Component({
     selector: 'app-documents',
@@ -7,10 +15,267 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DocumentsComponent implements OnInit {
 
-    constructor() {
+    currentPage = 1;
+    nbMaxPage = 0;
+    nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
+    nbElmParPage = 5; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
+    public documents: Document[] = [];
+    public document: Document[] = [];
+    public docume: Document[] = [];
+    public docu: Document[] = [];
+    public isnext = false;
+    public isprevious = false;
+    matiere: string[] = [];
+    niveau: string[] = [];
+    annee: string[] = [];
+
+    constructor(private documentService: DocumentService,
+                private router: Router,
+                private settingService: SettingsService) {
     }
 
     ngOnInit(): void {
+        this.settingService.getSettingsById(1).subscribe(
+            (response: Settings) => {
+                this.matiere = response.matiere.split(',');
+                this.niveau = response.niveau.split(',');
+                this.annee = response.annee.split(',');
+                this.matiere.sort(
+                    function (a, b) {
+                        if (a > b) {
+                            return 1;
+                        } else if (a < b) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                );
+                this.niveau.sort(
+                    function (a, b) {
+                        if (a > b) {
+                            return 1;
+                        } else if (a < b) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                );
+                this.annee.sort(
+                    function (a, b) {
+                        if (a > b) {
+                            return 1;
+                        } else if (a < b) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                );
+            },
+            error => {
+                alert(error.message);
+            }
+        );
+        this.getDocument();
+    }
+
+    onViewDocument(id: number) {
+        this.router.navigate(['/documents', 'view', id]);
+    }
+
+    onNewDocument() {
+        this.router.navigate(['/documents', 'reglementions']);
+    }
+
+    public getDocument(): void {
+        this.documentService.getDocuments().subscribe(
+            (response: Document[]) => {
+                this.documents = response;
+                this.documents.sort(
+                    function (a, b) {
+                        if (a.idDocument < b.idDocument) {
+                            return 1;
+                        } else if (a.idDocument > b.idDocument) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                );
+                let i = 0;
+                for (const e of response) {
+                    if (i === this.nbElmParPage) {
+                        break;
+                    }
+                    this.docume.push(e);
+                    i++;
+                }
+                this.nbMaxPage = Math.ceil(response.length / this.nbElmParPage);
+                if (this.nbMaxPage > 1) {
+                    this.isnext = true;
+                }
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message);
+            }
+        );
+    }
+
+    public search(key: string): void {
+        const results: Document[] = [];
+        for (const doc of this.documents) {
+            if (doc.nomDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1
+                || doc.typeDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1
+                || doc.matiereDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1
+                || doc.niveauDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+                results.push(doc);
+            }
+        }
+        this.docume = [];
+        for (const doc of results) {
+            this.docume.push(doc);
+        }
+        this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
+        if (results.length === 0 || !key) {
+            this.getDocument();
+        }
+    }
+
+    onSubmit(form: NgForm) {
+        if ('' === form.value['page']) {
+            this.nbElmParPage = 5;
+        } else {
+            this.nbElmParPage = form.value['page'];
+        }
+        const typeDocument = form.value['typeDocument'];
+        const matiereDocument = form.value['matiereDocument'];
+        const niveauDocument = form.value['niveauDocument'];
+        const anneeDocument = form.value['anneeDocument'];
+
+        let i = this.nbPage;
+        let results: Document[] = [];
+        for (const doc of this.documents) {
+            if (
+                doc.niveauDocument.toString().toLowerCase().indexOf(niveauDocument.toLowerCase()) !== -1
+                && doc.typeDocument.toString().toLowerCase().indexOf(typeDocument.toLowerCase()) !== -1
+                && doc.matiereDocument.toString().toLowerCase().indexOf(matiereDocument.toLowerCase()) !== -1
+                && doc.anneeDocument.toString().toLowerCase().indexOf(anneeDocument.toLowerCase()) !== -1
+            ) {
+                results.push(doc);
+            }
+        }
+        this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
+        console.log(this.nbMaxPage + ' = ' + results.length + '/' + this.nbElmParPage);
+        this.document = results;
+        results = [];
+        for (const doc of this.document) {
+            results.push(doc);
+            i++;
+            if (i === this.nbElmParPage) {
+                break;
+            }
+        }
+        this.docu = results;
+        if (results.length === 0) {
+            this.getDocument();
+        }
+    }
+
+    next() {
+        if (this.document.length === 0) {
+            this.isprevious = true;
+            if (this.currentPage === this.nbMaxPage - 1) {
+                this.isnext = false;
+            }
+            const results: Document[] = [];
+            let i = 0;
+            for (const doc of this.documents) {
+                if (i < this.nbElmParPage * this.currentPage) {
+                    i++;
+                    continue;
+                }
+                results.push(doc);
+                i++;
+                if (i === (this.currentPage + 1) * this.nbElmParPage) {
+                    break;
+                }
+            }
+            this.currentPage++;
+            this.docume = results;
+        } else {
+            this.isprevious = true;
+            if (this.currentPage === this.nbMaxPage - 1) {
+                this.isnext = false;
+            }
+            const results: Document[] = [];
+            let i = 0;
+            for (const doc of this.document) {
+                if (i < this.nbElmParPage * this.currentPage) {
+                    i++;
+                    continue;
+                }
+                results.push(doc);
+                i++;
+                if (i === (this.currentPage + 1) * this.nbElmParPage) {
+                    break;
+                }
+            }
+            this.currentPage++;
+            this.docu = results;
+        }
+    }
+
+    previous() {
+        if (this.document.length === 0) {
+            const pag: number = this.currentPage - 2;
+            this.isnext = true;
+            if (pag === 0) {
+                this.isprevious = false;
+            }
+            const results: Document[] = [];
+            let i = 0;
+            let j = 0;
+            for (const doc of this.documents) {
+                if (i < this.nbElmParPage * pag) {
+                    i++;
+                    continue;
+                }
+                results.push(doc);
+                i++;
+                j++;
+                if (j === this.nbElmParPage) {
+                    break;
+                }
+            }
+            this.currentPage--;
+            this.docume = results;
+        } else {
+            const pag: number = this.currentPage - 2;
+            this.isnext = true;
+            if (pag === 0) {
+                this.isprevious = false;
+            }
+            const results: Document[] = [];
+            let i = 0;
+            let j = 0;
+            for (const doc of this.document) {
+                if (i < this.nbElmParPage * pag) {
+                    i++;
+                    continue;
+                }
+                results.push(doc);
+                i++;
+                j++;
+                if (j === this.nbElmParPage) {
+                    break;
+                }
+            }
+            this.currentPage--;
+            this.docu = results;
+        }
+        // console.log(this.currentPage+"/"+this.nbMaxPage);
     }
 
 }

@@ -11,7 +11,7 @@
 
                     <div class="avatar" (click)="fileInput.click()">
 
-                        <img src="./assets/img/faces/joe-gardner-2.jpg" alt="Circle Image"
+                        <img src="{{this.foulen.urlPicUser}}" alt="Circle Image" style="clip-path: circle()"
                              class="img-circle img-no-padding img-responsive">
                     </div>
 
@@ -49,7 +49,7 @@
                                            name="linkedin" ngModel></td>
                             </tr>
                         </table>
-                        <label class=""><h5>Score :</h5> <h5>{{this.foulen.score}}</h5></label>
+                        <label class=""><h5>Score :{{this.foulen.score}} | Rang : {{this.rang}}</h5></label>
                         <br>
                         <label class=""><h5>Description</h5></label>
                         <textarea type="text" class="rounded-3 input-group " placeholder="{{this.foulen.description}}"

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AuthService} from '../../../services/auth.service';
 import {UserService} from '../../../services/user.service';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-sign-in',
@@ -22,6 +23,8 @@ export class SignInComponent implements OnInit {
     pass = '';
     repass = '';
     errorMessage = '';
+    isInvalidMail = false;
+    isInvalidPass = false;
 
     constructor(private authService: AuthService,
                 private router: Router
@@ -29,6 +32,13 @@ export class SignInComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        firebase.auth().onAuthStateChanged(
+            (user) => {
+                if (user) {
+                    this.router.navigate(['home']);
+                }
+            }
+        );
     }
 
     OnClick() {
@@ -40,7 +50,7 @@ export class SignInComponent implements OnInit {
         this.email = form.value['email'];
         this.pass = form.value['pass'];
         this.name = form.value['name'];
-        this.authService.createNewUser(this.email, this.pass).then(
+        this.authService.createNewUser(this.email, this.pass, this.name).then(
             () => {
                 this.router.navigate(['acceuil']);
             },
@@ -49,6 +59,11 @@ export class SignInComponent implements OnInit {
             }
         );
 
+    }
+
+    ontype1(key: string) {
+        this.pass = key;
+        this.isInvalidPass = key.length < 6;
     }
 
 }
