@@ -1,1 +1,113 @@
-<p>new-document works!</p>
+<div class="wrapper">
+    <div class="page-header page-header-xs" data-parallax="true"
+         style="background-image: url('./assets/img/library/51.jpg');">
+        <div class="filter"></div>
+    </div>
+
+
+    <div class="row text-center">
+        <h1 class="col">
+            New Document
+        </h1>
+    </div>
+
+    <div class="cordido">
+        <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+            <div class="form-group ">
+                <label style="" class="h5 col" for="nomDocument"><span style="color: red">*</span>Document Name</label>
+                <input type="text" id="nomDocument" class="form-control col" style="" name="nomDocument"
+                       [ngClass]="{'is-invalid':nomDocument.invalid && nomDocument.dirty}" #nomDocument="ngModel"
+                       required ngModel>
+                <div *ngIf="nomDocument.invalid && nomDocument.dirty " class="invalid-feedback">Please fill this field
+                    !
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="" class="h5 col" for="typeDocument"><span style="color: red">*</span>Document Type</label>
+
+                <select class="form-select col" id="typeDocument" name="typeDocument"
+                        [ngClass]="{'is-invalid':typeDocument.invalid && typeDocument.dirty}" #typeDocument="ngModel"
+                        required ngModel>
+                    <option value="Autre" selected>Other</option>
+                    <option value="Cours">Course</option>
+                    <option value="TD">TD</option>
+                    <option value="Résumé">Resume</option>
+                </select>
+                <div *ngIf="typeDocument.invalid && typeDocument.dirty " class="invalid-feedback">Pouvez vous
+                    selectionner le type du document.
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="" class="h5 col" for="matiereDocument"><span style="color: red">*</span>Document
+                    Subject</label>
+                <select class="form-select col" id="matiereDocument" name="matiereDocument"
+                        [ngClass]="{'is-invalid':matiereDocument.invalid && matiereDocument.dirty}"
+                        #matiereDocument="ngModel"
+                        required ngModel>
+                    <option></option>
+                    <option value="Autre">Other</option>
+                    <option *ngFor="let s of this.matiere">{{s}}</option>
+                </select>
+                <div *ngIf="matiereDocument.invalid && matiereDocument.dirty " class="invalid-feedback">Pouvez vous
+                    séléctionner la matiére du document.
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="" class="h5 col" for="niveauDocument"><span style="color: red">*</span>Document
+                    Level</label>
+                <select class="form-select col" id="niveauDocument" name="niveauDocument"
+                        [ngClass]="{'is-invalid':niveauDocument.invalid && niveauDocument.dirty}"
+                        #niveauDocument="ngModel"
+                        required ngModel>
+                    <option></option>
+                    <option value="Autre">Other</option>
+                    <option *ngFor="let s of this.niveau">{{s}}</option>
+                </select>
+                <div *ngIf="niveauDocument.invalid && niveauDocument.dirty " class="invalid-feedback">Pouvez vous
+                    séléctionner le niveau du document.
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="" class="h5 col" for="anneeDocument"><span style="color: red">*</span>Document
+                    Year</label>
+                <select class="form-select col" id="anneeDocument" name="anneeDocument"
+                        [ngClass]="{'is-invalid':anneeDocument.invalid && anneeDocument.dirty}" #anneeDocument="ngModel"
+                        required ngModel>
+                    <option></option>
+                    <option *ngFor="let s of this.annee">{{s}}</option>
+
+                </select>
+                <div *ngIf="anneeDocument.invalid && anneeDocument.dirty " class="invalid-feedback">Pouvez vous donner
+                    l'année du document.
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="" class="h5 col" for="descriptionDocument">Document Description</label>
+                <textarea type="text" id="descriptionDocument" class="form-control col" style=""
+                          name="descriptionDocument"
+                          [ngClass]="{'is-invalid':descriptionDocument.invalid && descriptionDocument.dirty}"
+                          #descriptionDocument="ngModel"
+                          ngModel></textarea>
+                <div *ngIf="descriptionDocument.invalid && descriptionDocument.dirty " class="invalid-feedback">Pouvez
+                    vous donncer la description du document.
+                </div>
+            </div>
+            <div class="row text-center">
+
+                <input type="file" (change)="detectFiles($event)" class="form-control mx-auto my-4 w-75"
+                       accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+
+            </div>
+            <p class="text-success text-center" *ngIf="fileUploaded">File Loaded !</p>
+            <p class="text-warning text-center" *ngIf="fileIsUploading">Loading ...</p>
+            <br>
+            <br>
+            <div class="row">
+                <button type="submit" [disabled]="form.invalid || fileIsUploading" class="col btn"><h5>Finish</h5>
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+</div>

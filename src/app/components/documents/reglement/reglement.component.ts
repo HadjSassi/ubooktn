@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-reglement',
@@ -7,10 +8,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ReglementComponent implements OnInit {
 
-    constructor() {
+    constructor(private route: Router) {
     }
 
     ngOnInit(): void {
+    }
+
+    onPress(): void {
+        this.route.navigate(['/documents', 'new']);
     }
 
 }
