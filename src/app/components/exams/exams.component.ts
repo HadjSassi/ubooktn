@@ -139,6 +139,10 @@ export class ExamsComponent implements OnInit {
         }
         this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
         if (results.length === 0 || !key) {
+            this.examens = [];
+            this.exams = [];
+            this.exx = [];
+            this.ex = [];
             this.getExamen();
         }
     }

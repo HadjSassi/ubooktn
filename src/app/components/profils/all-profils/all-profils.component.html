@@ -4,44 +4,63 @@
         <div class="filter"></div>
     </div>
 
-    <div class="section profile-content">
-        <div class="container">
-            <div class="owner">
-                <div>
-                    <div>
-                        <form>
-                            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
-                                   placeholder="Rechercher">
-                        </form>
 
-                        <div class="" *ngFor="let u of this.usersA ; let i = index">
-                            <table width="400">
-                                <tr>
-                                    <td>
-                                        <a href="#/profils/view/{{u.idUser}}" class=""
-                                           style="width: 100%; text-decoration: none; color: black">
-                                            <span> #{{this.rang.indexOf(u) + 1}}</span>
-                                            <img src="{{u.urlPicUser}}"
-                                                 style=" margin-left: 3%; margin-right: 3%;  border-radius: 100%; clip-path: circle()"
-                                                 width="40"
-                                                 alt="">
-                                            <span style="">{{u.prenomUser}} {{u.nomUser}}</span>
+    <div class="row text-center">
+        <h1 class="col">
+            All Profils : TOP 100
+        </h1>
+    </div>
+
+    <!--    la zone de recherche -->
+    <div class="col-sm-3" style="margin: 3% auto -2%;">
+        <div class="form-group">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control" placeholder="Search">
+        </div>
+    </div>
+    <br>
+    <form>
+        <div class="" style="">
+            <div class="container">
+                <div class="row">
+                    <!--                la zone de filtrage-->
+                    <!--                les resultat-->
+                    <div class="col-md-9 m-auto">
+                        <div class="">
+                            <div class="">
+                                <h4 class="text-center">Results :</h4>
+                                <hr>
+                                <table class="m-auto">
+                                    <tr *ngFor="let s of utilisateur">
+                                        <a class="h5 btn-link" style="color : black;"
+                                           href="#/profils/view/{{s.idUser}}">
+                                            <td>#{{this.rang.indexOf(s) + 1}}</td>
+                                            <td><img src="{{s.urlPicUser}}"
+                                                     style=" display: inline; margin-left: 3%; margin-right: 3%;  border-radius: 100%; clip-path: circle()"
+                                                     width="40" alt=""></td>
+                                            <td> {{s.prenomUser}} {{s.nomUser}}</td>
+                                            <td class="float-right"> {{s.score}}  </td>
                                         </a>
-                                    </td>
-                                    <td class="float-end">
-                                        <span style=""><b>{{u.score}}</b></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                                    </tr>
+                                </table>
 
+                            </div>
+
+                            <div class="text-center">
+
+                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
+                                                (pageChange)="onPageChange(currentPage)"
+                                                [rotate]="true"></ngb-pagination>
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>
-
             </div>
-
-
         </div>
-    </div>
+    </form>
+    <br>
+    <br>
+    <br>
 </div>

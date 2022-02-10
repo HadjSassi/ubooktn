@@ -143,6 +143,10 @@ export class DocumentsComponent implements OnInit {
         this.nbMaxPage2 = this.nbMaxPage * 10;
 
         if (results.length === 0 || !key) {
+            this.documents = [];
+            this.document = [];
+            this.docume = [];
+            this.docu = [];
             this.getDocument();
         }
     }
@@ -185,6 +189,10 @@ export class DocumentsComponent implements OnInit {
         }
         this.docu = results;
         if (results.length === 0) {
+            this.documents = [];
+            this.document = [];
+            this.docume = [];
+            this.docu = [];
             this.getDocument();
         }
     }
