@@ -11,102 +11,144 @@
         </h1>
     </div>
 
-</div>
-<!--
-    <div class="input-group rounded" style="width: 50%;  margin: 3% auto -2%;" >
-        <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
-               class="form-control rounded" placeholder="Rechercher"/>
+    <!--    la zone de recherche -->
+    <div class="col-sm-3" style="margin: 3% auto -2%;">
+        <div class="form-group">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control" placeholder="Search">
+        </div>
     </div>
+    <br>
     <form>
-        <div class="grid-container">
-            <div class="container item1 " >
-                <div class="borders p-4">
-                    <form #form="ngForm" (change)="onSubmit(form)" class="justify-content-center">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <!--                la zone de filtrage-->
+                    <div class="col-3">
+                        <div class="">
+                            <div>
+                                <form #form="ngForm" (change)="onSubmit(form)">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div>
+                                        <div class="row" style="margin-left: auto">
+                                            <input class="col-5 fa-lg mb-5" type="number" id="inlineCheckbox1"
+                                                   #page="ngModel" ngModel
+                                                   name="page" placeholder="10" min="1" max="10"/>
+                                            <span class="" style="width: 5%;"></span>
+                                            <h5 class=""> /Page</h5>
+                                        </div>
+                                    </div>
 
-                        <div>
-                            <div class="form-check">
-                                <input class="form-text" style="width: 30%;" type="number" id="inlineCheckbox1" #page="ngModel" ngModel
-                                       name="page" placeholder="5" min="1" max="10"/>
-                                <label class="form-label" for="inlineCheckbox1">/Page</label>
+                                    <div style="margin-bottom: -10%;">
+                                        <div class="row">
+                                            <span class="fa-lg  col-5">Type</span>
+                                            <select class="form-select form-select-sm col-5 mb-5" name="typeDocument"
+                                                    ngModel>
+                                                <option value="Autre">Autre</option>
+                                                <option value="Cours">Cours</option>
+                                                <option value="TD">TD</option>
+                                                <option value="Résumé">Résumé</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: -10%;">
+                                        <div class="row">
+                                            <span class="fa-lg  col-5">Matiére</span>
+                                            <select class="form-select form-select-sm col-5 mb-5" name="matiereDocument"
+                                                    ngModel>
+                                                <option></option>
+                                                <option value="Autre">Autre</option>
+                                                <option *ngFor="let s of this.matiere">{{s}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div style="margin-bottom: -10%;">
+                                        <div class="row">
+                                            <span class="fa-lg  col-5">Niveau</span>
+                                            <select class="form-select form-select-sm col-5 mb-5" name="niveauDocument"
+                                                    ngModel>
+                                                <option></option>
+                                                <option value="Autre">Autre</option>
+                                                <option *ngFor="let s of this.niveau">{{s}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: -10%;">
+                                        <div class="row">
+                                            <span class="fa-lg  col-5">Année</span>
+                                            <select class="form-select form-select-sm col-5 mb-5" name="anneeDocument"
+                                                    ngModel>
+                                                <option></option>
+                                                <option *ngFor="let s of this.annee">{{s}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
+
+                            <button class="btn borders my-4 mx-1" style="" (click)="onNewDocument()"><span>Ajouter un document</span>
+                            </button>
+
+                        </div>
+                    </div>
+                    <!--                les resultat-->
+                    <div class="col-md-9">
+                        <div class="text-center">
+                            <div class="">
+                                <h4>Les Résultats :</h4>
+                                <hr>
+                                <div *ngIf="document.length !== 0">
+                                    <p *ngFor="let s of docu">
+                                        <a class="btn btn-link btn-default"
+                                           (click)="onViewDocument(s.idDocument)">{{s.nomDocument}}</a>
+                                    </p>
+                                </div>
+                                <div *ngIf="document.length === 0">
+                                    <p *ngFor="let s of docume">
+                                        <a class="btn btn-link btn-default"
+                                           (click)="onViewDocument(s.idDocument)">{{s.nomDocument}}</a>
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <!-- <div class="presui">
+                                 <div class="">
+                                     <label class="form-label" style="padding-right: 1%;">
+                                         <button [disabled]="!isprevious" (click)="previous()" class="btn"><i class="nc-icon nc-minimal-left"></i></button>
+                                     </label>
+                                     <input   name="currentPage" ngModel class="form-text" style="width: 10%" type="number" placeholder="{{this.currentPage}}" [max]="this.nbMaxPage" min="1"/>
+                                     <label class="form-label">/Page</label>
+                                     <label class="form-label" style="padding-left: 0%;">
+                                         <button [disabled]="!isnext" (click)="next()" class="btn"><i class="nc-icon nc-minimal-right"></i></button>
+                                     </label>
+                                 </div>
+                             </div>-->
+
+                            <div class="">
+
+                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
+                                                (pageChange)="onPageChange(currentPage)"
+                                                [rotate]="true"></ngb-pagination>
+                            </div>
+
                         </div>
 
-                        <div class="">
-                            <span class="fa-lg mb-5">Type</span>
-                            <select class="form-select form-select-sm" name="typeDocument" ngModel>
-                                <option value="Autre">Autre</option>
-                                <option value="Cours">Cours</option>
-                                <option value="TD">TD</option>
-                                <option value="Résumé">Résumé</option>
-                            </select>
-                        </div>
-                        <div class="">
-                            <span class="fa-lg mb-5">Matiére</span>
-                            <select class="form-select form-select-sm" name="matiereDocument" ngModel>
-                                <option></option>
-                                <option value="Autre">Autre</option>
-                                <option *ngFor = "let s of this.matiere">{{s}}</option>
-                            </select>
-                        </div>
-                        <div class="">
-                            <span class="fa-lg mb-5">Niveau</span>
-                            <select class="form-select form-select-sm" name="niveauDocument" ngModel>
-                                <option></option>
-                                <option value="Autre">Autre</option>
-                                <option *ngFor = "let s of this.niveau">{{s}}</option>
-                            </select>
-                        </div>
-                        <div class="">
-                            <span class="fa-lg mb-5">Année</span>
-                            <select class="form-select form-select-sm" name="anneeDocument" ngModel>
-                                <option></option>
-                                <option *ngFor = "let s of this.annee">{{s}}</option>
-                            </select>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
-
-                <button class="btn borders my-4" style="width: 25%; margin-left: 52%" (click)="onNewDocument()"><span>Ajouter un document</span>
-                </button>
-
             </div>
-
-
-            <div class="item2">
-                <div class="cardido">
-                    <h4>Les Résultats :</h4>
-                    <hr>
-                    <div *ngIf="document.length !== 0">
-                        <p *ngFor="let s of docu">
-                            <button class="btn bg-transparent" (click)="onViewDocument(s.idDocument)">{{s.nomDocument}}</button>
-                        </p>
-                    </div>
-                    <div *ngIf="document.length === 0">
-                        <p *ngFor="let s of docume">
-                            <button class="btn bg-transparent" (click)="onViewDocument(s.idDocument)">{{s.nomDocument}}</button>
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="presui">
-                    <div class="">
-                        <label class="form-label" style="padding-right: 1%;">
-                            <button [disabled]="!isprevious" (click)="previous()" class="btn bg-transparent"><img src="assets/img/previous.png " width="30"></button>
-                        </label>
-                        <input   name="currentPage" ngModel class="form-text" style="width: 10%" type="number" placeholder="{{this.currentPage}}" [max]="this.nbMaxPage" min="1"/>
-                        <label class="form-label">/Page</label>
-                        <label class="form-label" style="padding-left: 0%;">
-                            <button [disabled]="!isnext" (click)="next()" class="btn bg-transparent"><img src="assets/img/next.png" width="30"></button>
-                        </label>
-                    </div>
-                </div>
-
-
-            </div>
-
         </div>
     </form>
--->
+    <br>
+    <br>
+    <br>
+</div>

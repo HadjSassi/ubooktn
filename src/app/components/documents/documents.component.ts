@@ -18,16 +18,17 @@ export class DocumentsComponent implements OnInit {
     currentPage = 1;
     nbMaxPage = 0;
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
-    nbElmParPage = 5; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
-    public documents: Document[] = [];
-    public document: Document[] = [];
-    public docume: Document[] = [];
-    public docu: Document[] = [];
+    nbElmParPage = 10; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
+    public documents: Document[] = []; // la liste de tous les documents d'aprés la base de donnée
+    public document: Document[] = []; // la liste de tous les documents filtrés
+    public docume: Document[] = []; // la liste des documents affiché d'aprés documentS
+    public docu: Document[] = []; // la liste des documments affiché d'aprés document
     public isnext = false;
     public isprevious = false;
     matiere: string[] = [];
     niveau: string[] = [];
     annee: string[] = [];
+    nbMaxPage2 = 0;
 
     constructor(private documentService: DocumentService,
                 private router: Router,
@@ -113,6 +114,7 @@ export class DocumentsComponent implements OnInit {
                     i++;
                 }
                 this.nbMaxPage = Math.ceil(response.length / this.nbElmParPage);
+                this.nbMaxPage2 = this.nbMaxPage * 10;
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
@@ -138,6 +140,8 @@ export class DocumentsComponent implements OnInit {
             this.docume.push(doc);
         }
         this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
+        this.nbMaxPage2 = this.nbMaxPage * 10;
+
         if (results.length === 0 || !key) {
             this.getDocument();
         }
@@ -167,6 +171,8 @@ export class DocumentsComponent implements OnInit {
             }
         }
         this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
+        this.nbMaxPage2 = this.nbMaxPage * 10;
+
         console.log(this.nbMaxPage + ' = ' + results.length + '/' + this.nbElmParPage);
         this.document = results;
         results = [];
@@ -183,99 +189,132 @@ export class DocumentsComponent implements OnInit {
         }
     }
 
-    next() {
-        if (this.document.length === 0) {
-            this.isprevious = true;
-            if (this.currentPage === this.nbMaxPage - 1) {
-                this.isnext = false;
+    /*    next() {
+            if (this.document.length === 0) {
+                this.isprevious = true;
+                if (this.currentPage === this.nbMaxPage - 1) {
+                    this.isnext = false;
+                }
+                const results: Document[] = [];
+                let i = 0;
+                for (const doc of this.documents) {
+                    if (i < this.nbElmParPage * this.currentPage) {
+                        i++;
+                        continue;
+                    }
+                    results.push(doc);
+                    i++;
+                    if (i === (this.currentPage + 1) * this.nbElmParPage) {
+                        break;
+                    }
+                }
+                this.currentPage++;
+                this.docume = results;
+            } else {
+                this.isprevious = true;
+                if (this.currentPage === this.nbMaxPage - 1) {
+                    this.isnext = false;
+                }
+                const results: Document[] = [];
+                let i = 0;
+                for (const doc of this.document) {
+                    if (i < this.nbElmParPage * this.currentPage) {
+                        i++;
+                        continue;
+                    }
+                    results.push(doc);
+                    i++;
+                    if (i === (this.currentPage + 1) * this.nbElmParPage) {
+                        break;
+                    }
+                }
+                this.currentPage++;
+                this.docu = results;
             }
+        }
+
+        previous() {
+            if (this.document.length === 0) {
+                const pag: number = this.currentPage - 2;
+                this.isnext = true;
+                if (pag === 0) {
+                    this.isprevious = false;
+                }
+                const results: Document[] = [];
+                let i = 0;
+                let j = 0;
+                for (const doc of this.documents) {
+                    if (i < this.nbElmParPage * pag) {
+                        i++;
+                        continue;
+                    }
+                    results.push(doc);
+                    i++;
+                    j++;
+                    if (j === this.nbElmParPage) {
+                        break;
+                    }
+                }
+                this.currentPage--;
+                this.docume = results;
+            } else {
+                const pag: number = this.currentPage - 2;
+                this.isnext = true;
+                if (pag === 0) {
+                    this.isprevious = false;
+                }
+                const results: Document[] = [];
+                let i = 0;
+                let j = 0;
+                for (const doc of this.document) {
+                    if (i < this.nbElmParPage * pag) {
+                        i++;
+                        continue;
+                    }
+                    results.push(doc);
+                    i++;
+                    j++;
+                    if (j === this.nbElmParPage) {
+                        break;
+                    }
+                }
+                this.currentPage--;
+                this.docu = results;
+            }
+            // console.log(this.currentPage+"/"+this.nbMaxPage);
+        }*/
+
+    onPageChange(currentPage: number) {
+        if (this.document.length === 0) {
             const results: Document[] = [];
             let i = 0;
             for (const doc of this.documents) {
-                if (i < this.nbElmParPage * this.currentPage) {
+                if (i < this.nbElmParPage * (currentPage - 1)) {
                     i++;
                     continue;
                 }
                 results.push(doc);
                 i++;
-                if (i === (this.currentPage + 1) * this.nbElmParPage) {
+                if (i === (currentPage) * this.nbElmParPage) {
                     break;
                 }
             }
-            this.currentPage++;
             this.docume = results;
         } else {
-            this.isprevious = true;
-            if (this.currentPage === this.nbMaxPage - 1) {
-                this.isnext = false;
-            }
             const results: Document[] = [];
             let i = 0;
             for (const doc of this.document) {
-                if (i < this.nbElmParPage * this.currentPage) {
+                if (i < this.nbElmParPage * (currentPage - 1)) {
                     i++;
                     continue;
                 }
                 results.push(doc);
                 i++;
-                if (i === (this.currentPage + 1) * this.nbElmParPage) {
+                if (i === (currentPage) * this.nbElmParPage) {
                     break;
                 }
             }
-            this.currentPage++;
             this.docu = results;
         }
     }
-
-    previous() {
-        if (this.document.length === 0) {
-            const pag: number = this.currentPage - 2;
-            this.isnext = true;
-            if (pag === 0) {
-                this.isprevious = false;
-            }
-            const results: Document[] = [];
-            let i = 0;
-            let j = 0;
-            for (const doc of this.documents) {
-                if (i < this.nbElmParPage * pag) {
-                    i++;
-                    continue;
-                }
-                results.push(doc);
-                i++;
-                j++;
-                if (j === this.nbElmParPage) {
-                    break;
-                }
-            }
-            this.currentPage--;
-            this.docume = results;
-        } else {
-            const pag: number = this.currentPage - 2;
-            this.isnext = true;
-            if (pag === 0) {
-                this.isprevious = false;
-            }
-            const results: Document[] = [];
-            let i = 0;
-            let j = 0;
-            for (const doc of this.document) {
-                if (i < this.nbElmParPage * pag) {
-                    i++;
-                    continue;
-                }
-                results.push(doc);
-                i++;
-                j++;
-                if (j === this.nbElmParPage) {
-                    break;
-                }
-            }
-            this.currentPage--;
-            this.docu = results;
-        }
-        // console.log(this.currentPage+"/"+this.nbMaxPage);
-    }
-
 }
