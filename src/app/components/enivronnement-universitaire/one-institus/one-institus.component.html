@@ -1,1 +1,37 @@
-<p>one-institus works!</p>
+<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.intitus.picUrl + ')'}">
+    <div class="filter"></div>
+    <div class="container text-center">
+        <h2 class=" btn btn-default btn-round" style="font-size: 200%"><span>{{this.intitus.abreviation}}</span>
+            <h5>{{this.intitus.nomInstitus}}</h5></h2>
+    </div>
+</div>
+
+<div class="text-center" style="font-size: 150%;">
+    <br>
+    <p>{{this.intitus.historique}}</p>
+    <br *ngIf="this.intitus.nbChambre.length !== 0">
+    <h5 *ngIf="this.intitus.nbChambre.length !== 0">Nombres de chambres : {{this.intitus.nbChambre}}</h5>
+    <br *ngIf="filiere[0] !== ''">
+    <h5 *ngIf="filiere[0] !== ''">Liste des filiéres associé :</h5>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.filiere"><p>{{c}}</p></li>
+    </ul>
+    <br *ngIf="this.linkClub.length !== 0">
+    <h5 *ngIf="this.linkClub.length !== 0">Liste des Clubs associé :</h5>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
+                href="/environment-universitaire/Clubs/{{c.idClub}}">{{c.nomClub}}</a></li>
+    </ul>
+    <br *ngIf="this.link.length !== 0">
+    <h5 *ngIf="this.link.length !== 0">Voir Aussi</h5>
+    <p><a href="{{this.link}}">{{this.link}}</a></p>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
+                href="/environment-universitaire/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a></li>
+    </ul>
+    <br *ngIf="this.intitus.reglement.length !== 0">
+    <h5 *ngIf="this.intitus.reglement.length !== 0">Reglement:</h5>
+    <p>{{this.intitus.reglement}}</p>
+    <br>
+</div>
+

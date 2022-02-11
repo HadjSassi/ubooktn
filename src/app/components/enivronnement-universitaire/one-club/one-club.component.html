@@ -1,1 +1,22 @@
-<p>one-club works!</p>
+<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.club.picUrl + ')'}">
+    <div class="filter"></div>
+    <div class="container text-center">
+        <h2 class=" btn btn-default btn-round" style="font-size: 200%"><span>{{this.club.nomClub}}</span><h5>Club
+            : {{this.club.domaine}}</h5></h2>
+    </div>
+</div>
+
+<div class="text-center" style="font-size: 150%;">
+    <br>
+    <p>{{this.club.historique}}</p>
+    <br *ngIf="this.linkClub.length !== 0 || this.linkInstitus.length!==0 || this.link.length!==0">
+    <h5 *ngIf="this.linkClub.length !== 0 || this.linkInstitus.length!==0 || this.link.length!==0">Voir Aussi</h5>
+    <p><a href="{{this.link}}">{{this.link}}</a></p>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
+                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a></li>
+        <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
+                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a></li>
+    </ul>
+</div>
+

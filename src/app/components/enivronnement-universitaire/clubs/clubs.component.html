@@ -1,1 +1,86 @@
-<p>clubs works!</p>
+<div class="wrapper">
+    <!--    la zone de recherche -->
+    <div class="col-sm-3" style="margin: 3% auto -2%;">
+        <div class="form-group">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control" placeholder="Search">
+        </div>
+    </div>
+    <br>
+    <form>
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <!--                la zone de filtrage-->
+                    <div class="col-3">
+                        <div class="">
+                            <div>
+                                <form #form="ngForm" (change)="onSubmit(form)">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div>
+                                        <div class="row" style="margin-left: auto">
+                                            <input class="col-5 fa-lg mb-5" type="number" id="inlineCheckbox1"
+                                                   #page="ngModel" ngModel
+                                                   name="page" placeholder="10" min="1" max="10"/>
+                                            <span class="" style="width: 5%;"></span>
+                                            <h5 class=""> /Page</h5>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: -10%;">
+                                        <div class="row">
+                                            <span class="fa-lg  col-5">Domaine</span>
+                                            <select class="form-select form-select-sm col-5 mb-5" name="domaine"
+                                                    ngModel>
+                                                <option></option>
+                                                <option *ngFor="let d of this.domaines">{{d}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!--                les resultat-->
+                    <div class="col-md-9">
+                        <div class="text-center">
+                            <div class="">
+                                <h4>Results :</h4>
+                                <hr>
+                                <div *ngIf="club.length !== 0">
+                                    <p *ngFor="let s of cl">
+                                        <a class="btn btn-link btn-default"
+                                           (click)="onViewClub(s.idClub)">{{s.nomClub}}</a>
+                                    </p>
+                                </div>
+                                <div *ngIf="club.length === 0">
+                                    <p *ngFor="let s of clu">
+                                        <a class="btn btn-link btn-default"
+                                           (click)="onViewClub(s.idClub)">{{s.nomClub}}</a>
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="">
+
+                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
+                                                (pageChange)="onPageChange(currentPage)"
+                                                [rotate]="true"></ngb-pagination>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+</div>

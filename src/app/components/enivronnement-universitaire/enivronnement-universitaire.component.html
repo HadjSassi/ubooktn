@@ -1,5 +1,39 @@
 <div class="wrapper">
-    <div class="page-header" style="background-image: url('./assets/img/library/61.jpg');">
+    <div class="page-header page-header-xs" data-parallax="true"
+         style="background-image: url('./assets/img/library/61.jpg');">
         <div class="filter"></div>
     </div>
+    <div class="row text-center">
+        <h1 class="col">
+            University Organisms
+        </h1>
+    </div>
+    <br>
+    <br>
+    <div class="m-auto" style="width: 75%; ">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ngb-tabset [justify]="'center'">
+                    <ngb-tab title="Institus">
+                        <ng-template ngbTabContent>
+                            <app-institus></app-institus>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Trainings Center">
+                        <ng-template ngbTabContent>
+                            <h1 class="text-danger">To do !!!!!!.</h1>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Clubs">
+                        <ng-template ngbTabContent>
+                            <app-clubs></app-clubs>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
 </div>
