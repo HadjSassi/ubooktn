@@ -25,6 +25,12 @@
         <h5>
             Èlaboré le : {{this.doc["anneeDocument"]}}
         </h5>
+        <h4 class="text-danger" *ngIf="this.doc['corrigeDocument'].length !== 0">
+            Correction : {{this.doc["corrigeDocument"]}}
+        </h4>
+        <h5 *ngIf="this.doc['documentAssoscie'].length !== 0">
+            Related Documents : {{this.doc["documentAssoscie"]}}
+        </h5>
     </div>
     <div class="row text-center">
 

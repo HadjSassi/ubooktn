@@ -77,6 +77,18 @@
                 </div>
             </div>
             <div class="form-group">
+                <label style="" class="h5 col" for="corrige">Examen Correction</label>
+                <input type="text" id="corrige" class="form-control col" style="" name="corrige"
+                       #corrige="ngModel"
+                       ngModel>
+            </div>
+            <div class="form-group">
+                <label style="" class="h5 col" for="associe">Related Exams</label>
+                <textarea type="text" id="associe" class="form-control col" style=""
+                          name="associe" #associe="ngModel" ngModel></textarea>
+            </div>
+
+            <div class="form-group">
                 <label style="" class="h5 col" for="descriptionExamen">Examen Description</label>
                 <textarea type="text" id="descriptionExamen" class="form-control col" style="" name="descriptionExamen"
                           [ngClass]="{'is-invalid':descriptionExamen.invalid && descriptionExamen.dirty}"

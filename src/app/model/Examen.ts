@@ -6,6 +6,9 @@ export interface Examen {
     niveauExamen: string;
     anneeExamen: number;
     descriptionExamen: string;
+    corrigeExamen: string;
     urlExamen: string;
+    examenAssocie: string;
+    afficheExamen: string;
     uid: string;
 }

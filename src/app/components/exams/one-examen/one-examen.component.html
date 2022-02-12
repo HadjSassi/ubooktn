@@ -25,6 +25,12 @@
         <h5>
             Èlaboré le : {{this.doc["anneeExamen"]}}
         </h5>
+        <h4 class="text-danger" *ngIf="this.doc['corrigeExamen'].length !== 0">
+            Correction : {{this.doc["corrigeExamen"]}}
+        </h4>
+        <h5 *ngIf="this.doc['examenAssocie'].length !== 0">
+            Related Exams : {{this.doc["examenAssocie"]}}
+        </h5>
     </div>
     <div class="row text-center">
 

@@ -21,13 +21,8 @@ export class NewDocumentComponent implements OnInit {
     matiere: string[] = [];
     niveau: string[] = [];
     annee: string[] = [];
-
     users: User[] = [];
-    // @ts-ignore
     foulen: User;
-
-
-    // @ts-ignore
     file: File = null; // Variable to store file
 
 
@@ -98,7 +93,10 @@ export class NewDocumentComponent implements OnInit {
                         niveauDocument: form.value['niveauDocument'],
                         anneeDocument: form.value['anneeDocument'],
                         descriptionDocument: form.value['descriptionDocument'],
+                        corrigeDocument: form.value['corrige'],
+                        documentAssoscie: form.value['associe'],
                         urlDocument: this.fileUrl,
+                        afficheDocument: '',
                         uid: uid
                     };
                     // @ts-ignore

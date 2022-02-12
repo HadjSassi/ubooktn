@@ -6,6 +6,9 @@ export interface Document {
     niveauDocument: string;
     anneeDocument: number;
     descriptionDocument: string;
+    corrigeDocument: string;
     urlDocument: string;
+    documentAssoscie: string;
+    afficheDocument: string;
     uid: string;
 }

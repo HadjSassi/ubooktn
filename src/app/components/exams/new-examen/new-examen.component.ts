@@ -99,8 +99,11 @@ export class NewExamenComponent implements OnInit {
                         matiereExamen: form.value['matiereExamen'],
                         niveauExamen: form.value['niveauExamen'],
                         anneeExamen: form.value['anneeExamen'],
+                        corrigeExamen: form.value['corrige'],
+                        examenAssocie: form.value['associe'],
                         descriptionExamen: form.value['descriptionExamen'],
                         urlExamen: this.fileUrl,
+                        afficheExamen: '',
                         uid: uid
                     };
                     // @ts-ignore
