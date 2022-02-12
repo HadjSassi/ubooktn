@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PubComponent} from '../app/components/pub/pub.component';
+import {PubComponent} from '../app/shared/pub/pub.component';
 
 describe('PubComponent', () => {
     let component: PubComponent;

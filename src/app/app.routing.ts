@@ -9,7 +9,7 @@ import {SignupComponent} from './examples/signup/signup.component';
 import {LandingComponent} from './examples/landing/landing.component';
 import {NucleoiconsComponent} from './components/nucleoicons/nucleoicons.component';
 
-import {PubComponent} from './components/pub/pub.component';
+import {PubComponent} from './shared/pub/pub.component';
 import {DocumentsComponent} from './components/documents/documents.component';
 import {OneDocumentComponent} from './components/documents/one-document/one-document.component';
 import {ReglementComponent} from './components/documents/reglement/reglement.component';
@@ -39,13 +39,14 @@ import {FaqComponent} from './components/faq/faq.component';
 import {AboutComponent} from './components/about/about.component';
 import {EnivronnementUniversitaireComponent} from './components/enivronnement-universitaire/enivronnement-universitaire.component'
 import {AuthGuard} from './services/auth.guard';
+import {CentreFormationComponent} from './components/enivronnement-universitaire/centre-formation/centre-formation.component';
+import {OneCentreFormationComponent} from './components/enivronnement-universitaire/one-centre-formation/one-centre-formation.component';
 
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'home', component: ComponentsComponent},
     {path: 'user-profile', component: ProfileComponent},
-    // {path: 'signup', component: SignupComponent},
     {path: 'landing', component: LandingComponent},
     {path: 'nucleoicons', component: NucleoiconsComponent},
     {path: 'acceuil', component: AcceuilComponent},
@@ -59,6 +60,8 @@ const routes: Routes = [
     {path: 'university/Institus/:id', component: OneInstitusComponent},
     {path: 'university/Clubs', component: ClubsComponent},
     {path: 'university/Clubs/:id', component: OneClubComponent},
+    {path: 'university/TrainingCenter', component: CentreFormationComponent},
+    {path: 'university/TrainingCenter/:id', component: OneCentreFormationComponent},
     {path: 'event', component: EventsComponent},
     {path: 'event/competitions', component: CompetitionsComponent},
     {path: 'event/formations', component: FormationsComponent},
@@ -72,7 +75,7 @@ const routes: Routes = [
     {path: 'exams/reglementions', canActivate: [AuthGuard], component: ReglementExamenComponent},
     {path: 'exams/view/:id', canActivate: [AuthGuard], component: OneExamenComponent},
     {path: 'profils', canActivate: [AuthGuard], component: ProfilsComponent},
-    {path: 'profils/all', canActivate: [AuthGuard], component: AllProfilsComponent},
+    {path: 'profils/all', component: AllProfilsComponent},
     {path: 'profils/view/:id', canActivate: [AuthGuard], component: OneProfilComponent},
     {path: '404NotFound', component: NotFoundComponent},
     {path: '**', redirectTo: '/404NotFound'}

@@ -25,7 +25,7 @@ import {FaqComponent} from './faq/faq.component';
 import {GuideComponent} from './guide/guide.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ProfilsComponent} from './profils/profils.component';
-import {PubComponent} from './pub/pub.component';
+import {PubComponent} from '../shared/pub/pub.component';
 import {SignInComponent} from './auth/sign-in/sign-in.component';
 import {SignUpComponent} from './auth/sign-up/sign-up.component';
 import {NewDocumentComponent} from './documents/new-document/new-document.component';
@@ -43,6 +43,8 @@ import {OneExamenComponent} from './exams/one-examen/one-examen.component';
 import {ReglementExamenComponent} from './exams/reglement-examen/reglement-examen.component';
 import {AllProfilsComponent} from './profils/all-profils/all-profils.component';
 import {OneProfilComponent} from './profils/one-profil/one-profil.component';
+import {CentreFormationComponent} from './enivronnement-universitaire/centre-formation/centre-formation.component';
+import {OneCentreFormationComponent} from './enivronnement-universitaire/one-centre-formation/one-centre-formation.component';
 
 @NgModule({
     imports: [
@@ -90,7 +92,9 @@ import {OneProfilComponent} from './profils/one-profil/one-profil.component';
         OneExamenComponent,
         ReglementExamenComponent,
         AllProfilsComponent,
-        OneProfilComponent
+        OneProfilComponent,
+        CentreFormationComponent,
+        OneCentreFormationComponent
     ],
     entryComponents: [NgbdModalContent],
     exports: [ComponentsComponent]

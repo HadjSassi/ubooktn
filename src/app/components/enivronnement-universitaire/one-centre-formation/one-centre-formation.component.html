@@ -1,0 +1,65 @@
+<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.img + ')'}">
+    <div class="filter"></div>
+    <div class="container text-center">
+        <img src="{{this.cf.logo}}"/>
+    </div>
+</div>
+
+<div class="text-center" style="font-size: 150%;">
+    <h2 style="font-size: 200%"><span>{{this.cf.abreviation}}</span>
+        <h5>{{this.cf.nomCf}}</h5></h2>
+    <br>
+    <p><a href="{{this.cf.urlOfficiel}}">{{this.cf.urlOfficiel}}</a></p>
+    <br *ngIf="this.cf.region.length !== 0">
+    <p>Region : {{this.cf.region}}</p>
+    <br>
+    <br *ngIf="filiere[0] !== ''">
+    <h5 *ngIf="filiere[0] !== ''">Liste des filiéres associé :</h5>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.filiere"><p>{{c}}</p></li>
+    </ul>
+    <br *ngIf="this.cf.historique.length !== 0">
+    <p *ngIf="this.cf.historique.length !== 0">{{this.cf.historique}}</p>
+
+    <br *ngIf="this.linkClub.length !== 0">
+    <h5 *ngIf="this.linkClub.length !== 0">Liste des Clubs associé :</h5>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
+                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a></li>
+    </ul>
+    <br *ngIf="this.linkInstitus.length !== 0">
+    <h5 *ngIf="this.linkInstitus.length !== 0">Liste des Institus associé</h5>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
+                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a></li>
+    </ul>
+    <br *ngIf="this.linkPartenaires.length !== 0">
+    <h5 *ngIf="this.linkPartenaires.length !== 0">Liste des Partenaires associé</h5>
+    <ul class="list-inline">
+        <p>{{this.linkPartenaires}}</p>
+    </ul>
+    <br *ngIf="this.cf.reglement.length !== 0">
+    <h5 *ngIf="this.cf.reglement.length !== 0">Reglement:</h5>
+    <p>{{this.cf.reglement}}</p>
+    <br>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mr-auto ml-auto">
+            <div class="card page-carousel">
+                <ngb-carousel>
+                    <ng-template ngbSlide *ngFor="let c of this.picsUrl">
+                        <img id="image" src="{{c}}" alt="Random first slide">
+                    </ng-template>
+                </ngb-carousel>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
