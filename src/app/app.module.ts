@@ -30,6 +30,10 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import {CentreFormationService} from './services/centre-formation.service';
+import {CertificationService} from './services/certification.service';
+import {CompetitionService} from './services/competition.service';
+import {FormationService} from './services/formation.service';
+import {JourneyService} from './services/journey.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -87,6 +91,10 @@ firebase.initializeApp(environment.firebase);
         DocumentService,
         AngularFireAuth,
         UserService,
+        CertificationService,
+        CompetitionService,
+        FormationService,
+        JourneyService,
         CentreFormationService,
         CommentDocumentService,
         CommentExamService,

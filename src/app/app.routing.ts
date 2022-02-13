@@ -41,6 +41,11 @@ import {EnivronnementUniversitaireComponent} from './components/enivronnement-un
 import {AuthGuard} from './services/auth.guard';
 import {CentreFormationComponent} from './components/enivronnement-universitaire/centre-formation/centre-formation.component';
 import {OneCentreFormationComponent} from './components/enivronnement-universitaire/one-centre-formation/one-centre-formation.component';
+import {JourneyComponent} from './components/events/journey/journey.component';
+import {OneCompetitionComponent} from './components/events/one-competition/one-competition.component';
+import {OneFormationComponent} from './components/events/one-formation/one-formation.component';
+import {OneCertificationComponent} from './components/events/one-certification/one-certification.component';
+import {OneJourneyComponent} from './components/events/one-journey/one-journey.component';
 
 
 const routes: Routes = [
@@ -64,8 +69,13 @@ const routes: Routes = [
     {path: 'university/TrainingCenter/:id', component: OneCentreFormationComponent},
     {path: 'event', component: EventsComponent},
     {path: 'event/competitions', component: CompetitionsComponent},
-    {path: 'event/formations', component: FormationsComponent},
+    {path: 'event/competitions/:id', component: OneCompetitionComponent},
+    {path: 'event/training', component: FormationsComponent},
+    {path: 'event/training/:id', component: OneFormationComponent},
     {path: 'event/certifications', component: CertificationsComponent},
+    {path: 'event/certifications/:id', component: OneCertificationComponent},
+    {path: 'event/journey', component: JourneyComponent},
+    {path: 'event/journey/:id', component: OneJourneyComponent},
     {path: 'documents', component: DocumentsComponent},
     {path: 'documents/new', canActivate: [AuthGuard], component: NewDocumentComponent},
     {path: 'documents/reglementions', canActivate: [AuthGuard], component: ReglementComponent},

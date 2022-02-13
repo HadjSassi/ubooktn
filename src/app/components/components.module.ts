@@ -45,6 +45,11 @@ import {AllProfilsComponent} from './profils/all-profils/all-profils.component';
 import {OneProfilComponent} from './profils/one-profil/one-profil.component';
 import {CentreFormationComponent} from './enivronnement-universitaire/centre-formation/centre-formation.component';
 import {OneCentreFormationComponent} from './enivronnement-universitaire/one-centre-formation/one-centre-formation.component';
+import {JourneyComponent} from './events/journey/journey.component';
+import {OneJourneyComponent} from './events/one-journey/one-journey.component';
+import {OneCertificationComponent} from './events/one-certification/one-certification.component';
+import {OneCompetitionComponent} from './events/one-competition/one-competition.component';
+import {OneFormationComponent} from './events/one-formation/one-formation.component';
 
 @NgModule({
     imports: [
@@ -94,7 +99,12 @@ import {OneCentreFormationComponent} from './enivronnement-universitaire/one-cen
         AllProfilsComponent,
         OneProfilComponent,
         CentreFormationComponent,
-        OneCentreFormationComponent
+        OneCentreFormationComponent,
+        JourneyComponent,
+        OneJourneyComponent,
+        OneCertificationComponent,
+        OneCompetitionComponent,
+        OneFormationComponent
     ],
     entryComponents: [NgbdModalContent],
     exports: [ComponentsComponent]
