@@ -1,22 +1,45 @@
-<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.club.picUrl + ')'}">
+<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.picsUrl[0]+ ')'}">
     <div class="filter"></div>
     <div class="container text-center">
-        <h2 class=" btn btn-default btn-round" style="font-size: 200%"><span>{{this.club.nomClub}}</span><h5>Club
-            : {{this.club.domaine}}</h5></h2>
+        <img src="{{this.club.logo}}" alt="club logo"/>
     </div>
 </div>
 
 <div class="text-center" style="font-size: 150%;">
+    <h2 style="font-size: 200%"><span>{{this.club.nomClub}}</span><h5>Club
+        : {{this.club.domaine}}</h5></h2>
     <br>
+    <p><a href="{{this.club.urlOfficel}}">{{this.club.urlOfficel}}</a></p>
+    <br *ngIf="this.club.historique.length !== 0">
     <p>{{this.club.historique}}</p>
-    <br *ngIf="this.linkClub.length !== 0 || this.linkInstitus.length!==0 || this.link.length!==0">
-    <h5 *ngIf="this.linkClub.length !== 0 || this.linkInstitus.length!==0 || this.link.length!==0">Voir Aussi</h5>
-    <p><a href="{{this.link}}">{{this.link}}</a></p>
-    <ul class="list-inline">
+    <br *ngIf="this.linkClub.length !== 0">
+    <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
         <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a></li>
+                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
+    </ul>
+    <br *ngIf="this.linkInstitus.length !== 0">
+    <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
         <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a></li>
+                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span></li>
+    </ul>
+    <br *ngIf="this.urls.length !== 0">
+    <ul class="list-inline" *ngIf="this.urls.length !== 0">
+        <li class="list-inline-item" *ngFor="let c of this.urls"><a
+                href="/#/university/Institus/{{c}}">{{c}}</a><span>&nbsp;</span></li>
     </ul>
 </div>
 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mr-auto ml-auto">
+            <div class="card page-carousel">
+                <ngb-carousel>
+                    <ng-template ngbSlide *ngFor="let c of this.picsUrl">
+                        <img id="image" src="{{c}}" alt="Random first slide">
+                    </ng-template>
+                </ngb-carousel>
+            </div>
+        </div>
+    </div>
+</div>

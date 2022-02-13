@@ -1,7 +1,7 @@
 <div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.img + ')'}">
     <div class="filter"></div>
     <div class="container text-center">
-        <img src="{{this.cf.logo}}"/>
+        <img src="{{this.cf.logo}}" alt="training center logo"/>
     </div>
 </div>
 
@@ -25,18 +25,18 @@
     <h5 *ngIf="this.linkClub.length !== 0">Liste des Clubs associé :</h5>
     <ul class="list-inline">
         <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a></li>
+                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
     </ul>
     <br *ngIf="this.linkInstitus.length !== 0">
     <h5 *ngIf="this.linkInstitus.length !== 0">Liste des Institus associé</h5>
     <ul class="list-inline">
         <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a></li>
+                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span></li>
     </ul>
     <br *ngIf="this.linkPartenaires.length !== 0">
     <h5 *ngIf="this.linkPartenaires.length !== 0">Liste des Partenaires associé</h5>
     <ul class="list-inline">
-        <p>{{this.linkPartenaires}}</p>
+        <li *ngFor="let ccc of this.linkPartenaires">{{ccc}}<span>&nbsp;</span></li>
     </ul>
     <br *ngIf="this.cf.reglement.length !== 0">
     <h5 *ngIf="this.cf.reglement.length !== 0">Reglement:</h5>

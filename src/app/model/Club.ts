@@ -4,5 +4,9 @@ export interface Club {
     domaine: string,
     historique: string,
     picUrl: string,
-    urls: string
+    urls: string,
+    logo: string,
+    urlOfficel: string,
+    listClubs: string,
+    listInstitus: string
 }

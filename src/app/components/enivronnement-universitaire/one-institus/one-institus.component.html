@@ -1,13 +1,16 @@
-<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.intitus.picUrl + ')'}">
+<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.picsUrl[0] + ')'}">
     <div class="filter"></div>
     <div class="container text-center">
-        <h2 class=" btn btn-default btn-round" style="font-size: 200%"><span>{{this.intitus.abreviation}}</span>
-            <h5>{{this.intitus.nomInstitus}}</h5></h2>
+        <img src="{{this.intitus.logo}}" alt="institute logo"/>
     </div>
 </div>
 
 <div class="text-center" style="font-size: 150%;">
+    <h2 style="font-size: 200%"><span>{{this.intitus.abreviation}}</span>
+        <h5>{{this.intitus.nomInstitus}}</h5></h2>
     <br>
+    <p><a href="{{this.intitus.urlOfficel}}">{{this.intitus.urlOfficel}}</a></p>
+    <p>Region : {{this.intitus.region}} | Université : {{this.intitus.universite}}</p>
     <p>{{this.intitus.historique}}</p>
     <br *ngIf="this.intitus.nbChambre.length !== 0">
     <h5 *ngIf="this.intitus.nbChambre.length !== 0">Nombres de chambres : {{this.intitus.nbChambre}}</h5>
@@ -18,16 +21,20 @@
     </ul>
     <br *ngIf="this.linkClub.length !== 0">
     <h5 *ngIf="this.linkClub.length !== 0">Liste des Clubs associé :</h5>
-    <ul class="list-inline">
+    <br *ngIf="this.linkClub.length !== 0">
+    <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
         <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                href="/environment-universitaire/Clubs/{{c.idClub}}">{{c.nomClub}}</a></li>
+                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
     </ul>
-    <br *ngIf="this.link.length !== 0">
-    <h5 *ngIf="this.link.length !== 0">Voir Aussi</h5>
-    <p><a href="{{this.link}}">{{this.link}}</a></p>
-    <ul class="list-inline">
+    <br *ngIf="this.linkInstitus.length !== 0">
+    <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
         <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                href="/environment-universitaire/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a></li>
+                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span></li>
+    </ul>
+    <br *ngIf="this.urls.length !== 0">
+    <ul class="list-inline" *ngIf="this.urls.length !== 0">
+        <li class="list-inline-item" *ngFor="let c of this.urls"><a
+                href="/#/university/Institus/{{c}}">{{c}}</a><span>&nbsp;</span></li>
     </ul>
     <br *ngIf="this.intitus.reglement.length !== 0">
     <h5 *ngIf="this.intitus.reglement.length !== 0">Reglement:</h5>
@@ -35,3 +42,16 @@
     <br>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mr-auto ml-auto">
+            <div class="card page-carousel">
+                <ngb-carousel>
+                    <ng-template ngbSlide *ngFor="let c of this.picsUrl">
+                        <img id="image" src="{{c}}" alt="Random first slide">
+                    </ng-template>
+                </ngb-carousel>
+            </div>
+        </div>
+    </div>
+</div>

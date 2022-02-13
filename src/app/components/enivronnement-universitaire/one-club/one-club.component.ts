@@ -24,7 +24,8 @@ export class OneClubComponent implements OnInit {
     public linkClub: Club[] = [];
     public linkInstitus: Institus[] = [];
     public ListVoirAussi: string[] = [];
-    // @ts-ignore
+    public picsUrl: string[] = [];
+    public urls: string[] = [];
     foulen: User;
     public isAdmin = false;
 
@@ -64,16 +65,14 @@ export class OneClubComponent implements OnInit {
             }
         );
         const id: number = this.route.snapshot.params['id'] - 0;
-
         this.clubService.getClubById(id).subscribe(
             (response: Club) => {
+                this.picsUrl = response.picUrl.split(',');
+                this.urls = response.urls.split(',');
                 this.club = response;
-                const twoList: string[] = response.urls.split('***');
-                console.log(twoList);
-                const listClub: string[] = twoList[0].split(',');
-                this.link = listClub[0];
-                const linkClub = listClub.slice(1);
-                const linkInstitus = twoList[1].split(',');
+                this.link = response.urlOfficel;
+                const linkClub = response.listClubs.split(',');
+                const linkInstitus = response.listInstitus.split(',');
                 this.clubService.getClubs().subscribe(
                     (responses: Club[]) => {
                         for (const r of responses) {

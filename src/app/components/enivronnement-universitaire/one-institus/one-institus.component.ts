@@ -24,7 +24,8 @@ export class OneInstitusComponent implements OnInit {
     public linkClub: Club[] = [];
     public linkInstitus: Institus[] = [];
     public filiere: string[] = [];
-    // @ts-ignore
+    public picsUrl: string[] = [];
+    public urls: string[] = [];
     foulen: User;
     public isAdmin = false;
 
@@ -69,10 +70,11 @@ export class OneInstitusComponent implements OnInit {
             (response: Institus) => {
                 this.intitus = response;
                 this.filiere = response.filieres.split(',');
-                const lists: string[] = response.urls.split(',');
-                this.link = lists[0];
+                this.picsUrl = response.picUrl.split(',');
+                this.urls = response.urls.split(',');
+                this.link = response.urlOfficel;
                 const linkClub = response.listClubs.split(',');
-                const linkInstitus = lists.slice(1);
+                const linkInstitus = response.listInstitus.split(',');
                 this.clubService.getClubs().subscribe(
                     (responses: Club[]) => {
                         for (const r of responses) {

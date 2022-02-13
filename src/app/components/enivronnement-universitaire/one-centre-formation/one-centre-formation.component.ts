@@ -32,6 +32,7 @@ export class OneCentreFormationComponent implements OnInit {
     public isAdmin = false;
     public img;
 
+
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private clubService: ClubService,
@@ -73,12 +74,24 @@ export class OneCentreFormationComponent implements OnInit {
         this.centreFormationService.getCentreFormationById(id).subscribe(
             (response: CentreFormation) => {
                 this.cf = response;
-                this.filiere = response.domaines.split(',');
-                this.picsUrl = response.picsUrls.split(',');
-                this.img = this.picsUrl[0];
-                const clubing = response.urlClubs.split(',');
-                const instituing = response.urlInstitus.split(',');
-                this.linkPartenaires = response.urlPartenaires.split(',');
+                if (response.domaines !== '') {
+                    this.filiere = response.domaines.split(',');
+                }
+                if (response.picsUrls !== '') {
+                    this.picsUrl = response.picsUrls.split(',');
+                    this.img = this.picsUrl[0];
+                }
+                let clubing = [];
+                if (response.urlClubs !== '') {
+                    clubing = response.urlClubs.split(',');
+                }
+                let instituing = [];
+                if (response.urlInstitus !== '') {
+                    instituing = response.urlInstitus.split(',');
+                }
+                if (response.urlPartenaires !== '') {
+                    this.linkPartenaires = response.urlPartenaires.split(',');
+                }
                 this.clubService.getClubs().subscribe(
                     (responses: Club[]) => {
                         for (const r of responses) {
