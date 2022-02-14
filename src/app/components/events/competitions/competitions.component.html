@@ -107,7 +107,7 @@
                                         </div>
                                         <span class="fa-lg">Capacity</span>&nbsp;<span
                                             class="fa-lg">{{capacitySlider}}</span>
-                                        <nouislider [min]="0" [max]="100" [step]="1" [(ngModel)]="capacitySlider"
+                                        <nouislider [min]="0" [max]="5000" [step]="1" [(ngModel)]="capacitySlider"
                                                     name="capacity"
                                                     (change)="onSubmit(form)"
                                                     class="slider slider-warning"></nouislider>
@@ -116,8 +116,8 @@
 
                                         <span class="fa-lg">Price</span>&nbsp;<span
                                             class="fa-lg">[{{this.freeIndicator}}
-                                        , {{priceSlider[1]}}]</span>
-                                        <nouislider [min]="0" [max]="100" [step]="1" [(ngModel)]="priceSlider"
+                                        , {{priceSlider[1]}}DT]</span>
+                                        <nouislider [min]="0" [max]="1000" [step]="1" [(ngModel)]="priceSlider"
                                                     name="price"
                                                     (change)="onSubmit(form)"
                                                     [connect]="true" class="slider slider-warning"></nouislider>
@@ -168,6 +168,7 @@
                                                                 <input class="form-control" placeholder="yyyy-mm-dd"
                                                                        name="finishing" [(ngModel)]="finishings"
                                                                        ngbDatepicker
+                                                                       [minDate]="{year: startings.year, month:startings.month, day:startings.day}"
                                                                        #finishing="ngbDatepicker"
                                                                        (ngModelChange)="onSubmit(form)"
                                                                        (click)="finishing.toggle()" (focus)="focus=true"

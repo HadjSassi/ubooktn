@@ -39,10 +39,10 @@ export class CompetitionsComponent implements OnInit {
     ];
     foulen: User;
     public isAdmin = false;
-    startings: NgbDateStruct;
+    startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     finishings: NgbDateStruct;
-    capacitySlider = 40;
-    priceSlider = [0, 40];
+    capacitySlider = 500;
+    priceSlider = [0, 500];
     freeIndicator = 'Free';
     focus: any;
     file: File = null; // Variable to store file
@@ -259,7 +259,7 @@ export class CompetitionsComponent implements OnInit {
         if (this.priceSlider[0] === 0) {
             this.freeIndicator = 'Free';
         } else {
-            this.freeIndicator = this.priceSlider[0].toString();
+            this.freeIndicator = this.priceSlider[0] + 'DT';
         }
 
         if ('' === form.value['page']) {
@@ -320,13 +320,10 @@ export class CompetitionsComponent implements OnInit {
                 && doc.themes.toString().toLowerCase().indexOf(Literature.toLowerCase()) !== -1
                 && doc.themes.toString().toLowerCase().indexOf(Management.toLowerCase()) !== -1
                 && doc.themes.toString().toLowerCase().indexOf(Other.toLowerCase()) !== -1
-            ) {
-                results.push(doc);
-            }
-            if (
-                Number(doc.capacity) <= this.capacitySlider
+                && Number(doc.capacity) <= this.capacitySlider
                 && Number(doc.price) <= this.priceSlider[1]
                 && Number(doc.price) >= this.priceSlider[0]
+                && this.verifDate(doc.startingDate, doc.finishingDate, this.startings, this.finishings)
             ) {
                 results.push(doc);
             }
@@ -381,6 +378,18 @@ export class CompetitionsComponent implements OnInit {
             }
             this.evenement = results;
         }
+    }
+
+    verifDate(eventS: string, eventF: string, starting: NgbDateStruct, finishing: NgbDateStruct) {
+        const eventS1: Date = new Date(eventS);
+        const eventF1: Date = new Date(eventF);
+        const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
+        const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
+        return starting1.getTime() <= eventS1.getTime()
+            && starting1.getTime() <= eventF1.getTime()
+            && finishing1.getTime() >= eventS1.getTime()
+            && finishing1.getTime() >= eventF1.getTime();
+
     }
 
 }
