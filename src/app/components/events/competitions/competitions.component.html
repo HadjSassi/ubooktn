@@ -1,1 +1,231 @@
-<p>competitions works!</p>
+<div class="wrapper">
+    <!--    la zone de recherche -->
+    <div class="col-sm-3" style="margin: 3% auto -2%;">
+        <div class="form-group">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control" placeholder="Search">
+        </div>
+    </div>
+    <br>
+    <form>
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <!--la zone de filtrage-->
+                    <div class="col-3">
+                        <div class="">
+                            <div>
+                                <form #form="ngForm" (change)="onSubmit(form)">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <!--Research Bar -->
+                                    <div>
+                                        <div class="row" style="margin-left: auto">
+                                            <input class="col-5 fa-lg mb-5" type="number" id="inlineCheckbox1"
+                                                   #page="ngModel" ngModel
+                                                   name="page" placeholder="10" min="1" max="10"/>
+                                            <span class="" style="width: 5%;"></span>
+                                            <h5 class=""> /Page</h5>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: -10%;">
+
+                                        <!--taw n7eb nzid el partie mta3 el check boxes 7othom randomly for now-->
+                                        <div class="row">
+                                            <span class="fa-lg col-5">Themes</span>
+                                            <br>
+                                            <dl class="" style="margin-left: 40%;">
+                                                <dd class="text-left">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Hackathon"
+                                                                   name="Hackathon" type="checkbox"
+                                                                   value="Hackathon" ngModel>
+                                                            Hackathon
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Entrepreneurship"
+                                                                   name="Entrepreneurship" type="checkbox"
+                                                                   value="Entrepreneurship"
+                                                                   ngModel>
+                                                            Entrepreneurship
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Informatique"
+                                                                   name="Informatique" type="checkbox"
+                                                                   value="Informatique"
+                                                                   ngModel>
+                                                            Informatique
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Robotique"
+                                                                   name="Robotique" type="checkbox" value="Robotique"
+                                                                   ngModel>
+                                                            Robotique
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Literature"
+                                                                   name="Literature" type="checkbox" value="Literature"
+                                                                   ngModel>
+                                                            Literature
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Management"
+                                                                   name="Management" type="checkbox" value="Management"
+                                                                   ngModel>
+                                                            Management
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" id="Other" name="Other"
+                                                                   type="checkbox" value="Other" ngModel>
+                                                            Other
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <span class="fa-lg">Capacity</span>&nbsp;<span
+                                            class="fa-lg">{{capacitySlider}}</span>
+                                        <nouislider [min]="0" [max]="100" [step]="1" [(ngModel)]="capacitySlider"
+                                                    name="capacity"
+                                                    (change)="onSubmit(form)"
+                                                    class="slider slider-warning"></nouislider>
+
+                                        <br>
+
+                                        <span class="fa-lg">Price</span>&nbsp;<span
+                                            class="fa-lg">[{{this.freeIndicator}}
+                                        , {{priceSlider[1]}}]</span>
+                                        <nouislider [min]="0" [max]="100" [step]="1" [(ngModel)]="priceSlider"
+                                                    name="price"
+                                                    (change)="onSubmit(form)"
+                                                    [connect]="true" class="slider slider-warning"></nouislider>
+
+                                        <br>
+
+                                        <div class="">
+                                            <div class="my-3">
+                                                <span class="fa-lg">Starting Date</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class='col-sm-6'>
+                                                    <div class="form-inline">
+                                                        <div class="form-group">
+                                                            <div class="input-group date"
+                                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                                       name="starting" [(ngModel)]="startings"
+                                                                       ngbDatepicker
+                                                                       #starting="ngbDatepicker"
+                                                                       (ngModelChange)="onSubmit(form)"
+                                                                       (click)="starting.toggle()" (focus)="focus=true"
+                                                                       (blur)="focus=false"/>
+                                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="">
+                                            <div class="my-3">
+                                                <span class="fa-lg">Finishing Date</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class='col-sm-6'>
+                                                    <div class="form-inline">
+                                                        <div class="form-group">
+                                                            <div class="input-group date"
+                                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                                       name="finishing" [(ngModel)]="finishings"
+                                                                       ngbDatepicker
+                                                                       #finishing="ngbDatepicker"
+                                                                       (ngModelChange)="onSubmit(form)"
+                                                                       (click)="finishing.toggle()" (focus)="focus=true"
+                                                                       (blur)="focus=false"/>
+                                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                les resultat-->
+                    <div class="col-md-9">
+                        <div class="text-center">
+                            <div class="">
+                                <h4>Results :</h4>
+                                <hr>
+                                <div *ngIf="Evenement.length !== 0">
+                                    <p *ngFor="let s of evenement">
+                                        <a class="btn btn-link btn-default"
+                                           (click)="onViewCompetition(s.id)">{{s.nom}}</a>
+                                    </p>
+                                </div>
+                                <div *ngIf="Evenement.length === 0">
+                                    <p *ngFor="let s of evenements">
+                                        <a class="btn btn-link btn-default"
+                                           (click)="onViewCompetition(s.id)">{{s.nom}}</a>
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="">
+
+                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
+                                                (pageChange)="onPageChange(currentPage)"
+                                                [rotate]="true"></ngb-pagination>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+</div>
