@@ -90,6 +90,10 @@ export class ExamsComponent implements OnInit {
     }
 
     public getExamen(): void {
+        this.examens = [];
+        this.exams = [];
+        this.exx = [];
+        this.ex = [];
         this.examenService.getExamens().subscribe(
             (response: Examen[]) => {
                 this.examens = response;
@@ -113,6 +117,7 @@ export class ExamsComponent implements OnInit {
                     i++;
                 }
                 this.nbMaxPage = Math.ceil(response.length / this.nbElmParPage);
+                this.nbMaxPage2 = this.nbMaxPage * 10;
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
@@ -138,11 +143,8 @@ export class ExamsComponent implements OnInit {
             this.exx.push(doc);
         }
         this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
+        this.nbMaxPage2 = this.nbMaxPage * 10;
         if (results.length === 0 || !key) {
-            this.examens = [];
-            this.exams = [];
-            this.exx = [];
-            this.ex = [];
             this.getExamen();
         }
     }
@@ -172,6 +174,7 @@ export class ExamsComponent implements OnInit {
             }
         }
         this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
+        this.nbMaxPage2 = this.nbMaxPage * 10;
         console.log(this.nbMaxPage + ' = ' + results.length + '/' + this.nbElmParPage);
         this.exams = results;
         results = [];
