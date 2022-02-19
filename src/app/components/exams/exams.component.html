@@ -81,10 +81,10 @@
                     <div class="wow fadeInUp">
                         <div class="text-center">
                             <div class="">
-                                <h4>Results :</h4>
+                                <h4 class="wow fadeInUp">Results :</h4>
                                 <hr>
                                 <div class="">
-                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center"
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="exams.length !== 0">
                                         <div *ngFor="let s of ex" class="col m-2 card bg-light mb-3"
                                              style="max-width: 18rem;" (click)="onViewExamen(s.idExamen)">
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center"
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="exams.length === 0">
                                         <div *ngFor="let s of exx" class="col m-2 card bg-light mb-3"
                                              style="max-width: 18rem;" (click)="onViewExamen(s.idExamen)">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <div class="">
+                            <div class="wow fadeInUp">
 
                                 <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
                                                 (pageChange)="onPageChange(currentPage)"

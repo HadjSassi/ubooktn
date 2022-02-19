@@ -2,16 +2,16 @@
     <div class="page-banner">
         <div class="row justify-content-center align-items-center h-50">
             <div class="col-md-6">
-                <h1 class="text-center">Documents</h1>
-                <div class="form-group ml-2 mt-3">
+                <h1 class="text-center wow fadeInUp">Documents</h1>
+                <div class="form-group ml-2 mt-3 wow fadeInUp">
                     <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
                            id="searchName"
                            class="form-control border-dark" placeholder="Search">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="img-place text-center">
-                    <img src="./assets/img/bg_image_3.png" alt="">
+            <div class="col-md-6 wow zoomIn">
+                <div class="img-place text-center ">
+                    <img src="./assets/img/bg_image_2.png" alt="">
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="container">
                 <div>
                     <!--                                la zone de filtrage-->
-                    <div class="">
+                    <div class="wow fadeInUp">
                         <form #form="ngForm" (change)="onSubmit(form)">
                             <div class="row">
                                 <div class="col">
@@ -78,13 +78,13 @@
                     <!--                                  les resultat-->
 
                     <br>
-                    <div class="">
+                    <div class="wow fadeInUp">
                         <div class="text-center">
                             <div class="">
-                                <h4>Results :</h4>
+                                <h4 class="wow fadeInUp">Results :</h4>
                                 <hr>
                                 <div class="">
-                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center"
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="document.length !== 0">
                                         <div *ngFor="let s of docu" class="col m-2 card bg-light mb-3"
                                              style="max-width: 18rem;" (click)="onViewDocument(s.idDocument)">
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center"
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="document.length === 0">
                                         <div *ngFor="let s of docume" class="col m-2 card bg-light mb-3"
                                              style="max-width: 18rem;" (click)="onViewDocument(s.idDocument)">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <div class="">
+                            <div class="wow fadeInUp">
 
                                 <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
                                                 (pageChange)="onPageChange(currentPage)"
@@ -125,146 +125,3 @@
     </form>
 
 </main>
-<!--
-<div class="wrapper">
-    <div class="page-header page-header-xs" data-parallax="true"
-         style="background-image: url('./assets/img/library/30.jpg');">
-        <div class="filter"></div>
-    </div>
-
-
-    <div class="row text-center">
-        <h1 class="col">
-            Documents
-        </h1>
-    </div>
-
-    &lt;!&ndash;    la zone de recherche &ndash;&gt;
-    <div class="col-sm-3" style="margin: 3% auto -2%;">
-        <div class="form-group">
-            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
-                   class="form-control" placeholder="Search">
-        </div>
-    </div>
-    <br>
-    <form>
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    &lt;!&ndash;                la zone de filtrage&ndash;&gt;
-                    <div class="col-3">
-                        <div class="">
-                            <div>
-                                <form #form="ngForm" (change)="onSubmit(form)">
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <div>
-                                        <div class="row" style="margin-left: auto">
-                                            <input class="col-5 fa-lg mb-5" type="number" id="inlineCheckbox1"
-                                                   #page="ngModel" ngModel
-                                                   name="page" placeholder="10" min="1" max="10"/>
-                                            <span class="" style="width: 5%;"></span>
-                                            <h5 class=""> /Page</h5>
-                                        </div>
-                                    </div>
-
-                                    <div style="margin-bottom: -10%;">
-                                        <div class="row">
-                                            <span class="fa-lg  col-5">Type</span>
-                                            <select class="form-select form-select-sm col-5 mb-5" name="typeDocument"
-                                                    ngModel>
-                                                <option value="Autre">Other</option>
-                                                <option value="Cours">Course</option>
-                                                <option value="TD">TD</option>
-                                                <option value="Résumé">Resume</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div style="margin-bottom: -10%;">
-                                        <div class="row">
-                                            <span class="fa-lg  col-5">Subject</span>
-                                            <select class="form-select form-select-sm col-5 mb-5" name="matiereDocument"
-                                                    ngModel>
-                                                <option></option>
-                                                <option value="Autre">Other</option>
-                                                <option *ngFor="let s of this.matiere">{{s}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div style="margin-bottom: -10%;">
-                                        <div class="row">
-                                            <span class="fa-lg  col-5">Level</span>
-                                            <select class="form-select form-select-sm col-5 mb-5" name="niveauDocument"
-                                                    ngModel>
-                                                <option></option>
-                                                <option value="Autre">Other</option>
-                                                <option *ngFor="let s of this.niveau">{{s}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div style="margin-bottom: -10%;">
-                                        <div class="row">
-                                            <span class="fa-lg  col-5">Year</span>
-                                            <select class="form-select form-select-sm col-5 mb-5" name="anneeDocument"
-                                                    ngModel>
-                                                <option></option>
-                                                <option *ngFor="let s of this.annee">{{s}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-
-                            <button class="btn borders my-4 mx-4" style="" (click)="onNewDocument()">
-                                <span>Add Document</span>
-                            </button>
-
-                        </div>
-                    </div>
-                    &lt;!&ndash;                les resultat&ndash;&gt;
-                    <div class="col-md-9">
-                        <div class="text-center">
-                            <div class="">
-                                <h4>Results :</h4>
-                                <hr>
-                                <div *ngIf="document.length !== 0">
-                                    <p *ngFor="let s of docu">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewDocument(s.idDocument)">{{s.nomDocument}}</a>
-                                    </p>
-                                </div>
-                                <div *ngIf="document.length === 0">
-                                    <p *ngFor="let s of docume">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewDocument(s.idDocument)">{{s.nomDocument}}</a>
-                                    </p>
-                                </div>
-
-                            </div>
-
-                            <div class="">
-
-                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
-                                                (pageChange)="onPageChange(currentPage)"
-                                                [rotate]="true"></ngb-pagination>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <br>
-    <br>
-    <br>
-</div>
--->

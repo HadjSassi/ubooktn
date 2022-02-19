@@ -1,3 +1,103 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<header>
+    <div class="home-banner">
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-lg-6 py-3 wow fadeInUp">
+                    <h1 class="mb-4">{{this.doc.nomDocument}}</h1>
+                    <h3>{{this.doc["typeDocument"]}} {{this.doc["matiereDocument"]}}<br>Niveau
+                        : {{this.doc["niveauDocument"]}}</h3>
+                    <p>{{this.doc["descriptionDocument"]}}</p>
+                </div>
+                <div class="col-lg-6 py-3 wow zoomIn">
+                    <div class="img-place">
+                        <img src="./assets/img/bg_image_2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<hr>
+<div class="text-center wow fadeInUp">
+    <iframe *ngIf='isUrl'
+            [src]="url"
+            height="800px"
+            width="70%"
+    ></iframe>
+    <h5 class="wow fadeInUp">
+        Èlaboré le : {{this.doc["anneeDocument"]}}
+    </h5>
+    <h4 class="text-danger wow fadeInUp" *ngIf="this.doc['corrigeDocument'].length !== 0">
+        Correction : {{this.doc["corrigeDocument"]}}
+    </h4>
+    <h5 *ngIf="this.doc['documentAssoscie'].length !== 0" class="wow fadeInUp">
+        Related Documents : {{this.doc["documentAssoscie"]}}
+    </h5>
+</div>
+<div class="row text-center">
+
+    <h4 class="col wow fadeInUp" style="padding-left: 20%; padding-top: 2%; ">Commentaires Récents :</h4>
+    <h4 class="col " style="padding-right: 20% ">
+        <button (click)="liker()" class="btn-link wow fadeInUp" style="background: white"
+                [ngStyle]="this.liked ? {'color':'green','font-size':'180%'}:{'color':'black','font-size':'150%'}">
+            <span class="mr-2 wow fadeInUp">{{this.like}}</span>
+            <i class="fa fa-thumbs-up mr-3 wow fadeInUp"></i>
+        </button>
+        <button (click)="disliker()" class="btn-link wow fadeInUp" style="background: white"
+                [ngStyle]="this.disliked ? {'color':'red','font-size':'180%'}:{'color':'black','font-size':'150%'}">
+            <i class="fa fa-thumbs-down mr-3 wow fadeInUp"></i>
+            <span class="">{{this.dislike}}</span>
+        </button>
+    </h4>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="comment">
+    <div class="form-group">
+        <button class="btn btn-primary mb-1 wow fadeInUp" [disabled]="!this.activated || comment.comment.length === 0"
+                (click)="commenter()">Ajouter vôtre
+        </button>
+        <div class=" ">
+            <textarea class="form-control wow fadeInUp" placeholder="Vôtre commentaire"
+                      [(ngModel)]="comment.comment"></textarea>
+        </div>
+    </div>
+
+
+    <ng-template #noComments>
+        <span class="text-center wow fadeInUp"><h3>No Comment</h3></span>
+        <br>
+    </ng-template>
+
+    <div class="container mt-5" *ngIf="commentList.length>0; else noComments">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="card p-3" *ngFor="let c of commentList; let isEven = even ;let isOdd= odd">
+                    <div class="d-flex justify-content-between align-items-center wow fadeInUp">
+                        <div class="user d-flex flex-row align-items-center"><img src="{{c.userUrl}}"
+                                                                                  style="border-radius: 100%; clip-path: circle(); margin-right: 1%;"
+                                                                                  width="40"
+                                                                                  alt="user picture"
+                                                                                  class="user-img rounded-circle mr-2">
+                            <span><b class="font-weight-bold ">{{c.userName}}</b>
+                               <br> <b class="text-black-50"> {{c.comment}}</b></span></div>
+                        <small>{{c.timing | date :'y/M/d - HH:mm'}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--
 <div class="wrapper">
     <div class="page-header page-header-xs" data-parallax="true"
          style="background-image: url('./assets/img/library/48.jpg');">
@@ -93,3 +193,4 @@
 </div>
 <br>
 <br>
+-->

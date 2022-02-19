@@ -1,3 +1,144 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<header>
+    <div class="home-banner">
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-lg-6 py-3 wow fadeInUp">
+                    <h1 class="mb-4">New Document</h1>
+                </div>
+                <div class="col-lg-6 py-3 wow zoomIn">
+                    <div class="img-place">
+                        <img src="./assets/img/bg_image_2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div>
+    <div class="page-section">
+        <div class="cordido">
+            <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="nomDocument">Document Name<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="nomDocument" class="form-control col" style="" name="nomDocument"
+                           [ngClass]="{'is-invalid':nomDocument.invalid && nomDocument.dirty}" #nomDocument="ngModel"
+                           required ngModel>
+                    <div *ngIf="nomDocument.invalid && nomDocument.dirty " class="invalid-feedback">Please fill this
+                        field !
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="typeDocument">Document Type<span
+                            style="color: red">*</span></label>
+
+                    <select class="form-select col" id="typeDocument" name="typeDocument"
+                            [ngClass]="{'is-invalid':typeDocument.invalid && typeDocument.dirty}"
+                            #typeDocument="ngModel"
+                            required ngModel>
+                        <option value="Autre" selected>Other</option>
+                        <option value="Cours">Exam</option>
+                        <option value="TD">DS</option>
+                        <option value="Résumé">TP</option>
+                    </select>
+                    <div *ngIf="typeDocument.invalid && typeDocument.dirty " class="invalid-feedback">Pouvez vous
+                        selectionner
+                        le type du Document.
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="matiereDocument">Document Subject<span
+                            style="color: red">*</span></label>
+                    <select class="form-select col" id="matiereDocument" name="matiereDocument"
+                            [ngClass]="{'is-invalid':matiereDocument.invalid && matiereDocument.dirty}"
+                            #matiereDocument="ngModel"
+                            required ngModel>
+                        <option></option>
+                        <option value="Autre">Other</option>
+                        <option *ngFor="let s of this.matiere">{{s}}</option>
+                    </select>
+                    <div *ngIf="matiereDocument.invalid && matiereDocument.dirty " class="invalid-feedback">Pouvez vous
+                        séléctionner la matiére du Document.
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="niveauDocument">Document Level<span style="color: red">*</span></label>
+                    <select class="form-select col" id="niveauDocument" name="niveauDocument"
+                            [ngClass]="{'is-invalid':niveauDocument.invalid && niveauDocument.dirty}"
+                            #niveauDocument="ngModel"
+                            required ngModel>
+                        <option></option>
+                        <option value="Autre">Other</option>
+                        <option *ngFor="let s of this.niveau">{{s}}</option>
+                    </select>
+                    <div *ngIf="niveauDocument.invalid && niveauDocument.dirty " class="invalid-feedback">Pouvez vous
+                        séléctionner le niveau du Document.
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="anneeDocument">Document Year<span
+                            style="color: red">*</span></label>
+                    <select class="form-select col" id="anneeDocument" name="anneeDocument"
+                            [ngClass]="{'is-invalid':anneeDocument.invalid && anneeDocument.dirty}"
+                            #anneeDocument="ngModel"
+                            required ngModel>
+                        <option></option>
+                        <option *ngFor="let s of this.annee">{{s}}</option>
+
+                    </select>
+                    <div *ngIf="anneeDocument.invalid && anneeDocument.dirty " class="invalid-feedback">Pouvez vous
+                        donner
+                        l'année du Document.
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="corrige">Document Correction</label>
+                    <input type="text" id="corrige" class="form-control col" style="" name="corrige"
+                           #corrige="ngModel"
+                           ngModel>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="associe">Related Exams</label>
+                    <textarea type="text" id="associe" class="form-control col" style=""
+                              name="associe" #associe="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="descriptionDocument">Document Description</label>
+                    <textarea type="text" id="descriptionDocument" class="form-control col" style=""
+                              name="descriptionDocument"
+                              [ngClass]="{'is-invalid':descriptionDocument.invalid && descriptionDocument.dirty}"
+                              #descriptionDocument="ngModel"
+                              ngModel></textarea>
+                    <div *ngIf="descriptionDocument.invalid && descriptionDocument.dirty " class="invalid-feedback">
+                        Pouvez vous
+                        donncer la description du Document.
+                    </div>
+                </div>
+                <div class="row text-center wow zoomIn">
+
+                    <input type="file" (change)="detectFiles($event)" class="form-control mx-auto my-4 w-75"
+                           accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officeExamen.wordprocessingml.Examen">
+
+                </div>
+                <p class="text-success text-center font-weight-bold wow zoomIn" *ngIf="fileUploaded">File Loaded !</p>
+                <p class="text-danger text-center font-weight-bold wow zoomIn" *ngIf="fileIsUploading">Loading ...</p>
+                <br>
+                <br>
+                <div class="row wow zoomIn">
+                    <button type="submit" [disabled]="form.invalid || fileIsUploading" class="col btn"><h5>Finish</h5>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--
 <div class="wrapper">
     <div class="page-header page-header-xs" data-parallax="true"
          style="background-image: url('./assets/img/library/51.jpg');">
@@ -123,3 +264,4 @@
 
 
 </div>
+-->
