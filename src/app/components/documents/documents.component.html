@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6 wow zoomIn">
                 <div class="img-place text-center ">
-                    <img src="./assets/img/bg_image_2.png" alt="">
+                    <img src="./assets/img/bg_image_3.png" alt="">
                 </div>
             </div>
         </div>
@@ -87,7 +87,8 @@
                                     <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="document.length !== 0">
                                         <div *ngFor="let s of docu" class="col m-2 card bg-light mb-3"
-                                             style="max-width: 18rem;" (click)="onViewDocument(s.idDocument)">
+                                             style="max-width: 18rem; cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
                                             <div class="card-header">{{s.typeDocument}}</div>
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
@@ -98,7 +99,8 @@
                                     <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="document.length === 0">
                                         <div *ngFor="let s of docume" class="col m-2 card bg-light mb-3"
-                                             style="max-width: 18rem;" (click)="onViewDocument(s.idDocument)">
+                                             style="max-width: 18rem; cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
                                             <div class="card-header">{{s.typeDocument}}</div>
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>

@@ -1,9 +1,9 @@
 <div class="wrapper">
     <!--    la zone de recherche -->
-    <div class="col-sm-3" style="margin: 3% auto -2%;">
+    <div class="" style="margin: 3% auto -3%;">
         <div class="form-group">
             <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
-                   class="form-control" placeholder="Search">
+                   class="form-control border-dark" placeholder="Search">
         </div>
     </div>
     <br>
@@ -51,17 +51,29 @@
                             <div class="">
                                 <h4>Results :</h4>
                                 <hr>
-                                <div *ngIf="club.length !== 0">
-                                    <p *ngFor="let s of cl">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewClub(s.idClub)">{{s.nomClub}}</a>
-                                    </p>
+                                <div *ngIf="club.length !== 0"
+                                     class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                    <div *ngFor="let s of cl" class="col m-2 card bg-light mb-3 wow fadeIn"
+                                         (click)="onViewClub(s.idClub)"
+                                         style="max-width: 18rem; cursor: pointer">
+                                        <img class="card-img-top" style="width: 100%;" src="{{s.logo}}"
+                                             alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{s.nomClub}}</h5>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div *ngIf="club.length === 0">
-                                    <p *ngFor="let s of clu">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewClub(s.idClub)">{{s.nomClub}}</a>
-                                    </p>
+                                <div *ngIf="club.length === 0"
+                                     class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                    <div *ngFor="let s of clu" class="col m-2 card bg-light mb-3 wow fadeIn"
+                                         (click)="onViewClub(s.idClub)"
+                                         style="max-width: 18rem; cursor: pointer">
+                                        <img class="card-img-top" style="width: 100%;" src="{{s.logo}}"
+                                             alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{s.nomClub}}</h5>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

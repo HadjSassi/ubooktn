@@ -1,74 +1,86 @@
-<div class="wrapper">
-    <div class="page-header page-header-xs" data-parallax="true"
-         style="background-image: url('./assets/img/library/46.jpg');">
-        <div class="filter"></div>
-    </div>
-
-    <div class="section profile-content">
-        <div class="container">
-            <div class="owner">
-                <form #form="ngForm">
-
-                    <div class="avatar" (click)="fileInput.click()">
-
-                        <img src="{{this.foulen.urlPicUser}}" alt="Circle Image" style="clip-path: circle()"
+<form #form="ngForm">
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <div class="avatar wow fadeInLeft" (click)="fileInput.click()">
+                        <img src="{{this.foulen.urlPicUser}}" alt="Circle Image"
+                             style="clip-path: circle(); cursor: pointer"
                              class="img-circle img-no-padding img-responsive">
                     </div>
-
-
-                    <div class="container ">
-                        <input #fileInput style="display: none;" id="icon" type="file"
-                               (change)="this.detectFiles($event)">
-                        <span *ngIf="this.fileIsUploading" class="mx-2 text-warning" style="font-size: 150%"><b>Chargement...</b></span>
-                        <span *ngIf="this.fileUploaded" class="mx-2 text-success"
-                              style="font-size: 150%"><b>{{this.message}}</b></span>
-
-                        <table class="m-auto">
-                            <tr>
-                                <td><label class=""><h5>Nom </h5></label></td>
-                                <td><input class="rounded-pill" type="text" placeholder="{{this.foulen.nomUser}}"
-                                           name="nom" ngModel></td>
-                                <td><label class=""><h5>Prénom </h5></label></td>
-                                <td><input class="rounded-pill" type="text" placeholder="{{this.foulen.prenomUser}}"
-                                           name="prenom" ngModel></td>
-                            </tr>
-                            <tr>
-                                <td><label class=""><h5>Métier</h5></label></td>
-                                <td><input class="rounded-pill" type="text" placeholder="{{this.foulen.job}}" name="job"
-                                           ngModel></td>
-                                <td><label class=""><h5>Mail</h5></label></td>
-                                <td><input class="rounded-pill" type="email" placeholder="{{this.foulen.mailUser}}"
-                                           name="mail" ngModel></td>
-                            </tr>
-                            <tr>
-                                <td><label class=""><h5>Lien de Facebook</h5></label></td>
-                                <td><input class="rounded-pill" type="text" placeholder="{{this.foulen.urlFacebook}}"
-                                           name="facebook" ngModel></td>
-                                <td><label class=""><h5>Lien de LinkedIn</h5></label></td>
-                                <td><input class="rounded-pill" type="text" placeholder="{{this.foulen.urlLinkedIn}}"
-                                           name="linkedin" ngModel></td>
-                            </tr>
-                        </table>
-                        <label class=""><h5>Score :{{this.foulen.score}} | Rang : {{this.rang}}</h5></label>
-                        <br>
-                        <label class=""><h5>Description</h5></label>
-                        <textarea type="text" class="rounded-3 input-group " placeholder="{{this.foulen.description}}"
-                                  name="description" ngModel></textarea>
-
+                    <span class="font-weight-bold  wow fadeInLeft">{{this.foulen.prenomUser}} {{this.foulen.nomUser}}</span>
+                    <span class="text-black-50  wow fadeInLeft">{{this.foulen.mailUser}}</span>
+                    <span *ngIf="this.fileIsUploading" class="text-warning  wow fadeInUp" style="font-size: 150%"><b>Chargement...</b></span>
+                    <span *ngIf="this.fileUploaded" class="text-success  wow fadeInDown"
+                          style="font-size: 150%"><b>{{this.message}}</b></span>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right  wow fadeInDown">Profile Settings</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 ml-auto mr-auto text-center">
-                            <br>
-                            <button [disabled]="this.fileIsUploading" (click)="onSubmit(form)"
-                                    class="btn btn-outline-default btn-round"><i class="nc-icon nc-check-2"></i> Apply
-                                Changes
-                            </button>
+                    <div class="row mt-2  wow fadeInUp">
+                        <div class="col-md-6"><label class="labels">PreName</label><input type="text" name="prenom"
+                                                                                          class="form-control" ngModel
+                                                                                          placeholder="{{this.foulen.prenomUser}}"
+                                                                                          value=""></div>
+                        <div class="col-md-6"><label class="labels">Surname</label><input type="text" name="nom" ngModel
+                                                                                          class="form-control" value=""
+                                                                                          placeholder="{{this.foulen.nomUser}}">
                         </div>
                     </div>
-                </form>
+                    <div class="row mt-3">
+                        <div class="col-md-12  wow fadeInUp"><label class="labels">Mail</label><input type="text"
+                                                                                                      name="mail"
+                                                                                                      class="form-control"
+                                                                                                      ngModel
+                                                                                                      placeholder="{{this.foulen.mailUser}}"
+                                                                                                      value=""></div>
+                        <div class="col-md-12  wow fadeInUp"><label class="labels">Job</label><input type="text"
+                                                                                                     name="job"
+                                                                                                     class="form-control"
+                                                                                                     ngModel
+                                                                                                     placeholder="{{this.foulen.job}}"
+                                                                                                     value=""></div>
+                        <div class="col-md-12  wow fadeInUp"><label class="labels">Facebook Link</label><input
+                                type="text" name="facebook"
+                                class="form-control" ngModel
+                                placeholder="{{this.foulen.urlFacebook}}"
+                                value=""></div>
+                        <div class="col-md-12  wow fadeInUp"><label class="labels">LinkedIn Link</label><input
+                                type="text" name="linkedin"
+                                class="form-control" ngModel
+                                placeholder="{{this.foulen.urlLinkedIn}}"
+                                value=""></div>
+                        <div class="col-md-12  wow fadeInUp"><label class="labels">Description</label><textarea
+                                type="text"
+                                class="rounded-3 form-control "
+                                placeholder="{{this.foulen.description}}"
+                                name="description"
+                                ngModel></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="text-center  wow fadeInRight">
+                        <h2>Rank : {{this.rang}}</h2></div>
+                    <br>
+                    <div class="text-center  wow fadeInRight">
+                        <h2>Score : {{this.foulen.score}}</h2></div>
+                    <br>
+                    <div class="text-center mt-md-5  wow fadeInRight">
+                        <button [disabled]="this.fileIsUploading" (click)="onSubmit(form)"
+                                class="btn btn-outline-primary btn-round"><i class="nc-icon nc-check-2"></i> Apply
+                            Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</form>
+<input #fileInput style="display: none;" id="icon" type="file"
+       (change)="this.detectFiles($event)">

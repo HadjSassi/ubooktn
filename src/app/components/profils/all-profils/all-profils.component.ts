@@ -3,6 +3,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {User} from '../../../model/User';
 import {UserService} from '../../../services/user.service';
 import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-all-profils',
@@ -22,7 +23,7 @@ export class AllProfilsComponent implements OnInit {
     public utilisateur: User[] = []; // la liste des documents affiché d'aprés documentS
     public user: User[] = []; // la liste des documments affiché d'aprés document
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -120,5 +121,8 @@ export class AllProfilsComponent implements OnInit {
         }
     }
 
+    seeOneProfile(idUser: number) {
+        this.router.navigate(['/profils', 'view', idUser]);
+    }
 
 }

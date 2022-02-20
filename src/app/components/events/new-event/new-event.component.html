@@ -1,0 +1,191 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<header>
+    <div class="home-banner">
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-lg-6 py-3 wow fadeInUp">
+                    <h1 class="mb-4">New Event</h1>
+                </div>
+                <div class="col-lg-6 py-3 wow zoomIn">
+                    <div class="img-place">
+                        <img src="./assets/img/bg_image_3.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div>
+
+
+    <div class="page-section">
+        <div class="cordido">
+
+
+            <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+                <div class="mx-1 row">
+                    <div class="col" style="margin-top: -3%;">
+                        <h3>Event Type</h3>
+                    </div>
+                    <div class="col form-check-radio">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="event" id="forma" ngModel
+                                   value="forma" checked="">
+                            Training
+                            <span class="form-check-sign"></span>
+                        </label>
+                    </div>
+                    <div class="col form-check-radio">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="event" id="certif" ngModel
+                                   value="certif">
+                            Certification
+                            <span class="form-check-sign"></span>
+                        </label>
+                    </div>
+                    <div class="col form-check-radio">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="event" id="comp" ngModel
+                                   value="comp">
+                            Competition
+                            <span class="form-check-sign"></span>
+                        </label>
+                    </div>
+                    <div class="col form-check-radio">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="event" id="jour" ngModel
+                                   value="jour">
+                            Journey
+                            <span class="form-check-sign"></span>
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="nom">Event Name<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="nom" class="form-control col" style="" name="nom"
+                           [ngClass]="{'is-invalid':nom.invalid && nom.dirty}" #nom="ngModel"
+                           required ngModel>
+                    <div *ngIf="verifLegnth(nom.value)" class="text-danger">Please fill this
+                        field !
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="capacity">Event capacity {{capacitySlider}}</label>
+                    <nouislider [min]="0" [max]="5000" [step]="1" [(ngModel)]="capacitySlider"
+                                name="capacity" id="capacity" required ngModel
+                                class="slider slider-warning"></nouislider>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="address">Event Address<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="address" class="form-control col" style="" name="address"
+                           [ngClass]="{'is-invalid':address.invalid && address.dirty}" #address="ngModel"
+                           required ngModel>
+                    <div *ngIf="verifLegnth(address.value)" class="text-danger">Please write either the local address or
+                        the meet link!
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="email">Event Email<span style="color: red">*</span></label>
+                    <input type="email" id="email" class="form-control col" style="" name="email"
+                           [ngClass]="{'is-invalid':email.invalid && email.dirty}" #email="ngModel"
+                           required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ngModel>
+                    <div *ngIf="verifLegnth(email.value)||email.invalid" class="text-danger">Please write a valid email!
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="tel">Event Tel<span
+                            style="color: red">*</span></label>
+                    <input type="number" id="tel" class="form-control col" style="" name="tel"
+                           [ngClass]="{'is-invalid':tel.invalid && tel.dirty}" #tel="ngModel"
+                           required ngModel>
+                    <div *ngIf="verifLegnth(tel.value)||email.invalid" class="text-danger">Please write a valid email!
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="link">Registration Link</label>
+                    <input type="text" id="link" class="form-control col" style="" name="link"
+                           #link="ngModel"
+                           ngModel>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="price">Event Price {{priceSlider}} DT</label>
+                    <nouislider [min]="0" [max]="5000" [step]="1" [(ngModel)]="priceSlider"
+                                name="price" id="price" required ngModel
+                                class="slider slider-warning"></nouislider>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="SDate">Starting Date</label>
+                    <textarea type="text" id="SDate" class="form-control col" style=""
+                              name="SDate" #SDate="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="FDate">Finishing Date</label>
+                    <textarea type="text" id="FDate" class="form-control col" style=""
+                              name="FDate" #FDate="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="LDate">Registration Date Limit</label>
+                    <textarea type="text" id="LDate" class="form-control col" style=""
+                              name="LDate" #LDate="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="partenaires">Event Partenaires</label>
+                    <textarea type="text" id="partenaires" class="form-control col" style=""
+                              name="associe" #partenaires="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="partenaires">Event Clubs</label>
+                    <textarea type="text" id="clubs" class="form-control col" style=""
+                              name="club" #clubs="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="Institus">Event Institus</label>
+                    <textarea type="text" id="Institus" class="form-control col" style=""
+                              name="associe" #Institus="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="cf">Event Training Centers</label>
+                    <textarea type="text" id="cf" class="form-control col" style=""
+                              name="associe" #cf="ngModel" ngModel></textarea>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="description">Event Description</label>
+                    <textarea type="text" id="description" class="form-control col" style=""
+                              name="description"
+                              [ngClass]="{'is-invalid':description.invalid && description.dirty}"
+                              #description="ngModel"
+                              ngModel></textarea>
+                    <div *ngIf="description.invalid && description.dirty " class="invalid-feedback">
+                        Pouvez vous
+                        donncer la description du Document.
+                    </div>
+                </div>
+                mazelet el affihce<br>
+                w mazelet el pictures
+                <div class="row text-center wow zoomIn">
+
+                    <input type="file" (change)="detectFiles($event)" class="form-control mx-auto my-4 w-75"
+                           accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officeExamen.wordprocessingml.Examen">
+
+                </div>
+                <p class="text-success text-center font-weight-bold wow zoomIn" *ngIf="fileUploaded">File Loaded !</p>
+                <p class="text-danger text-center font-weight-bold wow zoomIn" *ngIf="fileIsUploading">Loading ...</p>
+                <br>
+                <br>
+                <div class="row wow zoomIn">
+                    <button type="submit" [disabled]="form.invalid || fileIsUploading" class="col btn"><h5>Finish</h5>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

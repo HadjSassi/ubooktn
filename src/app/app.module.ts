@@ -34,6 +34,8 @@ import {CertificationService} from './services/certification.service';
 import {CompetitionService} from './services/competition.service';
 import {FormationService} from './services/formation.service';
 import {JourneyService} from './services/journey.service';
+import {NewEventComponent} from './components/events/new-event/new-event.component';
+import {NouisliderModule} from 'ng2-nouislider';
 
 firebase.initializeApp(environment.firebase);
 
@@ -42,6 +44,7 @@ firebase.initializeApp(environment.firebase);
         AppComponent,
         NavbarComponent,
         FooterComponent,
+        NewEventComponent,
         // PubComponent,
         // DocumentsComponent,
         // OneDocumentComponent,
@@ -82,7 +85,8 @@ firebase.initializeApp(environment.firebase);
         AppRoutingModule,
         HttpClientModule,
         AngularFireAuthModule,
-        AngularFireStorageModule
+        AngularFireStorageModule,
+        NouisliderModule
 
     ],
     providers: [

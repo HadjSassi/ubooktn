@@ -1,9 +1,9 @@
 <div class="wrapper">
     <!--    la zone de recherche -->
-    <div class="col-sm-3" style="margin: 3% auto -2%;">
+    <div class="" style="margin: 3% auto -3%;">
         <div class="form-group">
             <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
-                   class="form-control" placeholder="Search">
+                   class="form-control border-dark" placeholder="Search">
         </div>
     </div>
     <br>
@@ -11,7 +11,7 @@
         <div class="">
             <div class="container">
                 <div class="row">
-                    <!--la zone de filtrage-->
+                    <!--                la zone de filtrage-->
                     <div class="col-3">
                         <div class="">
                             <div>
@@ -36,69 +36,6 @@
                                                 <option *ngFor="let r of this.zone">{{r}}</option>
                                             </select>
                                         </div>
-
-                                        <!--taw n7eb nzid el partie mta3 el check boxes 7othom randomly for now-->
-                                        <div class="row">
-                                            <span class="fa-lg col-5">Domain</span>
-                                            <br>
-                                            <dl class="" style="margin-left: 40%;">
-                                                <dd class="text-left">
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" id="Informatique"
-                                                                   name="Informatique" type="checkbox"
-                                                                   value="Informatique" ngModel>
-                                                            Informatique
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" id="Multimedia"
-                                                                   name="Multimedia" type="checkbox" value="Multimedia"
-                                                                   ngModel>
-                                                            Multimedia
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" id="Robotique"
-                                                                   name="Robotique" type="checkbox" value="Robotique"
-                                                                   ngModel>
-                                                            Robotique
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" id="Literature"
-                                                                   name="Literature" type="checkbox" value="Literature"
-                                                                   ngModel>
-                                                            Literature
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" id="Management"
-                                                                   name="Management" type="checkbox" value="Management"
-                                                                   ngModel>
-                                                            Management
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" id="Other" name="Other"
-                                                                   type="checkbox" value="Other" ngModel>
-                                                            Other
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                </dd>
-                                            </dl>
-                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -112,17 +49,31 @@
                             <div class="">
                                 <h4>Results :</h4>
                                 <hr>
-                                <div *ngIf="Institus.length !== 0">
-                                    <p *ngFor="let s of Insti">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewCentreFormation(s.idCf)">{{s.nomCf}}</a>
-                                    </p>
+                                <div *ngIf="Institus.length !== 0"
+                                     class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                    <div *ngFor="let s of Insti" class="col m-2 card bg-light mb-3 wow fadeIn"
+                                         (click)="onViewCentreFormation(s.idCf)"
+                                         style="max-width: 18rem; cursor: pointer">
+                                        <img class="card-img-top" style="width: 100%;" src="{{s.logo}}"
+                                             alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{s.abreviation}}<br>{{s.nomCf}}</h5>
+                                            <p class="card-text">{{s.region}}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div *ngIf="Institus.length === 0">
-                                    <p *ngFor="let s of Instit">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewCentreFormation(s.idCf)">{{s.nomCf}}</a>
-                                    </p>
+                                <div *ngIf="Institus.length === 0"
+                                     class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                    <div *ngFor="let s of Instit" class="col m-2 card bg-light mb-3 wow fadeIn"
+                                         (click)="onViewCentreFormation(s.idCf)"
+                                         style="max-width: 18rem; cursor: pointer">
+                                        <img class="card-img-top" style="width: 100%;" src="{{s.logo}}"
+                                             alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{s.abreviation}}<br>{{s.nomCf}}</h5>
+                                            <p class="card-text">{{s.region}}</p>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

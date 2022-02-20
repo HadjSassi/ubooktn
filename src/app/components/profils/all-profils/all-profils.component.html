@@ -1,52 +1,52 @@
-<div class="wrapper">
-    <div class="page-header page-header-xs" data-parallax="true"
-         style="background-image: url('./assets/img/library/54.jpg');">
-        <div class="filter"></div>
-    </div>
-
-
-    <div class="row text-center">
-        <h1 class="col">
-            All Profils : TOP 100
-        </h1>
-    </div>
-
-    <!--    la zone de recherche -->
-    <div class="col-sm-3" style="margin: 3% auto -2%;">
-        <div class="form-group">
-            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
-                   class="form-control" placeholder="Search">
+<div class="container mt-1">
+    <div class="page-banner">
+        <div class="row justify-content-center align-items-center h-50">
+            <div class="col-md-6">
+                <h1 class="text-center wow fadeInUp">All Profils : TOP 100</h1>
+                <div class="form-group ml-2 mt-3 wow fadeInUp">
+                    <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                           id="searchName"
+                           class="form-control border-dark" placeholder="Search">
+                </div>
+            </div>
+            <div class="col-md-6 wow zoomIn">
+                <div class="img-place text-center ">
+                    <img src="./assets/img/bg_image_3.png" alt="">
+                </div>
+            </div>
         </div>
     </div>
-    <br>
-    <form>
-        <div class="" style="">
-            <div class="container">
-                <div class="row">
-                    <!--                la zone de filtrage-->
-                    <!--                les resultat-->
-                    <div class="col-md-9 m-auto">
-                        <div class="">
-                            <div class="">
-                                <h4 class="text-center">Results :</h4>
-                                <hr>
-                                <table class="m-auto">
-                                    <tr *ngFor="let s of utilisateur">
-                                        <a class="h5 btn-link" style="color : black;"
-                                           href="#/profils/view/{{s.idUser}}">
-                                            <td>#{{this.rang.indexOf(s) + 1}}</td>
-                                            <td><img src="{{s.urlPicUser}}"
-                                                     style=" display: inline; margin-left: 3%; margin-right: 3%;  border-radius: 100%; clip-path: circle()"
-                                                     width="40" alt=""></td>
-                                            <td> {{s.prenomUser}} {{s.nomUser}}</td>
-                                            <td class="float-right"> {{s.score}}  </td>
-                                        </a>
-                                    </tr>
-                                </table>
+</div>
+<main>
 
+    <form>
+        <div class="section">
+            <div class="container">
+                <div>
+                    <br>
+                    <div class="wow fadeInUp">
+                        <div class="text-center">
+                            <div class="">
+                                <div class="">
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                        <div *ngFor="let s of utilisateur"
+                                             class="col m-2 card bg-light mb-3 wow fadeInUp"
+                                             (click)="this.seeOneProfile(s.idUser)"
+                                             style="max-width: 18rem; cursor: pointer">
+                                            <img class="card-img-top" style="width: 100%;" src="{{s.urlPicUser}}"
+                                                 alt="Card image cap">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{s.prenomUser}} {{s.nomUser}}</h5>
+                                                <p class="card-text">Rank : {{this.rang.indexOf(s) + 1}} --- Score
+                                                    : {{s.score}}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="text-center">
+                            <div class="wow fadeInUp">
 
                                 <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
                                                 (pageChange)="onPageChange(currentPage)"
@@ -60,7 +60,5 @@
             </div>
         </div>
     </form>
-    <br>
-    <br>
-    <br>
-</div>
+
+</main>
