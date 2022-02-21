@@ -19,4 +19,5 @@ export interface Formation {
     registrationDateLimit: string,
     shown: string,
     picsUrl: string,
+    uid: string
 }

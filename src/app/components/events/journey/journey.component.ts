@@ -160,6 +160,9 @@ export class JourneyComponent implements OnInit {
                     listCf.push(x.trainingCenters);
                 }
                 for (const x of listClubs) {
+                    if (x === '') {
+                        continue;
+                    }
                     let ch = '';
                     const list = x.split(',');
                     for (const y of list) {
@@ -170,6 +173,9 @@ export class JourneyComponent implements OnInit {
                     this.listClubsNames.push(ch);
                 }
                 for (const x of listInstitus) {
+                    if (x === '') {
+                        continue;
+                    }
                     let ch = '';
                     let sh = '';
                     const list = x.split(',');
@@ -184,6 +190,9 @@ export class JourneyComponent implements OnInit {
                     this.listInstitusabrev.push(sh);
                 }
                 for (const x of listCf) {
+                    if (x === '') {
+                        continue;
+                    }
                     let ch = '';
                     let sh = '';
                     const list = x.split(',');

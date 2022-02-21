@@ -13,7 +13,6 @@ import {NucleoiconsComponent} from './nucleoicons/nucleoicons.component';
 import {ComponentsComponent} from './components.component';
 import {NotificationComponent} from './notification/notification.component';
 import {NgbdModalComponent} from './modal/modal.component';
-import {NgbdModalContent} from './modal/modal.component';
 import {AboutComponent} from './about/about.component';
 import {AcceuilComponent} from './acceuil/acceuil.component';
 import {BackgroundComponent} from './background/background.component';
@@ -50,6 +49,9 @@ import {OneJourneyComponent} from './events/one-journey/one-journey.component';
 import {OneCertificationComponent} from './events/one-certification/one-certification.component';
 import {OneCompetitionComponent} from './events/one-competition/one-competition.component';
 import {OneFormationComponent} from './events/one-formation/one-formation.component';
+import {NewEventComponent} from './events/new-event/new-event.component';
+import {NgbdModalContent} from './modal/modal.component';
+import {NgbdModalContentEvents} from './events/new-event/new-event.component';
 
 @NgModule({
     imports: [
@@ -61,6 +63,8 @@ import {OneFormationComponent} from './events/one-formation/one-formation.compon
         JwBootstrapSwitchNg2Module
     ],
     declarations: [
+        NewEventComponent,
+        NgbdModalContentEvents,
         ComponentsComponent,
         BasicelementsComponent,
         NavigationComponent,
@@ -106,7 +110,7 @@ import {OneFormationComponent} from './events/one-formation/one-formation.compon
         OneCompetitionComponent,
         OneFormationComponent
     ],
-    entryComponents: [NgbdModalContent],
+    entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]
 })
 export class ComponentsModule {

@@ -160,23 +160,31 @@ export class FormationsComponent implements OnInit {
                     listCf.push(x.trainingCenters);
                 }
                 for (const x of listClubs) {
+                    if (x === '') {
+                        continue;
+                    }
                     let ch = '';
                     const list = x.split(',');
                     for (const y of list) {
                         z = this.clubs.indexOf(Number(y));
-                        const name = this.clubss[z];
+                        const name: Club = this.clubss[z];
                         ch = ch + name.nomClub + ',';
                     }
                     this.listClubsNames.push(ch);
                 }
                 for (const x of listInstitus) {
+                    if (x === '') {
+                        continue;
+                    }
                     let ch = '';
                     let sh = '';
                     const list = x.split(',');
                     for (const y of list) {
                         z = this.institus.indexOf(Number(y));
-                        const name = this.instituss[z];
-                        sh = sh + name.abreviation + ',';
+                        const name: Institus = this.instituss[z];
+                        if (!(name.abreviation === '' || name.abreviation === null)) {
+                            sh = sh + name.abreviation + ',';
+                        }
                         ch = ch + name.nomInstitus + ',';
 
                     }
@@ -184,6 +192,9 @@ export class FormationsComponent implements OnInit {
                     this.listInstitusabrev.push(sh);
                 }
                 for (const x of listCf) {
+                    if (x === '') {
+                        continue;
+                    }
                     let ch = '';
                     let sh = '';
                     const list = x.split(',');

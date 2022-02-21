@@ -19,4 +19,5 @@ export interface Journey {
     registrationDateLimit: string,
     shown: string,
     picsUrl: string,
+    uid: string
 }

@@ -19,4 +19,5 @@ export interface Certification {
     registrationDateLimit: string,
     shown: string,
     picsUrl: string,
+    uid: string
 }

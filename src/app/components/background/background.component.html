@@ -1,1 +1,31 @@
-<p>background works!</p>
+<div class="" style="margin: 5%;">
+
+    <div class="" style="margin: 3% auto -3%;">
+        <div class="form-group">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control border-dark" placeholder="Search">
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <h3>Institus : </h3>
+    <h4 *ngFor="let x of this.resultsInstitus">
+        <button class="btn btn-default">{{x.nomInstitus}}</button>
+    </h4>
+    <br><br><br>
+
+    <h3>Clubs : </h3>
+    <h4 *ngFor="let x of this.resultsClub">
+        <button class="btn btn-default">{{x.nomClub}}</button>
+    </h4>
+    <br><br><br>
+
+    <h3>Training Centers : </h3>
+    <h4 *ngFor="let x of this.resultsCf">
+        <button class="btn btn-default">{{x.nomCf}}</button>
+    </h4>
+
+</div>

@@ -19,4 +19,5 @@ export interface Competition {
     registrationDateLimit: string,
     shown: string,
     picsUrl: string,
+    uid: string
 }
