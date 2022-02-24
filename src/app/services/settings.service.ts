@@ -11,6 +11,9 @@ import * as firebase from 'firebase';
 export class SettingsService {
 
     private apiServeurUrl = environment.apiBaseUrl;
+    private institus = [];
+    private clubs = [];
+    private cfs = [];
 
     constructor(private http: HttpClient) {
     }
@@ -53,6 +56,36 @@ export class SettingsService {
                 );
             }
         );
+    }
+
+    instituing(x: any) {
+        this.institus.push(x);
+    }
+
+    clubing(x: any) {
+        this.clubs.push(x);
+    }
+
+    cfing(x: any) {
+        this.cfs.push(x);
+    }
+
+    getInstituing(): any[] {
+        return this.institus;
+    }
+
+    getClubing(): any[] {
+        return this.clubs;
+    }
+
+    getCfing(): any[] {
+        return this.cfs;
+    }
+
+    resetOrganisms() {
+        this.cfs = [];
+        this.clubs = [];
+        this.institus = [];
     }
 
 

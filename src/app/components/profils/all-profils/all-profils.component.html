@@ -33,7 +33,9 @@
                                              class="col m-2 card bg-light mb-3 wow fadeInUp"
                                              (click)="this.seeOneProfile(s.idUser)"
                                              style="max-width: 18rem; cursor: pointer">
-                                            <img class="card-img-top" style="width: 100%;" src="{{s.urlPicUser}}"
+                                            <img style="clip-path: fill-box; cursor: pointer; height: 350px"
+                                                 class="img-thumbnail img-no-padding img-responsive"
+                                                 src="{{s.urlPicUser}}"
                                                  alt="Card image cap">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.prenomUser}} {{s.nomUser}}</h5>

@@ -6101,10 +6101,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .close {
-    float: right;
     font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1;
     color: #000;
     text-shadow: 0 1px 0 #fff;
     opacity: .5;
@@ -6120,9 +6118,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 button.close {
-    padding: 0;
     background-color: transparent;
-    border: 0;
 }
 
 a.close.disabled {

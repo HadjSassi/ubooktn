@@ -6,26 +6,17 @@
                    class="form-control border-dark" placeholder="Search">
         </div>
     </div>
-
-    <br>
-    <br>
-    <br>
-
     <h3>Institus : </h3>
     <h4 *ngFor="let x of this.resultsInstitus">
-        <button class="btn btn-default">{{x.nomInstitus}}</button>
+        <button class="btn btn-default" (click)="instituing(x)">{{x.nomInstitus}}</button>
     </h4>
-    <br><br><br>
-
     <h3>Clubs : </h3>
     <h4 *ngFor="let x of this.resultsClub">
-        <button class="btn btn-default">{{x.nomClub}}</button>
+        <button class="btn btn-default" (click)="clubing(x)">{{x.nomClub}}</button>
     </h4>
-    <br><br><br>
-
     <h3>Training Centers : </h3>
     <h4 *ngFor="let x of this.resultsCf">
-        <button class="btn btn-default">{{x.nomCf}}</button>
+        <button class="btn btn-default" (click)="cfing(x)">{{x.nomCf}}</button>
     </h4>
 
 </div>

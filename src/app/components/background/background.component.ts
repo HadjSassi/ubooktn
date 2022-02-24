@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CentreFormationService} from '../../services/centre-formation.service';
 import {ClubService} from '../../services/club.service';
 import {InstitusService} from '../../services/institus.service';
 import {CentreFormation} from '../../model/CentreFormation';
 import {Club} from '../../model/Club';
 import {Institus} from '../../model/Institus';
+import {SettingsService} from '../../services/settings.service';
 
 @Component({
     selector: 'app-background',
@@ -21,7 +22,8 @@ export class BackgroundComponent implements OnInit {
 
     constructor(private cfService: CentreFormationService,
                 private clubService: ClubService,
-                private institusService: InstitusService) {
+                private institusService: InstitusService,
+                private settingService: SettingsService) {
     }
 
     ngOnInit(): void {
@@ -80,5 +82,20 @@ export class BackgroundComponent implements OnInit {
             this.resultsClub = [];
             this.resultsInstitus = [];
         }
+    }
+
+    instituing(x: any) {
+        this.resultsInstitus.splice(this.resultsInstitus.indexOf(x), 1);
+        this.settingService.instituing(x);
+    }
+
+    clubing(x: any) {
+        this.resultsClub.splice(this.resultsClub.indexOf(x), 1);
+        this.settingService.clubing(x);
+    }
+
+    cfing(x: any) {
+        this.resultsCf.splice(this.resultsCf.indexOf(x), 1);
+        this.settingService.cfing(x);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../../model/User';
 import {DocumentService} from '../../../services/document.service';
 import {Router} from '@angular/router';
@@ -24,29 +24,33 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
     template: `
         <div class="modal-header">
             <h5 class="modal-title text-center">Select the related University Organisms</h5>
-            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="modal-body">
             <app-background></app-background>
         </div>
         <div class="modal-footer">
             <div class="left-side">
-                <button type="button" class="btn btn-default btn-link" (click)="activeModal.close('Close click')">Never mind</button>
+                <button type="button" class="btn btn-danger btn-link" (click)="activeModal.close('Close click')">Cancel</button>
             </div>
             <div class="divider"></div>
             <div class="right-side">
-                <button type="button" class="btn btn-danger btn-link" (click)="activeModal.close('Close click')">DELETE</button>
+                <button type="button" class="btn btn-default btn-link" (click)="bye()">Accept</button>
             </div>
         </div>
     `
 })
 // tslint:disable-next-line:component-class-suffix
 export class NgbdModalContentEvents {
-    @Input() name;
+    closed = false;
+    @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
     constructor(public activeModal: NgbActiveModal) {
+    }
+
+    bye() {
+        this.closed = true;
+        this.activeModal.close('Close click');
+        this.passEntry.emit();
     }
 }
 
@@ -78,10 +82,16 @@ export class NewEventComponent implements OnInit {
     finishings: NgbDateStruct;
     finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     finishB = true;
+    limitB = true;
     focus: any;
     themeList = '';
     themeT = [];
     themes = ['robotic', 'informatique', 'other', 'other1', 'other2', 'other3', 'other4', 'other5'];
+    instituing = [];
+    clubing = [];
+    cfing = [];
+    ready = true;
+    submited = false;
 
     constructor(private settingsService: SettingsService,
                 private formationService: FormationService,
@@ -142,147 +152,167 @@ export class NewEventComponent implements OnInit {
 
 
     onSubmit(form: NgForm) {
-        let uid = '';
-        firebase.auth().onAuthStateChanged(
-            (user) => {
-                if (user) {
-                    uid = user.uid.toString();
-                } else {
-                    uid = 'dawa7';
-                    console.log('dawa7 ha mbarka');
+        if (this.ready) {
+            this.submited = true;
+            let uid = '';
+            firebase.auth().onAuthStateChanged(
+                (user) => {
+                    if (user) {
+                        uid = user.uid.toString();
+                    } else {
+                        uid = 'dawa7';
+                        console.log('dawa7 ha mbarka');
+                    }
+                });
+            const name = form.value['nom'];
+            const address = form.value['address'];
+            const email = form.value['email'];
+            const tel = form.value['tel'];
+            const registrationLink = form.value['link'];
+            const eventPartenaires = form.value['associe'];
+            let eventclubs = '';
+            let eventInstitus = '';
+            let eventCfs = '';
+            const description = form.value['description'];
+            if (this.instituing.length !== 0) {
+                for (const x of this.instituing) {
+                    eventInstitus += x.idInstitus + ',';
                 }
-            });
-        const name = form.value['nom'];
-        const address = form.value['address'];
-        const email = form.value['email'];
-        const tel = form.value['tel'];
-        const registrationLink = form.value['link'];
-        const eventPartenaires = form.value['associe'];
-        const eventclubs = form.value['club'];
-        const eventInstitus = form.value['institus'];
-        const eventCfs = form.value['cfs'];
-        const description = form.value['description'];
-        const evenement: any = {
-            nom: name,
-            clubs: eventclubs,
-            institus: eventInstitus,
-            trainingCenters: eventCfs,
-            affiche: this.fileUrl,
-            themes: this.themeList,
-            capacity: this.capacitySlider.toString(),
-            address: address,
-            email: email,
-            tel: tel,
-            registrationLink: registrationLink,
-            description: description,
-            price: this.priceSlider.toString(),
-            partenaires: eventPartenaires,
-            startingDate: this.startD.toString(),
-            finishingDate: this.finishings.toString(),
-            registrationDateLimit: this.limitDate.toString(),
-            shown: 'false',
-            picsUrl: '',
-            uid: uid
-        }
-        switch (form.value['event']) {
-            case 'forma' :
-                this.formationService.addFormation(evenement).subscribe(
-                    (response: Formation) => {
-                        console.log(response);
-                        this.router.navigate(['event']);
+                eventInstitus = eventInstitus.substring(0, (eventInstitus.length - 1));
+            }
+            if (this.clubing.length !== 0) {
+                for (const x of this.clubing) {
+                    eventclubs += x.idClub + ',';
+                }
+                eventclubs = eventclubs.substring(0, (eventclubs.length - 1));
+            }
+            if (this.cfing.length !== 0) {
+                for (const x of this.cfing) {
+                    eventCfs += x.idCf + ',';
+                }
+                eventCfs = eventCfs.substring(0, (eventCfs.length - 1));
+            }
+            const evenement: any = {
+                nom: name,
+                clubs: eventclubs,
+                institus: eventInstitus,
+                trainingCenters: eventCfs,
+                affiche: this.fileUrl,
+                themes: this.themeList,
+                capacity: this.capacitySlider.toString(),
+                address: address,
+                email: email,
+                tel: tel,
+                registrationLink: registrationLink,
+                description: description,
+                price: this.priceSlider.toString(),
+                partenaires: eventPartenaires,
+                startingDate: this.dating(this.startD),
+                finishingDate: this.dating(this.finishings),
+                registrationDateLimit: this.dating(this.limitDate),
+                shown: 'false',
+                picsUrl: '',
+                uid: uid
+            }
+            switch (form.value['event']) {
+                case 'forma' :
+                    this.formationService.addFormation(evenement).subscribe(
+                        (response: Formation) => {
+                            console.log(response);
+                            this.router.navigate(['event']);
 
-                        firebase.auth().onAuthStateChanged(
-                            (users) => {
-                                if (users) {
-                                    uid = users.uid.toString();
-                                    this.searchUid(uid);
-                                } else {
-                                    uid = 'dawa7';
-                                    console.log('dawa7 ha mbarka');
+                            firebase.auth().onAuthStateChanged(
+                                (users) => {
+                                    if (users) {
+                                        uid = users.uid.toString();
+                                        this.searchUid(uid);
+                                    } else {
+                                        uid = 'dawa7';
+                                        console.log('dawa7 ha mbarka');
+                                    }
                                 }
-                            }
-                        );
-                    },
-                    (error: HttpErrorResponse) => {
-                        alert(error.message);
-                    }
-                );
-                break;
-            case 'comp' :
-                this.competitionService.addCompetition(evenement).subscribe(
-                    (response: Competition) => {
-                        console.log(response);
-                        this.router.navigate(['event']);
+                            );
+                        },
+                        (error: HttpErrorResponse) => {
+                            alert(error.message);
+                        }
+                    );
+                    break;
+                case 'comp' :
+                    this.competitionService.addCompetition(evenement).subscribe(
+                        (response: Competition) => {
+                            console.log(response);
+                            this.router.navigate(['event']);
 
-                        firebase.auth().onAuthStateChanged(
-                            (users) => {
-                                if (users) {
-                                    uid = users.uid.toString();
-                                    this.searchUid(uid);
-                                } else {
-                                    uid = 'dawa7';
-                                    console.log('dawa7 ha mbarka');
+                            firebase.auth().onAuthStateChanged(
+                                (users) => {
+                                    if (users) {
+                                        uid = users.uid.toString();
+                                        this.searchUid(uid);
+                                    } else {
+                                        uid = 'dawa7';
+                                        console.log('dawa7 ha mbarka');
+                                    }
                                 }
-                            }
-                        );
-                    },
-                    (error: HttpErrorResponse) => {
-                        alert(error.message);
-                    }
-                );
-                break;
-            case 'jour' :
-                this.journeyService.addJourney(evenement).subscribe(
-                    (response: Journey) => {
-                        console.log(response);
-                        this.router.navigate(['event']);
+                            );
+                        },
+                        (error: HttpErrorResponse) => {
+                            alert(error.message);
+                        }
+                    );
+                    break;
+                case 'jour' :
+                    this.journeyService.addJourney(evenement).subscribe(
+                        (response: Journey) => {
+                            console.log(response);
+                            this.router.navigate(['event']);
 
-                        firebase.auth().onAuthStateChanged(
-                            (users) => {
-                                if (users) {
-                                    uid = users.uid.toString();
-                                    this.searchUid(uid);
-                                } else {
-                                    uid = 'dawa7';
-                                    console.log('dawa7 ha mbarka');
+                            firebase.auth().onAuthStateChanged(
+                                (users) => {
+                                    if (users) {
+                                        uid = users.uid.toString();
+                                        this.searchUid(uid);
+                                    } else {
+                                        uid = 'dawa7';
+                                        console.log('dawa7 ha mbarka');
+                                    }
                                 }
-                            }
-                        );
-                    },
-                    (error: HttpErrorResponse) => {
-                        alert(error.message);
-                    }
-                );
-                break;
-            case 'certif' :
-                this.certificationService.addCertification(evenement).subscribe(
-                    (response: Certification) => {
-                        console.log(response);
-                        this.router.navigate(['event']);
+                            );
+                        },
+                        (error: HttpErrorResponse) => {
+                            alert(error.message);
+                        }
+                    );
+                    break;
+                case 'certif' :
+                    this.certificationService.addCertification(evenement).subscribe(
+                        (response: Certification) => {
+                            console.log(response);
+                            this.router.navigate(['event']);
 
-                        firebase.auth().onAuthStateChanged(
-                            (users) => {
-                                if (users) {
-                                    uid = users.uid.toString();
-                                    this.searchUid(uid);
-                                } else {
-                                    uid = 'dawa7';
-                                    console.log('dawa7 ha mbarka');
+                            firebase.auth().onAuthStateChanged(
+                                (users) => {
+                                    if (users) {
+                                        uid = users.uid.toString();
+                                        this.searchUid(uid);
+                                    } else {
+                                        uid = 'dawa7';
+                                        console.log('dawa7 ha mbarka');
+                                    }
                                 }
-                            }
-                        );
-                    },
-                    (error: HttpErrorResponse) => {
-                        alert(error.message);
-                    }
-                );
-                break;
-            default:
-                console.log('ha ezzedine barra dawa7 kima mbarka');
-                break;
+                            );
+                        },
+                        (error: HttpErrorResponse) => {
+                            alert(error.message);
+                        }
+                    );
+                    break;
+                default:
+                    console.log('ha ezzedine barra dawa7 kima mbarka');
+                    break;
+            }
         }
     }
-
 
     searchUid(uid: string) {
 
@@ -345,6 +375,10 @@ export class NewEventComponent implements OnInit {
         this.finishB = false;
     }
 
+    limitingDate() {
+        this.limitB = false;
+    }
+
     test(ch: string) {
         if (this.themeT.indexOf(ch) === -1) {
             this.themeT.push(ch);
@@ -356,11 +390,44 @@ export class NewEventComponent implements OnInit {
             for (const x of this.themeT) {
                 this.themeList += x + ',';
             }
+        } else {
+            this.themeList = '';
         }
+        console.log(this.themeList);
     }
 
     open() {
+        this.ready = false;
+        this.settingService.resetOrganisms();
         const modalRef = this.modalService.open(NgbdModalContentEvents);
-        modalRef.componentInstance.name = 'World';
+        modalRef.componentInstance.passEntry.subscribe(() => {
+            this.updateOrganisms();
+            this.ready = true;
+        })
+    }
+
+    updateOrganisms() {
+        this.instituing = this.settingService.getInstituing();
+        this.clubing = this.settingService.getClubing();
+        this.cfing = this.settingService.getCfing();
+    }
+
+    closeInstitus(c: any) {
+        console.log(c.nomInstitus);
+        this.instituing.splice(this.instituing.indexOf(c), 1);
+    }
+
+    closeClub(c: any) {
+        console.log(c.nomInstitus);
+        this.clubing.splice(this.clubing.indexOf(c), 1);
+    }
+
+    closeCf(c: any) {
+        console.log(c.nomInstitus);
+        this.cfing.splice(this.cfing.indexOf(c), 1);
+    }
+
+    dating(d: NgbDateStruct) {
+        return '' + d.month + '/' + d.day + '/' + d.year;
     }
 }

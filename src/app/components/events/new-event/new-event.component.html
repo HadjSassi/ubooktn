@@ -19,16 +19,10 @@
         </div>
     </div>
 </header>
+
 <div>
-
-
     <div class="page-section">
         <div class="cordido">
-
-            <div class="form-group wow zoomIn">
-                <button class="btn btn-lg btn-outline-primary" (click)="open()">University Organisms</button>
-                <span>Related Organisms : </span>
-            </div>
 
             <form (ngSubmit)="onSubmit(form)" #form="ngForm">
                 <div class="wow zoomIn">
@@ -77,7 +71,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="form-group wow zoomIn">
+                <div class="form-group wow zoomIn" *ngIf="event.value !== ''">
                     <label style="" class="h5 col" for="theme">Event Theme<span
                             style="color: red">*</span></label>
                     <div class="row">
@@ -104,7 +98,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-danger">Please Choose the Theme(s) !</div>
+                    <div *ngIf="this.themeList.length === 0" class="text-danger">Please Choose the Theme(s) !</div>
                 </div>
                 <div class="form-group wow zoomIn">
                     <label style="" class="h5 col" for="nom">Event Name<span
@@ -114,6 +108,42 @@
                            required ngModel>
                     <div *ngIf="verifLegnth(nom.value)" class="text-danger">Please fill this
                         field !
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <div class="wow zoomIn text-center">
+                        <button class="btn btn-lg btn-outline-primary " (click)="open()">Select University Organisms
+                        </button>
+                        <br>
+                    </div>
+                    <div class="form-group wow zoomIn">
+                        <h4 *ngIf="this.instituing.length !== 0">Institus : </h4>
+                        <div class="row col-md-12">
+                            <h5 *ngFor="let c of this.instituing">{{c.nomInstitus}}
+                                <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
+                                        (click)="closeInstitus(c)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h5>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <h4 *ngIf="this.clubing.length !== 0">Clubs : </h4>
+                        <div class="row col-md-12">
+                            <h5 *ngFor="let c of this.clubing">{{c.nomClub}}
+                                <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
+                                        (click)="closeClub(c)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h5>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <h4 *ngIf="this.cfing.length !== 0">Training Centers : </h4>
+                        <div class="row col-md-12">
+                            <h5 *ngFor="let c of this.cfing">{{c.nomCf}}
+                                <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
+                                        (click)="closeCf(c)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>&nbsp;&nbsp;&nbsp;
+                            </h5>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group wow zoomIn">
@@ -143,9 +173,9 @@
                 <div class="form-group wow zoomIn">
                     <label style="" class="h5 col" for="tel">Event Tel<span
                             style="color: red">*</span></label>
-                    <input type="number" id="tel" class="form-control col" style="" name="tel"
+                    <input type="text" id="tel" class="form-control col" style="" name="tel"
                            [ngClass]="{'is-invalid':tel.invalid && tel.dirty}" #tel="ngModel"
-                           required ngModel>
+                           required pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" ngModel>
                     <div *ngIf="tel.invalid" class="text-danger">Please write a valid Telephone Number!
                     </div>
                 </div>
@@ -155,8 +185,9 @@
                     <input type="text" id="link" class="form-control col" style="" name="link"
                            [ngClass]="{'is-invalid':link.invalid && link.dirty}"
                            #link="ngModel" required
+                           pattern="(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
                            ngModel>
-                    <div *ngIf="verifLegnth(link.value)" class="text-danger">Please write the registration link*
+                    <div *ngIf="link.invalid" class="text-danger">Please write the registration link*
                     </div>
                 </div>
                 <div class="form-group wow zoomIn">
@@ -233,7 +264,8 @@
                                                 <input class="form-control" placeholder="yyyy-mm-dd"
                                                        name="limitDate" [(ngModel)]="limitDate"
                                                        [maxDate]="{year: finishD.year, month:finishD.month, day:finishD.day}"
-                                                       ngbDatepicker id="limitDate"
+                                                       ngbDatepicker id="limitDate" #limitDating="ngModel"
+                                                       (ngModelChange)="limitingDate()"
                                                        #limitDates="ngbDatepicker" [disabled]="finishB"
                                                        (click)="limitDates.toggle()" (focus)="focus=true"
                                                        (blur)="focus=false"/>
@@ -249,7 +281,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="">Please precise the dates !
+                    <div *ngIf="limitB" class="text-danger">Please precise the dates !
                     </div>
                 </div>
                 <div class="form-group wow zoomIn">
@@ -260,7 +292,6 @@
                         Would you like the links seperated with ',' !
                     </div>
                 </div>
-
                 <div class="form-group wow zoomIn">
                     <label style="" class="h5 col" for="description">Event Description</label>
                     <textarea type="text" id="description" class="form-control col" style=""
@@ -286,7 +317,8 @@
                 <br>
                 <br>
                 <div class="row wow zoomIn">
-                    <button type="submit" [disabled]="form.invalid || fileIsUploading || event.value ===''"
+                    <button type="submit"
+                            [disabled]="form.invalid || fileIsUploading || event.value ===''  || submited  || limitB"
                             class="col btn"><h5>Finish</h5>
                     </button>
                 </div>
