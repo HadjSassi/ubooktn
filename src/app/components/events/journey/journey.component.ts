@@ -15,6 +15,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import * as firebase from 'firebase';
 import {environment} from '../../../../environments/environment';
 import {NgForm} from '@angular/forms';
+import {SettingsService} from '../../../services/settings.service';
 
 @Component({
     selector: 'app-journey',
@@ -64,40 +65,23 @@ export class JourneyComponent implements OnInit {
 
     constructor(private journeyService: JourneyService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
-                private instituService: InstitusService, private cfService: CentreFormationService) {
+                private instituService: InstitusService, private cfService: CentreFormationService,
+                private settingsService: SettingsService) {
     }
 
     ngOnInit(): void {
-        this.clubService.getClubs().subscribe(
-            (response: Club[]) => {
-                this.clubss = response;
-                for (const i of response) {
-                    this.clubs.push(i.idClub);
-                }
-            }, (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
-        this.instituService.getInstituss().subscribe(
-            (response: Institus[]) => {
-                this.instituss = response;
-                for (const i of response) {
-                    this.institus.push(i.idInstitus);
-                }
-            }, (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
-        this.cfService.getCentreFormations().subscribe(
-            (response: CentreFormation[]) => {
-                this.cfs = response;
-                for (const i of response) {
-                    this.cf.push(i.idCf);
-                }
-            }, (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
+        this.clubss = this.settingsService.listClubs;
+        for (const i of this.clubss) {
+            this.clubs.push(i.idClub);
+        }
+        this.instituss = this.settingsService.listInstitus;
+        for (const i of this.instituss) {
+            this.institus.push(i.idInstitus);
+        }
+        this.cfs = this.settingsService.listCfs;
+        for (const i of this.cfs) {
+            this.cf.push(i.idCf);
+        }
         let uid = '';
         firebase.auth().onAuthStateChanged(
             (user) => {
@@ -129,7 +113,7 @@ export class JourneyComponent implements OnInit {
     }
 
     onViewJourney(id: number) {
-        this.router.navigate(['/event', 'journeys', id]);
+        this.router.navigate(['/event', 'journey', id]);
     }
 
     public getCompetions(): void {
@@ -150,63 +134,6 @@ export class JourneyComponent implements OnInit {
                         return 0;
                     }
                 );
-                let z;
-                const listClubs: string[] = [];
-                const listInstitus: string[] = [];
-                const listCf: string[] = [];
-                for (const x of this.Evenements) {
-                    listClubs.push(x.clubs);
-                    listInstitus.push(x.institus);
-                    listCf.push(x.trainingCenters);
-                }
-                for (const x of listClubs) {
-                    if (x === '') {
-                        continue;
-                    }
-                    let ch = '';
-                    const list = x.split(',');
-                    for (const y of list) {
-                        z = this.clubs.indexOf(Number(y));
-                        const name = this.clubss[z];
-                        ch = ch + name.nomClub + ',';
-                    }
-                    this.listClubsNames.push(ch);
-                }
-                for (const x of listInstitus) {
-                    if (x === '') {
-                        continue;
-                    }
-                    let ch = '';
-                    let sh = '';
-                    const list = x.split(',');
-                    for (const y of list) {
-                        z = this.institus.indexOf(Number(y));
-                        const name = this.instituss[z];
-                        sh = sh + name.abreviation + ',';
-                        ch = ch + name.nomInstitus + ',';
-
-                    }
-                    this.listInstitusNames.push(ch);
-                    this.listInstitusabrev.push(sh);
-                }
-                for (const x of listCf) {
-                    if (x === '') {
-                        continue;
-                    }
-                    let ch = '';
-                    let sh = '';
-                    const list = x.split(',');
-                    for (const y of list) {
-                        z = this.cf.indexOf(Number(y));
-                        const name = this.cfs[z];
-                        ch = ch + name.nomCf + ',';
-                        if (sh !== null) {
-                            sh = sh + name.abreviation + ',';
-                        }
-                    }
-                    this.listCfNames.push(ch);
-                    this.listCfabrev.push(sh);
-                }
                 let i = 0;
                 for (const e of response) {
                     if (i === this.nbElmParPage) {
@@ -226,6 +153,63 @@ export class JourneyComponent implements OnInit {
 
     public search(key: string): void {
         const results: Journey[] = [];
+        let z;
+        const listClubs: string[] = [];
+        const listInstitus: string[] = [];
+        const listCf: string[] = [];
+        for (const x of this.Evenements) {
+            listClubs.push(x.clubs);
+            listInstitus.push(x.institus);
+            listCf.push(x.trainingCenters);
+        }
+        for (const x of listClubs) {
+            if (x === '') {
+                continue;
+            }
+            let ch = '';
+            const list = x.split(',');
+            for (const y of list) {
+                z = this.clubs.indexOf(Number(y));
+                const name = this.clubss[z];
+                ch = ch + name.nomClub + ',';
+            }
+            this.listClubsNames.push(ch);
+        }
+        for (const x of listInstitus) {
+            if (x === '') {
+                continue;
+            }
+            let ch = '';
+            let sh = '';
+            const list = x.split(',');
+            for (const y of list) {
+                z = this.institus.indexOf(Number(y));
+                const name = this.instituss[z];
+                sh = sh + name.abreviation + ',';
+                ch = ch + name.nomInstitus + ',';
+
+            }
+            this.listInstitusNames.push(ch);
+            this.listInstitusabrev.push(sh);
+        }
+        for (const x of listCf) {
+            if (x === '') {
+                continue;
+            }
+            let ch = '';
+            let sh = '';
+            const list = x.split(',');
+            for (const y of list) {
+                z = this.cf.indexOf(Number(y));
+                const name = this.cfs[z];
+                ch = ch + name.nomCf + ',';
+                if (sh !== null) {
+                    sh = sh + name.abreviation + ',';
+                }
+            }
+            this.listCfNames.push(ch);
+            this.listCfabrev.push(sh);
+        }
         let j = 0;
         for (const doc of this.Evenements) {
             if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -239,12 +223,6 @@ export class JourneyComponent implements OnInit {
                 results.push(doc);
             }
             j++;
-            /*if (this.listClubsNames[j].toLowerCase().indexOf(key.toLowerCase()) !== -1
-                || this.listInstitusNames[j].toLowerCase().indexOf(key.toLowerCase()) !== -1
-                || this.listCfNames[j].toLowerCase().indexOf(key.toLowerCase()) !== -1
-            ) {
-                results.push(doc);
-            }*/
         }
         this.Evenement = results;
         this.evenement = [];

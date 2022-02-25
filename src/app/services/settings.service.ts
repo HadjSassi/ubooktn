@@ -4,6 +4,12 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Settings} from '../model/Settings';
 import * as firebase from 'firebase';
+import {InstitusService} from './institus.service';
+import {ClubService} from './club.service';
+import {CentreFormationService} from './centre-formation.service';
+import {Institus} from '../model/Institus';
+import {Club} from '../model/Club';
+import {CentreFormation} from '../model/CentreFormation';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +20,14 @@ export class SettingsService {
     private institus = [];
     private clubs = [];
     private cfs = [];
+    public listInstitus = [];
+    public listClubs = [];
+    public listCfs = [];
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private institusService: InstitusService,
+                private clubService: ClubService,
+                private cfService: CentreFormationService) {
     }
 
     public getSettingss(): Observable<Settings[]> {
@@ -88,5 +100,28 @@ export class SettingsService {
         this.institus = [];
     }
 
+    getAllOrganisms() {
+        this.institusService.getInstituss().subscribe(
+            (result: Institus[]) => {
+                this.listInstitus = result;
+            }, error => {
+                console.log(error);
+            }
+        );
+        this.clubService.getClubs().subscribe(
+            (result: Club[]) => {
+                this.listClubs = result;
+            }, error => {
+                console.log(error);
+            }
+        );
+        this.cfService.getCentreFormations().subscribe(
+            (result: CentreFormation[]) => {
+                this.listCfs = result;
+            }, error => {
+                console.log(error);
+            }
+        );
+    }
 
 }
