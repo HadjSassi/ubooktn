@@ -88,6 +88,15 @@ export class EditEventComponent implements OnInit {
                 this.journeyService.getJourneyById(id).subscribe(
                     (result: Journey) => {
                         this.event = result;
+                        firebase.auth().onAuthStateChanged(
+                            (user) => {
+                                if (user.uid !== this.event.uid) {
+                                    console.log(user.uid);
+                                    console.log(this.event.uid);
+                                    this.router.navigate(['/event']);
+                                }
+                            }
+                        );
                         let d = new Date(result.startingDate);
                         this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
                         d = new Date(result.registrationDateLimit);
@@ -129,6 +138,15 @@ export class EditEventComponent implements OnInit {
                 this.competitionService.getCompetitionById(id).subscribe(
                     (result: Competition) => {
                         this.event = result;
+                        firebase.auth().onAuthStateChanged(
+                            (user) => {
+                                if (user.uid !== this.event.uid) {
+                                    console.log(user.uid);
+                                    console.log(this.event.uid);
+                                    this.router.navigate(['/event']);
+                                }
+                            }
+                        );
                         let d = new Date(result.startingDate);
                         this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
                         d = new Date(result.registrationDateLimit);
@@ -175,6 +193,15 @@ export class EditEventComponent implements OnInit {
                 this.certificationService.getCertificationById(id).subscribe(
                     (result: Certification) => {
                         this.event = result;
+                        firebase.auth().onAuthStateChanged(
+                            (user) => {
+                                if (user.uid !== this.event.uid) {
+                                    console.log(user.uid);
+                                    console.log(this.event.uid);
+                                    this.router.navigate(['/event']);
+                                }
+                            }
+                        );
                         let d = new Date(result.startingDate);
                         this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
                         d = new Date(result.registrationDateLimit);
@@ -216,6 +243,15 @@ export class EditEventComponent implements OnInit {
                 this.formationService.getFormationById(id).subscribe(
                     (result: Formation) => {
                         this.event = result;
+                        firebase.auth().onAuthStateChanged(
+                            (user) => {
+                                if (user.uid !== this.event.uid) {
+                                    console.log(user.uid);
+                                    console.log(this.event.uid);
+                                    this.router.navigate(['/event']);
+                                }
+                            }
+                        );
                         let d = new Date(result.startingDate);
                         this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
                         d = new Date(result.registrationDateLimit);
