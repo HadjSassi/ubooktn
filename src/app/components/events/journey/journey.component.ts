@@ -40,10 +40,7 @@ export class JourneyComponent implements OnInit {
     ];
     foulen: User;
     public isAdmin = false;
-    startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
-    finishings: NgbDateStruct;
-    capacitySlider = 500;
-    priceSlider = [0, 500];
+    priceSlider = [0, 5000];
     freeIndicator = 'Free';
     focus: any;
     file: File = null; // Variable to store file
@@ -62,6 +59,14 @@ export class JourneyComponent implements OnInit {
     cf: number[] = [];
     listCfNames: string[] = [];
     listCfabrev: string[] = [];
+    themes = this.settingsService.themes;
+    themeT = [];
+    startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
+    startD: NgbDateStruct;
+    startB = false;
+    finishings: NgbDateStruct;
+    finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
+    finishB = false;
 
     constructor(private journeyService: JourneyService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
@@ -164,6 +169,7 @@ export class JourneyComponent implements OnInit {
         }
         for (const x of listClubs) {
             if (x === '') {
+                this.listClubsNames.push('');
                 continue;
             }
             let ch = '';
@@ -177,6 +183,8 @@ export class JourneyComponent implements OnInit {
         }
         for (const x of listInstitus) {
             if (x === '') {
+                this.listInstitusNames.push('');
+                this.listInstitusabrev.push('');
                 continue;
             }
             let ch = '';
@@ -194,6 +202,8 @@ export class JourneyComponent implements OnInit {
         }
         for (const x of listCf) {
             if (x === '') {
+                this.listCfNames.push('');
+                this.listCfabrev.push('');
                 continue;
             }
             let ch = '';
@@ -254,58 +264,18 @@ export class JourneyComponent implements OnInit {
         } else {
             this.nbElmParPage = form.value['page'];
         }
-        let Informatique = '';
-        let Entrepreneurship = '';
-        let Robotique = '';
-        let Literature = '';
-        let Management = '';
-        let Other = '';
-        const starting = form.value['starting'];
-        const finishing = form.value['finishing'];
-
-        if (form.value['Informatique']) {
-            Informatique = document.getElementById('Informatique').attributes['value'].value;
-        }
-        if (form.value['Entrepreneurship']) {
-            Entrepreneurship = document.getElementById('Entrepreneurship').attributes['value'].value;
-        }
-        if (form.value['Robotique']) {
-            Robotique = document.getElementById('Robotique').attributes['value'].value;
-        }
-        if (form.value['Literature']) {
-            Literature = document.getElementById('Literature').attributes['value'].value;
-        }
-        if (form.value['Management']) {
-            Management = document.getElementById('Management').attributes['value'].value;
-        }
-        if (form.value['Other']) {
-            Other = document.getElementById('Other').attributes['value'].value;
-        }
-        console.log(Entrepreneurship);
-        console.log(Informatique);
-        console.log(Robotique);
-        console.log(Literature);
-        console.log(Management);
-        console.log(Other);
-        console.log(this.capacitySlider);
         console.log(this.priceSlider);
-        console.log(starting);
-        console.log(finishing);
+        console.log(this.startD);
+        console.log(this.finishings);
         let i = this.nbPage;
         let results: Journey[] = [];
 
         for (const doc of this.Evenements) {
             if (
-                doc.themes.toString().toLowerCase().indexOf(Entrepreneurship.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Informatique.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Robotique.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Literature.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Management.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Other.toLowerCase()) !== -1
-                && Number(doc.capacity) <= this.capacitySlider
+                this.validateTheme(this.themeT, doc.themes)
                 && Number(doc.price) <= this.priceSlider[1]
                 && Number(doc.price) >= this.priceSlider[0]
-                && this.verifDate(doc.startingDate, doc.finishingDate, this.startings, this.finishings)
+                && this.verifDate(doc.startingDate, doc.finishingDate, this.startD, this.finishings)
             ) {
                 results.push(doc);
             }
@@ -365,13 +335,54 @@ export class JourneyComponent implements OnInit {
     verifDate(eventS: string, eventF: string, starting: NgbDateStruct, finishing: NgbDateStruct) {
         const eventS1: Date = new Date(eventS);
         const eventF1: Date = new Date(eventF);
-        const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
-        const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
-        return starting1.getTime() <= eventS1.getTime()
-            && starting1.getTime() <= eventF1.getTime()
-            && finishing1.getTime() >= eventS1.getTime()
-            && finishing1.getTime() >= eventF1.getTime();
+        if (this.finishB && !this.startB) {
+            const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
+            return finishing1.getTime() >= eventS1.getTime()
+                && finishing1.getTime() >= eventF1.getTime();
+        } else if (!this.startB && !this.finishB) {
+            return true;
+        } else if (this.startB && !this.finishB) {
+            const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
+            return starting1.getTime() <= eventS1.getTime()
+                && starting1.getTime() <= eventF1.getTime();
+        } else {
+            const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
+            const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
+            return starting1.getTime() <= eventS1.getTime()
+                && starting1.getTime() <= eventF1.getTime()
+                && finishing1.getTime() >= eventS1.getTime()
+                && finishing1.getTime() >= eventF1.getTime();
+        }
+    }
 
+    themeing(ch: string) {
+        if (this.themeT.indexOf(ch) === -1) {
+            this.themeT.push(ch);
+            this.themeT.sort();
+        } else {
+            this.themeT.splice(this.themeT.indexOf(ch), 1);
+        }
+    }
+
+    validateTheme(themeT: string[], ch: string) {
+        const list = ch.split(',');
+        for (const x of themeT) {
+            if (list.indexOf(x) === -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    startingDate(form: NgForm) {
+        this.startB = true;
+        this.onSubmit(form);
+    }
+
+    finishingDate(form: NgForm) {
+        this.finishD = this.finishings;
+        this.finishB = true;
+        this.onSubmit(form);
     }
 
 }

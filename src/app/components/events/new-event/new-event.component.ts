@@ -73,7 +73,7 @@ export class NewEventComponent implements OnInit {
     isCertif = false;
     isComp = false;
     isJour = false;
-    capacitySlider = 0;
+    capacitySlider = 5000;
     priceSlider = 0;
     startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     startD: NgbDateStruct;
@@ -86,7 +86,7 @@ export class NewEventComponent implements OnInit {
     focus: any;
     themeList = '';
     themeT = [];
-    themes = ['robotic', 'informatique', 'other', 'other1', 'other2', 'other3', 'other4', 'other5'];
+    themes = this.settingService.themes;
     instituing = [];
     clubing = [];
     cfing = [];
@@ -379,7 +379,7 @@ export class NewEventComponent implements OnInit {
         this.limitB = false;
     }
 
-    test(ch: string) {
+    themeing(ch: string) {
         if (this.themeT.indexOf(ch) === -1) {
             this.themeT.push(ch);
         } else {

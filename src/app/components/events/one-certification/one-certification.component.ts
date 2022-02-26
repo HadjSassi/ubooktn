@@ -26,6 +26,7 @@ export class OneCertificationComponent implements OnInit {
     clubs = [];
     cfs = [];
     institus = [];
+    partenaires = [];
 
     constructor(private certificationService: CertificationService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
@@ -37,6 +38,7 @@ export class OneCertificationComponent implements OnInit {
             (resolve: Certification) => {
                 this.comp = resolve;
                 this.img = resolve.affiche;
+                this.partenaires = this.comp.partenaires.split(',');
                 this.start = new Date(resolve.startingDate).toDateString();
                 this.finish = new Date(resolve.finishingDate).toDateString();
                 this.limitDate = new Date(resolve.registrationDateLimit).toDateString();
@@ -76,6 +78,10 @@ export class OneCertificationComponent implements OnInit {
                 console.log('dawa7 hey !');
             }
         );
+    }
+
+    urling(ch: string) {
+        return /^(ftp|http|https):\/\/[^ "]+$/.test(ch);
     }
 
     // todo  nchouf el address keni web link donc twalli lien ! ;)

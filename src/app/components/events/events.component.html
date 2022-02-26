@@ -21,6 +21,13 @@
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <ngb-tabset [justify]="'center'">
+                    <ngb-tab title="+">
+                        <ng-template ngbTabContent>
+                            <h2 class="wow fadeIn">Would you like to Add your event !<br>Just Click On the button below
+                                !</h2><br>
+                            <a href="/#/event/new" class="btn btn-outline-primary wow fadeIn">Add Event</a>
+                        </ng-template>
+                    </ngb-tab>
                     <ngb-tab title="Journey">
                         <ng-template ngbTabContent>
                             <app-journey></app-journey>

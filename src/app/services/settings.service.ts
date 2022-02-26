@@ -23,6 +23,7 @@ export class SettingsService {
     public listInstitus = [];
     public listClubs = [];
     public listCfs = [];
+    public themes = ['robotic', 'informatique', 'other', 'other1', 'other2', 'other3', 'other4', 'other5'];
 
     constructor(private http: HttpClient,
                 private institusService: InstitusService,
@@ -108,6 +109,27 @@ export class SettingsService {
                 console.log(error);
             }
         );
+        let i: any = {
+            idInstitus: 0,
+            nomInstitus: '',
+            abreviation: '',
+            universite: '',
+            region: '',
+            historique: '',
+            filieres: '',
+            logo: '',
+            urlOfficel: '',
+            listInstitus: '',
+            picUrl: '',
+            urls: '',
+            sexe: '',
+            type: '',
+            nbChambre: '',
+            reglement: '',
+            listClubs: '',
+            voirAussi: ''
+        };
+        this.listInstitus.push(i);
         this.clubService.getClubs().subscribe(
             (result: Club[]) => {
                 this.listClubs = result;
@@ -115,6 +137,19 @@ export class SettingsService {
                 console.log(error);
             }
         );
+        i = {
+            idClub: 0,
+            nomClub: '',
+            domaine: '',
+            historique: '',
+            picUrl: '',
+            urls: '',
+            logo: '',
+            urlOfficel: '',
+            listClubs: '',
+            listInstitus: ''
+        };
+        this.listClubs.push(i);
         this.cfService.getCentreFormations().subscribe(
             (result: CentreFormation[]) => {
                 this.listCfs = result;
@@ -122,6 +157,22 @@ export class SettingsService {
                 console.log(error);
             }
         );
+        i = {
+            idCf: 0,
+            nomCf: '',
+            abreviation: '',
+            region: '',
+            historique: '',
+            domaines: '',
+            reglement: '',
+            logo: '',
+            urlOfficiel: '',
+            urlClubs: '',
+            urlPartenaires: '',
+            urlInstitus: '',
+            picsUrls: ''
+        };
+        this.listCfs.push(i);
     }
 
 }
