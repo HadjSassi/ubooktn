@@ -9,6 +9,7 @@ import {Club} from '../../../model/Club';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
 import {FormationService} from '../../../services/formation.service';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-one-formation',
@@ -27,6 +28,8 @@ export class OneFormationComponent implements OnInit {
     cfs = [];
     institus = [];
     partenaires = [];
+    isAuthor = false;
+
     constructor(private formationService: FormationService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
                 private isntitusService: InstitusService) {
@@ -38,6 +41,13 @@ export class OneFormationComponent implements OnInit {
                 this.comp = resolve;
                 this.partenaires = this.comp.partenaires.split(',');
                 this.img = resolve.affiche;
+                firebase.auth().onAuthStateChanged(
+                    (user) => {
+                        if (user.uid === this.comp.uid) {
+                            this.isAuthor = true;
+                        }
+                    }
+                );
                 this.start = new Date(resolve.startingDate).toDateString();
                 this.finish = new Date(resolve.finishingDate).toDateString();
                 this.limitDate = new Date(resolve.registrationDateLimit).toDateString();

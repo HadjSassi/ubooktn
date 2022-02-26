@@ -9,7 +9,7 @@
                     style="font-size: 500%;">BooK UP</span></a>
             <a *ngIf="isAuthor" href="/#/event/edit/journey/{{this.comp.id}}"
                class="btn btn-outline-neutral btn-round "><span
-                    style="font-size: 500%;">Modify</span></a>
+                    style="font-size: 500%;">Modify Or Delete</span></a>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-8 mr-auto ml-auto">
                     <h2 class="title wow fadeIn">{{this.comp.nom}}</h2>
-                    <h3 class="wow fadeIn">Competition of : <span *ngFor="let x of this.themes"> {{x}} &nbsp;</span>
+                    <h3 class="wow fadeIn">Journey of : <span *ngFor="let x of this.themes"> {{x}} &nbsp;</span>
                     </h3>
                     <h5 class="description wow fadeIn">{{this.comp.description}}</h5>
                     <br>

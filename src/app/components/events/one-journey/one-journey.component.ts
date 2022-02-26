@@ -43,9 +43,6 @@ export class OneJourneyComponent implements OnInit {
                 this.img = resolve.affiche;
                 firebase.auth().onAuthStateChanged(
                     (user) => {
-                        console.log(user.uid);
-                        console.log(this.comp.uid);
-                        console.log(this.comp.uid === user.uid);
                         if (user.uid === this.comp.uid) {
                             this.isAuthor = true;
                         }
