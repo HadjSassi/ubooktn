@@ -9,6 +9,10 @@ import {Club} from '../../../model/Club';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
 import {CertificationService} from '../../../services/certification.service';
+import {UserService} from '../../../services/user.service';
+import * as firebase from 'firebase';
+import {User} from '../../../model/User';
+import {environment} from '../../../../environments/environment';
 
 @Component({
     selector: 'app-one-certification',
@@ -27,10 +31,11 @@ export class OneCertificationComponent implements OnInit {
     cfs = [];
     institus = [];
     partenaires = [];
+    isAuthor = false;
 
     constructor(private certificationService: CertificationService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
-                private isntitusService: InstitusService) {
+                private isntitusService: InstitusService, private userService: UserService) {
     }
 
     ngOnInit(): void {
@@ -38,6 +43,14 @@ export class OneCertificationComponent implements OnInit {
             (resolve: Certification) => {
                 this.comp = resolve;
                 this.img = resolve.affiche;
+                firebase.auth().onAuthStateChanged(
+                    (user) => {
+                        console.log(user.uid, this.comp.uid, user.uid === this.comp.uid);
+                        if (user.uid === this.comp.uid) {
+                            this.isAuthor = true;
+                        }
+                    }
+                );
                 this.partenaires = this.comp.partenaires.split(',');
                 this.start = new Date(resolve.startingDate).toDateString();
                 this.finish = new Date(resolve.finishingDate).toDateString();
@@ -83,6 +96,4 @@ export class OneCertificationComponent implements OnInit {
     urling(ch: string) {
         return /^(ftp|http|https):\/\/[^ "]+$/.test(ch);
     }
-
-    // todo  nchouf el address keni web link donc twalli lien ! ;)
 }

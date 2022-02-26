@@ -9,6 +9,7 @@ import {Institus} from '../../../model/Institus';
 import {Club} from '../../../model/Club';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-one-journey',
@@ -28,6 +29,8 @@ export class OneJourneyComponent implements OnInit {
     cfs = [];
     institus = [];
     partenaires = [];
+    isAuthor = false;
+
     constructor(private journeyService: JourneyService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
                 private isntitusService: InstitusService) {
@@ -38,6 +41,16 @@ export class OneJourneyComponent implements OnInit {
             (resolve: Journey) => {
                 this.comp = resolve;
                 this.img = resolve.affiche;
+                firebase.auth().onAuthStateChanged(
+                    (user) => {
+                        console.log(user.uid);
+                        console.log(this.comp.uid);
+                        console.log(this.comp.uid === user.uid);
+                        if (user.uid === this.comp.uid) {
+                            this.isAuthor = true;
+                        }
+                    }
+                );
                 this.partenaires = this.comp.partenaires.split(',');
                 this.start = new Date(resolve.startingDate).toDateString();
                 this.finish = new Date(resolve.finishingDate).toDateString();

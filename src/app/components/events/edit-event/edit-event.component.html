@@ -1,0 +1,282 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<header>
+    <div class="home-banner">
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-lg-6 py-3 wow fadeInUp">
+                    <h1 class="mb-4">Edit Event<br>{{this.event.nom}}</h1>
+                </div>
+                <div class="col-lg-6 py-3 wow zoomIn">
+                    <div class="img-place">
+                        <img src="./assets/img/bg_image_3.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div>
+    <div class="page-section">
+        <div class="cordido">
+            <button class="btn btn-danger btn-round m-auto" (click)="supprim()">Delete !</button>
+            <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+                <br>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="theme">Event Theme<span
+                            style="color: red">*</span></label>
+                    <div class="row">
+                        <div class="form-check ml-5" *ngIf="isCompetition">
+                            <label class="form-check-label">
+                                <input class="form-check-input"
+                                       type="checkbox" (click)="themeing('Hackathon')"
+                                       value="Hackathon" [checked]="themeT.indexOf('Hackathon') !== -1"
+                                       ngModel>
+                                Hackathon
+                                <span class="form-check-sign"></span>
+                            </label>
+                        </div>
+                        <div *ngFor="let c of themes">
+                            <div class="form-check ml-5">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" id="theme"
+                                           type="checkbox" (click)="themeing(c)"
+                                           value="{{c}}" [checked]="themeT.indexOf(c) !== -1"
+                                           ngModel>
+                                    {{c}}
+                                    <span class="form-check-sign"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="nom">Event Name<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="nom" class="form-control col" style="" name="nom"
+                           [ngClass]="{'is-invalid':nom.invalid && nom.dirty}" #nom="ngModel"
+                           required [(ngModel)]="event.nom">
+                    <div *ngIf="event.nom.trim().length <= 3" class="text-danger">Please fill this
+                        field !
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <div class="wow zoomIn text-center">
+                        <button class="btn btn-lg btn-outline-primary " (click)="open()">Select University Organisms
+                        </button>
+                        <br>
+                    </div>
+                    <div class="form-group wow zoomIn">
+                        <h4 *ngIf="this.instituing.length !== 0">Institus : </h4>
+                        <div class="row col-md-12">
+                            <h5 *ngFor="let c of this.instituing">{{c.nomInstitus}}
+                                <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
+                                        (click)="closeInstitus(c)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h5>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <h4 *ngIf="this.clubing.length !== 0">Clubs : </h4>
+                        <div class="row col-md-12">
+                            <h5 *ngFor="let c of this.clubing">{{c.nomClub}}
+                                <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
+                                        (click)="closeClub(c)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h5>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <h4 *ngIf="this.cfing.length !== 0">Training Centers : </h4>
+                        <div class="row col-md-12">
+                            <h5 *ngFor="let c of this.cfing">{{c.nomCf}}
+                                <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
+                                        (click)="closeCf(c)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>&nbsp;&nbsp;&nbsp;
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="capacity">Event capacity {{event.capacity}}</label>
+                    <nouislider [min]="0" [max]="5000" [step]="1" [(ngModel)]="event.capacity"
+                                name="capacity" id="capacity" required ngModel
+                                class="slider slider-warning"></nouislider>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="address">Event Address<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="address" class="form-control col" style="" name="address"
+                           [ngClass]="{'is-invalid':address.invalid && address.dirty}" #address="ngModel"
+                           required [(ngModel)]="event.address">
+                    <div *ngIf="event.address.trim().length <= 3" class="text-danger">Please write either the local
+                        address or
+                        the meet link!
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="email">Event Email<span style="color: red">*</span></label>
+                    <input type="email" id="email" class="form-control col" style="" name="email"
+                           [ngClass]="{'is-invalid':email.invalid && email.dirty}" #email="ngModel"
+                           required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="event.email">
+                    <div *ngIf="email.invalid" class="text-danger">Please write a valid email!
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="tel">Event Tel<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="tel" class="form-control col" style="" name="tel"
+                           [ngClass]="{'is-invalid':tel.invalid && tel.dirty}" #tel="ngModel"
+                           required pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" [(ngModel)]='event.tel'>
+                    <div *ngIf="tel.invalid" class="text-danger">Please write a valid Telephone Number!
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="link">Registration Link<span
+                            style="color: red">*</span></label>
+                    <input type="text" id="link" class="form-control col" style="" name="link"
+                           [ngClass]="{'is-invalid':link.invalid && link.dirty}"
+                           #link="ngModel" required
+                           pattern="(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
+                           [(ngModel)]='event.registrationLink'>
+                    <div *ngIf="link.invalid" class="text-danger">Please write the registration link*
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="price">Event Price {{event.price}} DT</label>
+                    <nouislider [min]="0" [max]="1000" [step]="1" [(ngModel)]="event.price"
+                                name="price" id="price" required ngModel
+                                class="slider slider-warning"></nouislider>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <div class="row  justify-content-md-center">
+                        <div class="ml-1">
+                            <label style="" class="h5 col" for="starting">Starting Date</label>
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <div class="input-group date"
+                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                       name="starting" [(ngModel)]="startD"
+                                                       [minDate]="{year: startings.year, month:startings.month, day:startings.day}"
+                                                       ngbDatepicker id="starting"
+                                                       #starting="ngbDatepicker"
+                                                       (ngModelChange)="startingDate()"
+                                                       (click)="starting.toggle()" (focus)="focus=true"
+                                                       (blur)="focus=false"/>
+                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-1">
+                            <label style="" class="h5 col" for="finishing">Finishing Date</label>
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <div class="input-group date"
+                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                       name="finishing" [(ngModel)]="finishings"
+                                                       [minDate]="{year: startings.year, month:startings.month, day:startings.day}"
+                                                       ngbDatepicker id="finishing" [disabled]='startB'
+                                                       (ngModelChange)="finishingDate()"
+                                                       #finishing="ngbDatepicker"
+                                                       (click)="finishing.toggle()" (focus)="focus=true"
+                                                       (blur)="focus=false"/>
+                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-1">
+                            <label style="" class="h5 col" for="limitDate">Registration Date Limit</label>
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <div class="input-group date"
+                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                       name="limitDate" [(ngModel)]="limitDate"
+                                                       [maxDate]="{year: finishD.year, month:finishD.month, day:finishD.day}"
+                                                       ngbDatepicker id="limitDate" #limitDating="ngModel"
+                                                       (ngModelChange)="limitingDate()" [disabled]='finishB'
+                                                       #limitDates="ngbDatepicker"
+                                                       (click)="limitDates.toggle()" (focus)="focus=true"
+                                                       (blur)="focus=false"/>
+                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="startB" class="text-danger">Please Confirm the Dates !</div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="partenaires">Event Partenaires</label>
+                    <textarea type="text" id="partenaires" class="form-control col" style=""
+                              name="associe" #partenaires="ngModel" [(ngModel)]='event.partenaires'></textarea>
+                    <div class="">
+                        Would you like the links seperated with ',' !
+                    </div>
+                </div>
+                <div class="form-group wow zoomIn">
+                    <label style="" class="h5 col" for="description">Event Description</label>
+                    <textarea type="text" id="description" class="form-control col" style=""
+                              name="description"
+                              [ngClass]="{'is-invalid':description.invalid && description.dirty}"
+                              #description="ngModel"
+                              [(ngModel)]='event.description'></textarea>
+
+                </div>
+                <!--
+                                w mazelet el pictures
+                -->
+                <label style="" class="h5 col" for="description">Event Display</label>
+
+                <div class="row text-center wow zoomIn">
+
+                    <input type="file" (change)="detectFiles($event)" class="form-control mx-auto my-4 w-75"
+                           accept="image/*">
+
+                </div>
+                <p class="text-success text-center font-weight-bold wow zoomIn" *ngIf="fileUploaded">File Loaded !</p>
+                <p class="text-danger text-center font-weight-bold wow zoomIn" *ngIf="fileIsUploading">Loading ...</p>
+                <br>
+                <br>
+                <div class="row wow zoomIn">
+                    <button type="submit"
+                            [disabled]="form.invalid || fileIsUploading || submited"
+                            class="col btn"><h5>Finish Editing</h5>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

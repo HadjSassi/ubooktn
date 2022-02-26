@@ -47,10 +47,11 @@ import {OneFormationComponent} from './components/events/one-formation/one-forma
 import {OneCertificationComponent} from './components/events/one-certification/one-certification.component';
 import {OneJourneyComponent} from './components/events/one-journey/one-journey.component';
 import {NewEventComponent} from './components/events/new-event/new-event.component';
+import {EditEventComponent} from './components/events/edit-event/edit-event.component';
 
 
 const routes: Routes = [
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: '', redirectTo: 'acceuil', pathMatch: 'full'},
     {path: 'home', component: ComponentsComponent},
     {path: 'user-profile', component: ProfileComponent},
     {path: 'landing', component: LandingComponent},
@@ -70,6 +71,7 @@ const routes: Routes = [
     {path: 'university/TrainingCenter/:id', component: OneCentreFormationComponent},
     {path: 'event', component: EventsComponent},
     {path: 'event/new', canActivate: [AuthGuard], component: NewEventComponent},
+    {path: 'event/edit/:type/:id', canActivate: [AuthGuard], component: EditEventComponent},
     {path: 'event/competitions', component: CompetitionsComponent},
     {path: 'event/competitions/:id', component: OneCompetitionComponent},
     {path: 'event/training', component: FormationsComponent},

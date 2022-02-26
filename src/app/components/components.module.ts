@@ -52,6 +52,7 @@ import {OneFormationComponent} from './events/one-formation/one-formation.compon
 import {NewEventComponent} from './events/new-event/new-event.component';
 import {NgbdModalContent} from './modal/modal.component';
 import {NgbdModalContentEvents} from './events/new-event/new-event.component';
+import {EditEventComponent} from './events/edit-event/edit-event.component';
 
 @NgModule({
     imports: [
@@ -108,7 +109,8 @@ import {NgbdModalContentEvents} from './events/new-event/new-event.component';
         OneJourneyComponent,
         OneCertificationComponent,
         OneCompetitionComponent,
-        OneFormationComponent
+        OneFormationComponent,
+        EditEventComponent
     ],
     entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]

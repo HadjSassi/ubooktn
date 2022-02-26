@@ -5,8 +5,11 @@
     <div class="filter"></div>
     <div class="container">
         <div class="motto text-center wow fadeIn">
-            <a href="{{this.comp.registrationLink}}" class="btn btn-outline-neutral btn-round "><span
+            <a *ngIf="!isAuthor" href="{{this.comp.registrationLink}}" class="btn btn-outline-neutral btn-round "><span
                     style="font-size: 500%;">BooK UP</span></a>
+            <a *ngIf="isAuthor" href="/#/event/edit/journey/{{this.comp.id}}"
+               class="btn btn-outline-neutral btn-round "><span
+                    style="font-size: 500%;">Modify</span></a>
         </div>
     </div>
 </div>
