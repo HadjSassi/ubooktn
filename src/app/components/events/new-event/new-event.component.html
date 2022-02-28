@@ -304,12 +304,13 @@
                 <!--
                                 w mazelet el pictures
                 -->
-                <label style="" class="h5 col" for="description">Event Display</label>
+                <label style="" class="h5 col" for="description">Event Display <span class="small">&nbsp;&nbsp;&nbsp;&nbsp;Images : JPG/JPEG/PNG/GIF/WEBP/SVG+XML</span></label>
 
                 <div class="row text-center wow zoomIn">
 
                     <input type="file" (change)="detectFiles($event)" class="form-control mx-auto my-4 w-75"
                            accept="image/*">
+
 
                 </div>
                 <p class="text-success text-center font-weight-bold wow zoomIn" *ngIf="fileUploaded">File Loaded !</p>

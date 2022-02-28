@@ -19,6 +19,8 @@ export class SignUpComponent implements OnInit {
     pass = '';
     errorMessage = '';
     isError = false;
+    look = false;
+
     constructor(private authService: AuthService,
                 private router: Router,
     ) {
@@ -36,7 +38,7 @@ export class SignUpComponent implements OnInit {
     }
 
     OnClick() {
-        this.router.navigate(['auth/signin']);
+        this.router.navigate(['auth/signup']);
     }
 
     onSubmit(form: NgForm) {
@@ -57,5 +59,19 @@ export class SignUpComponent implements OnInit {
         );
     }
 
+    looks() {
+        const x = document.getElementById('pass');
+        if (this.look) {
+            this.look = false;
+            x.type = 'password';
+        } else {
+            this.look = true;
+            x.type = 'text';
+        }
+    }
+
+    gmail() {
+        console.log('hey');
+    }
 
 }

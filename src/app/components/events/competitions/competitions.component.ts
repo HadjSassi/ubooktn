@@ -58,7 +58,7 @@ export class CompetitionsComponent implements OnInit {
     cf: number[] = [];
     listCfNames: string[] = [];
     listCfabrev: string[] = [];
-    themes = this.settingsService.themes;
+    themes: string[] = [];
     themeT = [];
     startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     startD: NgbDateStruct;
@@ -74,6 +74,10 @@ export class CompetitionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.themes.push('Hackathon');
+        for (const i of this.settingsService.themes) {
+            this.themes.push(i);
+        }
         this.clubss = this.settingsService.listClubs;
         for (const i of this.clubss) {
             this.clubs.push(i.idClub);

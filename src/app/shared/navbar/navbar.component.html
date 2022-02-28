@@ -54,10 +54,10 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a *ngIf="!isRegistred ; else logouts" routerLink="auth/signup" class="btn btn-purple btn-round">Sign
-                        in / Sign up</a>
-                    <ng-template #logouts><a (click)="logout()" class="btn btn-purple btn-round"
-                                             routerLink="auth/signup">Log out</a>
+                    <a *ngIf="!isRegistred ; else logouts" routerLink="auth/signin" class="btn btn-purple btn-round">Sign
+                        IN / Sign UP</a>
+                    <ng-template #logouts><a id="log" (click)="logout()" class="btn btn-purple btn-round"
+                                             routerLink="auth/signin">Log out</a>
                     </ng-template>
                 </li>
             </ul>

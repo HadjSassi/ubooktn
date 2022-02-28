@@ -499,7 +499,7 @@ export class OneDocumentComponent implements OnInit {
             }
         );
         const ids: number = this.route.snapshot.params['id'];
-        const id: number = ids;
+        const id: number = ids - 0;
         // id document récupéré
         let uid = '';
         this.comment.documentId = id;
@@ -527,7 +527,7 @@ export class OneDocumentComponent implements OnInit {
                         (response: User[]) => {
                             for (const i of response) {
                                 if (i.uid === uid) {
-                                    this.idUser = i.idUser;
+                                    this.idUser = i.idUser - 0;
                                     this.comment.userUrl = i.urlPicUser;
                                     this.comment.userName = i.prenomUser + ' ' + i.nomUser;
                                     // iduser récupéré
@@ -536,7 +536,7 @@ export class OneDocumentComponent implements OnInit {
                             }
 
                             // zone de travail iduser found
-                            this.voteInit.documentId = id;
+                            this.voteInit.documentId = id - 0;
                             this.voteInit.userId = this.idUser;
 
                             this.voteService.getVoteDocuments().subscribe(

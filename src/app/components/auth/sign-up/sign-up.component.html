@@ -9,9 +9,9 @@
                             <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
                                 <i class="fa fa-facebook-square"></i>
                             </a>
-                            <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
+                            <button (click)="gmail()" class="btn btn-neutral btn-google btn-just-icon">
                                 <i class="fa fa-google-plus"></i>
-                            </a>
+                            </button>
                             <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
                                 <i class="fa fa-twitter"></i>
                             </a>
@@ -42,8 +42,14 @@
                                   </span>
                                 </div>
                                 <input name="pass" type="password" class="form-control" placeholder="Password"
-                                       (focus)="focus1=true" required
+                                       (focus)="focus1=true" required id="pass"
                                        (blur)="focus1=false" ngModel>
+                                <div class="input-group-prepend" (click)="looks()" style="cursor: pointer">
+                                  <span class="input-group-text" [ngClass]="{'icon-danger':isError}">
+                                      <i *ngIf="look" class="fa fa-eye wow fadeIn"></i>
+                                      <i *ngIf="!look" class="fa fa-eye-slash wow fadeIn"></i>
+                                  </span>
+                                </div>
                             </div>
                             <label *ngIf="isError" class="text-danger " style="margin-left: 28%;">Wrong coordinates
                                 !</label>
@@ -53,9 +59,8 @@
                         </form>
                         <div class="forgot">
                             <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
-                        </div>
-                        <div class="forgot">
-                            <a (click)="OnClick()" class="btn btn-link btn-register"><strong>Create New Account</strong></a>
+                            <a (click)="OnClick()" style="margin-top: -5%;" class="btn btn-link btn-register"><strong>Create
+                                New Account</strong></a>
                         </div>
                     </div>
                 </div>

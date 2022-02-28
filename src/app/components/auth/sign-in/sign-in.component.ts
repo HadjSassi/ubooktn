@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AngularFireAuth} from '@angular/fire/auth';
 import {AuthService} from '../../../services/auth.service';
-import {UserService} from '../../../services/user.service';
 import * as firebase from 'firebase';
 
 @Component({
@@ -25,6 +23,9 @@ export class SignInComponent implements OnInit {
     errorMessage = '';
     isInvalidMail = false;
     isInvalidPass = false;
+    isInvalidConfirm = false;
+    invName = false;
+    look = false;
 
     constructor(private authService: AuthService,
                 private router: Router
@@ -42,7 +43,7 @@ export class SignInComponent implements OnInit {
     }
 
     OnClick() {
-        this.router.navigate(['auth/signup']);
+        this.router.navigate(['auth/signin']);
     }
 
     onSubmit(form: NgForm) {
@@ -63,7 +64,40 @@ export class SignInComponent implements OnInit {
 
     ontype1(key: string) {
         this.pass = key;
-        this.isInvalidPass = key.length < 6;
+        this.isInvalidConfirm = true;
+        const test = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+        this.isInvalidPass = !(key.match(test));
     }
 
+    ontype2(key: string) {
+        this.isInvalidConfirm = (key !== this.pass || key.length < 6);
+    }
+
+    looks() {
+        const x = document.getElementById('pass');
+        if (this.look) {
+            this.look = false;
+            x.type = 'password';
+        } else {
+            this.look = true;
+            x.type = 'text';
+        }
+    }
+
+    verifMail(key: string) {
+        if (key.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')) {
+            this.isInvalidMail = false;
+        } else {
+            this.isInvalidMail = true;
+        }
+    }
+
+    verifLegnth(ch: string) {
+        ch = ch.replace(/\s/g, '');
+        this.invName = ch.length <= 3;
+    }
+
+    gmail() {
+        console.log('hey');
+    }
 }

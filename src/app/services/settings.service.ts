@@ -23,7 +23,10 @@ export class SettingsService {
     public listInstitus = [];
     public listClubs = [];
     public listCfs = [];
-    public themes = ['robotic', 'informatique', 'other', 'other1', 'other2', 'other3', 'other4', 'other5'];
+    public themes = ['Computer Sciences', 'Robotic', 'Entrepreneurship', 'Literature',
+        'Soft Skills', 'Chemistry', 'Physics', 'Mathematics', 'Sciences', 'Other', 'Philosophy', 'Human Sciences',
+        'Politics', 'Management', 'Technology', 'Mechanics', 'Religious', 'Sports', 'Games', 'Musics', 'Arts'
+        , 'Cinema', 'Multimedia'].sort();
 
     constructor(private http: HttpClient,
                 private institusService: InstitusService,
