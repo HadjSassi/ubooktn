@@ -154,7 +154,7 @@ export class ProfilsComponent implements OnInit {
 
 
     onUploadFile(file: File) {
-        if (this.foulen.urlPicUser !== '../../../../assets/img/icon.png') {
+        if (this.foulen.urlPicUser.indexOf('assets/img/icon.png') === -1) {
             const storageRef = firebase.storage().refFromURL(this.foulen.urlPicUser);
             storageRef.delete().then(
                 () => {

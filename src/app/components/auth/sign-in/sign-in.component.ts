@@ -3,6 +3,10 @@ import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import * as firebase from 'firebase';
+import {User} from '../../../model/User';
+import {HttpErrorResponse} from '@angular/common/http';
+import {UserService} from '../../../services/user.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
     selector: 'app-sign-in',
@@ -28,7 +32,9 @@ export class SignInComponent implements OnInit {
     look = false;
 
     constructor(private authService: AuthService,
-                private router: Router
+                private router: Router,
+                private userService: UserService,
+                private afAuth: AngularFireAuth
     ) {
     }
 
@@ -54,6 +60,7 @@ export class SignInComponent implements OnInit {
         this.authService.createNewUser(this.email, this.pass, this.name).then(
             () => {
                 this.router.navigate(['acceuil']);
+                window.location.reload();
             },
             (error) => {
                 this.errorMessage = 'Veuillez Changer les cordonnée.';
@@ -98,6 +105,49 @@ export class SignInComponent implements OnInit {
     }
 
     gmail() {
-        console.log('hey');
+        const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+        this.afAuth.signInWithPopup(googleAuthProvider).then(value => {
+            let notFound = true;
+            this.userService.getUsers().subscribe(
+                (result: User[]) => {
+                    console.log(value.user.uid.toString());
+                    for (const u of result) {
+                        console.log(u.uid.toString());
+                        if (u.uid.toString() === value.user.uid.toString()) {
+                            notFound = false;
+                            break;
+                        }
+                    }
+                    if (notFound) {
+                        const user: any = {
+                            uid: value.user.uid.toString(),
+                            mailUser: value.user.email,
+                            nomUser: value.user.email.split('@')[0],
+                            prenomUser: '',
+                            urlPicUser: './assets/img/icon.png',
+                            job: '',
+                            urlFacebook: '',
+                            urlLinkedIn: '',
+                            score: 0,
+                            description: '',
+                            historiqueDocument: '',
+                            historiqueExamen: '',
+                        }
+                        this.userService.addUser(user).subscribe(
+                            (response: User) => {
+                                console.log(user);
+                            },
+                            (error: HttpErrorResponse) => {
+                                alert(error.message);
+                            }
+                        );
+                    }
+                    this.router.navigate(['home']);
+                    window.location.reload();
+                }, error => {
+                    console.log(error);
+                }
+            );
+        });
     }
 }

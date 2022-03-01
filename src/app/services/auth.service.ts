@@ -23,7 +23,6 @@ export class AuthService {
 
 
                         const user: any = {
-                            // @ts-ignore
                             uid: test.user.uid.toString(),
                             mailUser: email,
                             nomUser: name,

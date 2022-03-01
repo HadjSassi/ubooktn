@@ -82,6 +82,7 @@ firebase.initializeApp(environment.firebase);
         ExamplesModule,
         AppRoutingModule,
         HttpClientModule,
+        AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFireStorageModule,
         NouisliderModule
