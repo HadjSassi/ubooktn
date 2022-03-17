@@ -15,6 +15,7 @@ import {Document} from '../../model/Document';
 })
 export class DocumentsComponent implements OnInit {
 
+    loading = true;
     currentPage = 1;
     nbMaxPage = 0;
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
@@ -118,6 +119,7 @@ export class DocumentsComponent implements OnInit {
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);

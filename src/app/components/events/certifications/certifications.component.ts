@@ -65,7 +65,7 @@ export class CertificationsComponent implements OnInit {
     finishings: NgbDateStruct;
     finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     finishB = false;
-
+    loading = true;
     constructor(private certificationService: CertificationService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
@@ -147,6 +147,7 @@ export class CertificationsComponent implements OnInit {
                 }
                 this.nbMaxPage = Math.ceil(response.length / this.nbElmParPage);
                 this.nbMaxPage2 = this.nbMaxPage * 10;
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);

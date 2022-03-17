@@ -19,6 +19,7 @@ import {environment} from '../../../../environments/environment';
 export class InstitusComponent implements OnInit {
 
 
+    loading = true;
     currentPage = 1;
     nbMaxPage = 0;
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
@@ -124,6 +125,7 @@ export class InstitusComponent implements OnInit {
                         alert(error.message);
                     }
                 );
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);

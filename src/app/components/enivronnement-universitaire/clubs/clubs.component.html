@@ -46,6 +46,9 @@
                         </div>
                     </div>
                     <!--                les resultat-->
+                    <div class="wow fadeIn" style="margin-left: 25%;" [hidden]="!loading">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
                     <div class="col-md-9">
                         <div class="text-center">
                             <div class="">
@@ -56,10 +59,15 @@
                                     <div *ngFor="let s of cl" class="col m-2 card bg-light mb-3 wow fadeIn"
                                          (click)="onViewClub(s.idClub)"
                                          style="max-width: 18rem; cursor: pointer">
-                                        <img class="card-img-top" style="width: 100%;" src="{{s.logo}}"
-                                             alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{s.nomClub}}</h5>
+                                        <div class="" style="width: 250px">
+                                            <img class="card-img-top"
+                                                 src="{{s.logo}}"
+                                                 alt="Card image cap">
+                                            <div class="card-body">
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="card-title">{{s.nomClub}}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -68,10 +76,15 @@
                                     <div *ngFor="let s of clu" class="col m-2 card bg-light mb-3 wow fadeIn"
                                          (click)="onViewClub(s.idClub)"
                                          style="max-width: 18rem; cursor: pointer">
-                                        <img class="card-img-top" style="width: 100%;" src="{{s.logo}}"
-                                             alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{s.nomClub}}</h5>
+                                        <div class="" style="width: 250px">
+                                            <img class="card-img-top"
+                                                 src="{{s.logo}}"
+                                                 alt="Card image cap">
+                                            <div class="card-body">
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="card-title">{{s.nomClub}}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

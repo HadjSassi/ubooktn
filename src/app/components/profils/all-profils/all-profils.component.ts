@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./all-profils.component.css']
 })
 export class AllProfilsComponent implements OnInit {
-
+    loading = true;
     rang: User[] = [];
     currentPage = 1;
     nbMaxPage2 = 0;
@@ -69,6 +69,7 @@ export class AllProfilsComponent implements OnInit {
                 }
                 this.nbMaxPage = Math.ceil(this.Users.length / this.nbElmParPage);
                 this.nbMaxPage2 = this.nbMaxPage * 10;
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);

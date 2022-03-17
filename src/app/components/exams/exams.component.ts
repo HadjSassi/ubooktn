@@ -28,7 +28,7 @@ export class ExamsComponent implements OnInit {
     niveau: string[] = [];
     annee: string[] = [];
     nbMaxPage2 = 0;
-
+    loading = true;
     constructor(private examenService: ExamenService,
                 private router: Router,
                 private settingService: SettingsService) {
@@ -121,6 +121,7 @@ export class ExamsComponent implements OnInit {
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);

@@ -136,6 +136,9 @@
                         </div>
                     </div>
                     <!--                les resultat-->
+                    <div class="wow fadeIn" style="margin-left: 25%;" [hidden]="!loading">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
                     <div class="col-md-9">
                         <div class="text-center">
                             <div class="wow fadeIn">
@@ -147,8 +150,10 @@
                                              class="col m-2 card bg-light mb-3 wow fadeInUp"
                                              (click)="onViewCertification(s.id)"
                                              style="max-width: 18rem; cursor: pointer">
-                                            <img style="clip-path: fill-box; cursor: pointer; height: 350px"
-                                                 class="img-thumbnail img-no-padding img-responsive"
+                                            <div class="background blur"
+                                                 [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
+                                            <img style="clip-path: fill-box; cursor: pointer;"
+                                                 class="img-thumbnail img-no-padding img-responsive iii"
                                                  src="{{s.affiche}}"
                                                  alt="Card image cap">
                                             <div class="card-body">
@@ -164,8 +169,10 @@
                                              class="col m-2 card bg-light mb-3 wow fadeInUp"
                                              (click)="onViewCertification(s.id)"
                                              style="max-width: 18rem; cursor: pointer">
-                                            <img style="clip-path: fill-box; cursor: pointer; height: 350px"
-                                                 class="img-thumbnail img-no-padding img-responsive"
+                                            <div class="background blur"
+                                                 [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
+                                            <img style="clip-path: fill-box; cursor: pointer;"
+                                                 class="img-thumbnail img-no-padding img-responsive iii"
                                                  src="{{s.affiche}}"
                                                  alt="Card image cap">
                                             <div class="card-body">

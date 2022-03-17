@@ -18,7 +18,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class ClubsComponent implements OnInit {
 
-    // @ts-ignore
+    loading = true;
     foulen: User;
     public isAdmin = false;
     currentPage = 1;
@@ -125,6 +125,7 @@ export class ClubsComponent implements OnInit {
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);

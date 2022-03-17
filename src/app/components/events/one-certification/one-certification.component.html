@@ -94,6 +94,38 @@
         </div>
     </div>
 
+    <div class="">
+        <div class="text-center wow fadeIn">
+            <div>
+                <img
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        width="40%"
+                        style="clip-path: fill-box;cursor: pointer"
+                        class="img-thumbnail img-no-padding img-responsive iii"
+                        src="{{this.comp.affiche}}"/>
+            </div>
+        </div>
+        <div class="modal fade"
+             id="exampleModal"
+             tabindex="-1"
+             role="dialog"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <!-- Add image inside the body of modal -->
+                    <div class="modal-body">
+                        <img id="image" src="{{this.comp.affiche}}"
+                             width="100%" alt="Click on button"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="section section-dark text-center">
         <div class="container">
