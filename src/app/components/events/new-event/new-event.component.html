@@ -1,18 +1,13 @@
-<br>
-<br>
-<br>
-<br>
-<br>
 <header>
-    <div class="home-banner">
-        <div class="container h-100">
-            <div class="row align-items-center h-100">
+    <div class="home-banner" style="margin-top: 5%">
+        <div class="container">
+            <div class="row align-items-center">
                 <div class="col-lg-6 py-3 wow fadeInUp">
                     <h1 class="mb-4">New Event</h1>
                 </div>
                 <div class="col-lg-6 py-3 wow zoomIn">
                     <div class="img-place">
-                        <img src="./assets/img/bg_image_3.png" alt="">
+                        <img style="width: 50%" src="./assets/img/bg_image_3.png" alt="">
                     </div>
                 </div>
             </div>
@@ -75,7 +70,7 @@
                     <label style="" class="h5 col" for="theme">Event Theme<span
                             style="color: red">*</span></label>
                     <div class="row">
-                        <div class="form-check ml-5" *ngIf="event.value === 'comp'">
+                        <div class="form-check ml-5" style="width: 120px;" *ngIf="event.value === 'comp'">
                             <label class="form-check-label">
                                 <input class="form-check-input" id="hack"
                                        name="input" type="checkbox" (click)="themeing('Hackathon')"
@@ -86,7 +81,7 @@
                             </label>
                         </div>
                         <div *ngFor="let c of themes">
-                            <div class="form-check ml-5">
+                            <div class="form-check ml-5" style="width: 120px">
                                 <label class="form-check-label">
                                     <input class="form-check-input" id="theme"
                                            name="input" type="checkbox" (click)="themeing(c)"
