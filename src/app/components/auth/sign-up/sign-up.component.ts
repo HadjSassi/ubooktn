@@ -125,4 +125,51 @@ export class SignUpComponent implements OnInit {
         });
     }
 
+    facebook() {
+        const facebookAuthProvicer = new firebase.auth.FacebookAuthProvider();
+        this.afAuth.signInWithPopup(facebookAuthProvicer).then(value => {
+            let notFound = true;
+            this.userService.getUsers().subscribe(
+                (result: User[]) => {
+                    console.log(value.user.uid.toString());
+                    for (const u of result) {
+                        console.log(u.uid.toString());
+                        if (u.uid.toString() === value.user.uid.toString()) {
+                            notFound = false;
+                            break;
+                        }
+                    }
+                    if (notFound) {
+                        const user: any = {
+                            uid: value.user.uid.toString(),
+                            mailUser: value.user.email,
+                            nomUser: value.user.email.split('@')[0],
+                            prenomUser: '',
+                            urlPicUser: './assets/img/icon.png',
+                            job: '',
+                            urlFacebook: '',
+                            urlLinkedIn: '',
+                            score: 0,
+                            description: '',
+                            historiqueDocument: '',
+                            historiqueExamen: '',
+                        }
+                        this.userService.addUser(user).subscribe(
+                            (response: User) => {
+                                console.log(user);
+                            },
+                            (error: HttpErrorResponse) => {
+                                alert(error.message);
+                            }
+                        );
+                    }
+                    this.router.navigate(['home']);
+                    window.location.reload();
+                }, error => {
+                    console.log(error);
+                }
+            );
+        });
+    }
+
 }
