@@ -3,12 +3,13 @@ import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 import {SettingsService} from '../../../services/settings.service';
 import {NgForm} from '@angular/forms';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {ExamenService} from '../../../services/examen.service';
 import {Examen} from '../../../model/Examen';
 import {User} from '../../../model/User';
 import {Settings} from '../../../model/Settings';
 import * as firebase from 'firebase';
+import {environment} from '../../../../environments/environment';
 
 
 @Component({
@@ -169,7 +170,7 @@ export class NewExamenComponent implements OnInit {
 
     onUploadFile(file: File) {
         this.fileIsUploading = true;
-        this.examenService.uploadFile(file).then(
+        /*this.examenService.uploadFile(file).then(
             // @ts-ignore
             (url: string) => {
                 console.log('terminé!');
@@ -178,7 +179,21 @@ export class NewExamenComponent implements OnInit {
                 this.fileIsUploading = false;
                 this.fileUploaded = true;
             }
-        );
+        );*/
+        this.examenService.uploadFile(file).subscribe(
+            event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log('file still');
+                } else if (event instanceof HttpResponse) {
+                    console.log('File success');
+                    // this.fileUrl = environment.localStoragePath + 'Examen' + file.name;
+                    this.fileUrl = 'assets/Storage/Examen/' + file.name;
+                    console.log(this.fileUrl)
+                    this.fileIsUploading = false;
+                    this.fileUploaded = true;
+                }
+            }
+        )
     }
 
     // @ts-ignore

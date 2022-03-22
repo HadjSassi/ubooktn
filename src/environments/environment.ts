@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8081',
+  apiBaseUrlUpload: 'http://localhost:8081/upload/',
   admine: 'mahdihadjsassi1@gmail.com',
   firebase: {
     apiKey: 'AIzaSyCUa1-RGYctGMX9T44QHhTPVQL43whB60I',

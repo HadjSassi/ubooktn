@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Examen} from '../model/Examen';
 import * as firebase from 'firebase';
@@ -33,10 +33,10 @@ export class ExamenService {
     }
 
 
-    uploadFile(file: File) {
-        return new Promise(
+    uploadFile(file: File): Observable<HttpEvent<{}>> {
+        /*return new Promise (
             (resolve, reject) => {
-                console.log(file.name);
+                /!*console.log(file.name);
                 const upload = firebase.storage().ref()
                     .child('Examen/' + file.name)
                     .put(file);
@@ -52,9 +52,25 @@ export class ExamenService {
                     () => {
                         resolve(upload.snapshot.ref.getDownloadURL());
                     }
-                );
+                );*!/
+                // lahna bech n7ot el controlleur mte3na ye5dem kol chay
+                const formData: FormData = new FormData();
+                formData.append('file', file);
+                const req = new HttpRequest('POST', 'http://localhost:8081/upload/Examen', formData, {
+                    reportProgress: true,
+                    responseType: 'text'
+                });
+                this.http.request(req);
+                resolve(environment.localStoragePath + 'Examen/' + file.name);
             }
-        );
+        );*/
+        const data: FormData = new FormData();
+        data.append('file', file);
+        const newRequest = new HttpRequest('POST', 'http://localhost:8081/upload/Examen', data, {
+            reportProgress: true,
+            responseType: 'text'
+        });
+        return this.http.request(newRequest);
     }
 
 }
