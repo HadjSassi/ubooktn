@@ -14,12 +14,26 @@
                     <!--                la zone de filtrage-->
                     <div class="col-3">
                         <div class="">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                             <div>
+                                <div>
+                                    <div class="row">
+                                        <button class="btn"
+                                                [class]="{'btn-outline-default':!grille,'btn-default':grille}"
+                                                (click)="onGrille()"><i style="font-size: 150%"
+                                                                        class="fa fa-th-large"></i></button>
+                                        <button class="btn"
+                                                [class]="{'btn-outline-default':grille,'btn-default':!grille}"
+                                                (click)="onGrille()"><i style="font-size: 150%"
+                                                                        class="fa fa-th-list"></i></button>
+                                    </div>
+                                </div>
+                                <br>
                                 <form #form="ngForm" (change)="onSubmit(form)">
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
+
                                     <!--Research Bar -->
                                     <div class="wow fadeIn">
                                         <div class="row" style="margin-left: auto">
@@ -144,45 +158,62 @@
                             <div class="wow fadeIn">
                                 <h4>Results :</h4>
                                 <hr>
-                                <div *ngIf="Evenement.length !== 0">
-                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
-                                        <div *ngFor="let s of evenement"
-                                             class="col m-2 card bg-light mb-3 wow fadeInUp"
-                                             (click)="onViewJourney(s.id)"
-                                             style="max-width: 18rem; cursor: pointer">
-                                            <div class="background blur"
-                                                 [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
-                                            <img style="clip-path: fill-box; cursor: pointer;"
-                                                 class="img-thumbnail img-no-padding img-responsive iii"
-                                                 src="{{s.affiche}}"
-                                                 alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{s.nom}}</h5>
+                                <div class="" *ngIf="grille">
+                                    <div *ngIf="Evenement.length !== 0">
+                                        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                            <div *ngFor="let s of evenement"
+                                                 class="col m-2 card bg-light mb-3 wow fadeInUp"
+                                                 (click)="onViewJourney(s.id)"
+                                                 style="max-width: 18rem; cursor: pointer">
+                                                <div class="background blur"
+                                                     [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
+                                                <img style="clip-path: fill-box; cursor: pointer;"
+                                                     class="img-thumbnail img-no-padding img-responsive iii"
+                                                     src="{{s.affiche}}"
+                                                     alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{s.nom}}</h5>
+                                                </div>
                                             </div>
-                                        </div>
 
+                                        </div>
+                                    </div>
+                                    <div *ngIf="Evenement.length === 0">
+                                        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                            <div *ngFor="let s of evenements"
+                                                 class="col m-2 card bg-light mb-3 wow fadeInUp"
+                                                 (click)="onViewJourney(s.id)"
+                                                 style="max-width: 18rem; cursor: pointer">
+                                                <div class="background blur"
+                                                     [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
+                                                <img style="clip-path: fill-box; cursor: pointer;"
+                                                     class="img-thumbnail img-no-padding img-responsive iii"
+                                                     src="{{s.affiche}}"
+                                                     alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{s.nom}}</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div *ngIf="Evenement.length === 0">
-                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
-                                        <div *ngFor="let s of evenements"
-                                             class="col m-2 card bg-light mb-3 wow fadeInUp"
-                                             (click)="onViewJourney(s.id)"
-                                             style="max-width: 18rem; cursor: pointer">
-                                            <div class="background blur"
-                                                 [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
-                                            <img style="clip-path: fill-box; cursor: pointer;"
-                                                 class="img-thumbnail img-no-padding img-responsive iii"
-                                                 src="{{s.affiche}}"
-                                                 alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{s.nom}}</h5>
-                                            </div>
+                                <div *ngIf="!grille" class="">
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="Evenement.length !== 0">
+                                        <div *ngFor="let s of evenement" class="text-center" style="cursor: pointer"
+                                             (click)="onViewJourney(s.id)">
+                                            <h5>{{s.nom}}</h5>
                                         </div>
-
+                                    </div>
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="Evenement.length === 0">
+                                        <div *ngFor="let s of evenements" class="text-center" style="cursor: pointer"
+                                             (click)="onViewJourney(s.id)">
+                                            <h5>{{s.nom}}</h5>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="wow fadeIn">

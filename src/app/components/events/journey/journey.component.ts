@@ -68,6 +68,8 @@ export class JourneyComponent implements OnInit {
     finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     finishB = false;
     loading = true;
+    grille = true;
+
     constructor(private journeyService: JourneyService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
@@ -386,4 +388,7 @@ export class JourneyComponent implements OnInit {
         this.onSubmit(form);
     }
 
+    onGrille() {
+        this.grille = !this.grille;
+    }
 }

@@ -66,6 +66,8 @@ export class CertificationsComponent implements OnInit {
     finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     finishB = false;
     loading = true;
+    grille = true;
+
     constructor(private certificationService: CertificationService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
@@ -382,6 +384,10 @@ export class CertificationsComponent implements OnInit {
         this.finishD = this.finishings;
         this.finishB = true;
         this.onSubmit(form);
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
     }
 
 }

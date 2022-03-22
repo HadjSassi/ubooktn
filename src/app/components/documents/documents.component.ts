@@ -30,6 +30,7 @@ export class DocumentsComponent implements OnInit {
     niveau: string[] = [];
     annee: string[] = [];
     nbMaxPage2 = 0;
+    grille = true;
 
     constructor(private documentService: DocumentService,
                 private router: Router,
@@ -231,5 +232,9 @@ export class DocumentsComponent implements OnInit {
             }
             this.docu = results;
         }
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
     }
 }

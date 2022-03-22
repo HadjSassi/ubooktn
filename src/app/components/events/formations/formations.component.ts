@@ -67,6 +67,8 @@ export class FormationsComponent implements OnInit {
     finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
     finishB = false;
     loading = true;
+    grille = true;
+
     constructor(private formationService: FormationService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
@@ -384,5 +386,10 @@ export class FormationsComponent implements OnInit {
         this.finishB = true;
         this.onSubmit(form);
     }
+
+    onGrille() {
+        this.grille = !this.grille;
+    }
+
 
 }

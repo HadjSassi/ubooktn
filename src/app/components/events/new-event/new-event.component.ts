@@ -7,7 +7,7 @@ import {SettingsService} from '../../../services/settings.service';
 import {Settings} from '../../../model/Settings';
 import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {FormationService} from '../../../services/formation.service';
 import {CertificationService} from '../../../services/certification.service';
@@ -92,6 +92,7 @@ export class NewEventComponent implements OnInit {
     cfing = [];
     ready = true;
     submited = false;
+    noBooking = true;
 
     constructor(private settingsService: SettingsService,
                 private formationService: FormationService,
@@ -343,12 +344,17 @@ export class NewEventComponent implements OnInit {
 
     onUploadFile(file: File) {
         this.fileIsUploading = true;
-        this.settingService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
+        this.settingService.uploadFile(file).subscribe(
+            event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log('file still');
+                } else if (event instanceof HttpResponse) {
+                    console.log('File success');
+                    this.fileUrl = 'assets/Storage/Event/' + file.name;
+                    console.log(this.fileUrl)
+                    this.fileIsUploading = false;
+                    this.fileUploaded = true;
+                }
             }
         );
     }
@@ -426,5 +432,9 @@ export class NewEventComponent implements OnInit {
 
     dating(d: NgbDateStruct) {
         return '' + d.month + '/' + d.day + '/' + d.year;
+    }
+
+    booking() {
+        this.noBooking = !this.noBooking;
     }
 }

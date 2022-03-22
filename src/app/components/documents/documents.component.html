@@ -23,6 +23,17 @@
                 <div class='row'>
                     <!--                                la zone de filtrage-->
                     <div class="wow fadeInUp col-2">
+                        <div>
+                            <div class="row">
+                                <button class="btn" [class]="{'btn-outline-default':!grille,'btn-default':grille}"
+                                        (click)="onGrille()"><i style="font-size: 150%" class="fa fa-th-large"></i>
+                                </button>
+                                <button class="btn" [class]="{'btn-outline-default':grille,'btn-default':!grille}"
+                                        (click)="onGrille()"><i style="font-size: 150%" class="fa fa-th-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <br>
                         <form #form="ngForm" (change)="onSubmit(form)">
                             <div class="">
                                 <div class="row">
@@ -75,7 +86,8 @@
                     <!--                                  les resultat-->
 
                     <br>
-                    <div class="wow fadeIn text-center" [hidden]="!loading">
+                    <div class="wow fadeIn" style="position:relative; transform: translate(1500%,-5%)"
+                         [hidden]="!loading">
                         <div class="spinner-border" role="status"></div>
                     </div>
                     <div class="wow fadeInUp col">
@@ -83,7 +95,7 @@
                             <div class="">
                                 <h4 class="wow fadeInUp">Results :</h4>
                                 <hr>
-                                <div class="">
+                                <div *ngIf="grille" class="">
                                     <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
                                          *ngIf="document.length !== 0">
                                         <div *ngFor="let s of docu" class="col m-2 card bg-light mb-3"
@@ -106,6 +118,24 @@
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
                                                 <p class="card-text">{{s.niveauDocument}} {{s.matiereDocument}}</p>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!grille" class="">
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="document.length !== 0">
+                                        <div *ngFor="let s of docu" class="text-center" style="cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
+                                            <h5>[{{s.typeDocument}} {{s.matiereDocument}} {{s.niveauDocument}}
+                                                ] {{s.nomDocument}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="document.length === 0">
+                                        <div *ngFor="let s of docume" class="text-center" style="cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
+                                            <h5>[{{s.typeDocument}} {{s.matiereDocument}} {{s.niveauDocument}}
+                                                ] {{s.nomDocument}}</h5>
                                         </div>
                                     </div>
                                 </div>

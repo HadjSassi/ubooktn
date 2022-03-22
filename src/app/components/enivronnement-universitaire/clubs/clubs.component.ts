@@ -39,6 +39,8 @@ export class ClubsComponent implements OnInit {
     fileIsUploading = false;
     fileUrl = '';
     message = '';
+    grille = true;
+
     public domaines: string[] = [];
 
     constructor(private clubService: ClubService, private router: Router,
@@ -258,25 +260,8 @@ export class ClubsComponent implements OnInit {
 
     }
 
-    onUploadFile(file: File) {
-        this.fileIsUploading = true;
-        this.userService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                console.log('terminé!');
-                console.log(url);
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
-                this.message = 'Chargé.';
-            }
-        );
+    onGrille() {
+        this.grille = !this.grille;
     }
-
-    // @ts-ignore
-    detectFiles(event) {
-        this.onUploadFile(event.target.files[0]);
-    }
-
 
 }

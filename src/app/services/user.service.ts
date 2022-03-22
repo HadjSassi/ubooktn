@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../model/User';
 import * as firebase from 'firebase';
@@ -31,26 +31,14 @@ export class UserService {
         return this.http.put<User>(`${this.apiServeurUrl}/user/update`, user);
     }
 
-    uploadFile(file: File) {
-        return new Promise(
-            (resolve, reject) => {
-                const upload = firebase.storage().ref()
-                    .child('PicUser/' + file.name)
-                    .put(file);
-                upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
-                    () => {
-                        console.log('Chargement...');
-                    },
-                    (error) => {
-                        console.log('Erreur de chargement : ' + error.message);
-                        reject();
-                    },
-                    () => {
-                        resolve(upload.snapshot.ref.getDownloadURL());
-                    }
-                );
-            }
-        );
+    uploadFile(file: File): Observable<HttpEvent<{}>> {
+        const data: FormData = new FormData();
+        data.append('file', file);
+        const newRequest = new HttpRequest('POST', 'http://localhost:8081/upload/PicUser', data, {
+            reportProgress: true,
+            responseType: 'text'
+        });
+        return this.http.request(newRequest);
     }
 
 

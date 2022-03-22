@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {User} from '../../../model/User';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
@@ -166,12 +166,17 @@ export class NewDocumentComponent implements OnInit {
 
     onUploadFile(file: File) {
         this.fileIsUploading = true;
-        this.documentService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
+        this.documentService.uploadFile(file).subscribe(
+            event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log('file still');
+                } else if (event instanceof HttpResponse) {
+                    console.log('File success');
+                    this.fileUrl = 'assets/Storage/Documents/' + file.name;
+                    console.log(this.fileUrl)
+                    this.fileIsUploading = false;
+                    this.fileUploaded = true;
+                }
             }
         );
     }

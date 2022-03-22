@@ -12,7 +12,7 @@ import {Settings} from '../../../model/Settings';
 import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
 import {Formation} from '../../../model/Formation';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {Competition} from '../../../model/Competition';
 import {Journey} from '../../../model/Journey';
 import {Certification} from '../../../model/Certification';
@@ -381,12 +381,17 @@ export class EditEventComponent implements OnInit {
 
     onUploadFile(file: File) {
         this.fileIsUploading = true;
-        this.settingService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
+        this.settingService.uploadFile(file).subscribe(
+            event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log('file still');
+                } else if (event instanceof HttpResponse) {
+                    console.log('File success');
+                    this.fileUrl = 'assets/Storage/Event/' + file.name;
+                    console.log(this.fileUrl)
+                    this.fileIsUploading = false;
+                    this.fileUploaded = true;
+                }
             }
         );
     }

@@ -41,6 +41,7 @@ export class InstitusComponent implements OnInit {
 
     foulen: User;
     public isAdmin = false;
+    grille = true;
 
 
     file: File = null; // Variable to store file
@@ -287,25 +288,8 @@ export class InstitusComponent implements OnInit {
 
     }
 
-    onUploadFile(file: File) {
-        this.fileIsUploading = true;
-        this.userService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                console.log('terminé!');
-                console.log(url);
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
-                this.message = 'Chargé.';
-            }
-        );
+    onGrille() {
+        this.grille = !this.grille;
     }
-
-    // @ts-ignore
-    detectFiles(event) {
-        this.onUploadFile(event.target.files[0]);
-    }
-
 
 }

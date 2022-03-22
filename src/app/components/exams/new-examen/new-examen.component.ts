@@ -193,7 +193,7 @@ export class NewExamenComponent implements OnInit {
                     this.fileUploaded = true;
                 }
             }
-        )
+        );
     }
 
     // @ts-ignore

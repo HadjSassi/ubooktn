@@ -29,6 +29,7 @@ export class ExamsComponent implements OnInit {
     annee: string[] = [];
     nbMaxPage2 = 0;
     loading = true;
+    grille = true;
     constructor(private examenService: ExamenService,
                 private router: Router,
                 private settingService: SettingsService) {
@@ -224,5 +225,9 @@ export class ExamsComponent implements OnInit {
             }
             this.ex = results;
         }
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
     }
 }

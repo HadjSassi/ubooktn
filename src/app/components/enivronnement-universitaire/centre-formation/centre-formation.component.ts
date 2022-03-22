@@ -46,6 +46,7 @@ export class CentreFormationComponent implements OnInit {
     fileIsUploading = false;
     fileUrl = '';
     message = '';
+    grille = true;
 
     constructor(private centreFormationService: CentreFormationService, private router: Router,
                 private userService: UserService, private clubService: ClubService) {
@@ -264,6 +265,10 @@ export class CentreFormationComponent implements OnInit {
             }
             this.Insti = results;
         }
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
     }
 
 }
