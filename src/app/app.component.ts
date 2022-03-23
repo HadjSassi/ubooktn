@@ -65,4 +65,11 @@ export class AppComponent implements OnInit {
             || titlee === '/documents/reglementions'
             || titlee === '/exams/reglementions');
     }
+
+    removeHeader() {
+        let titlee = this.location.prepareExternalUrl(this.location.path());
+        titlee = titlee.slice(1);
+        return !(titlee === '/auth/signup'
+            || titlee === '/auth/signin');
+    }
 }

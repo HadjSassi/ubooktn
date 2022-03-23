@@ -139,6 +139,7 @@ export class ProfilsComponent implements OnInit {
             description: description,
             historiqueDocument: this.foulen.historiqueDocument,
             historiqueExamen: this.foulen.historiqueExamen,
+            isEnabled: this.foulen.isEnabled
         }
         this.userService.updateUser(rajel).subscribe(
             (response: User) => {

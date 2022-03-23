@@ -12,4 +12,5 @@ export interface User {
     description: string;
     historiqueDocument: string;
     historiqueExamen: string;
+    isEnabled: boolean;
 }

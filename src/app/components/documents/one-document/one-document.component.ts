@@ -120,7 +120,8 @@ export class OneDocumentComponent implements OnInit {
                                     score: this.foulen2.score - 1,
                                     description: this.foulen2.description,
                                     historiqueDocument: this.foulen2.historiqueDocument,
-                                    historiqueExamen: this.foulen2.historiqueExamen
+                                    historiqueExamen: this.foulen2.historiqueExamen,
+                                    isEnabled: this.foulen2.isEnabled
                                 }
                                 this.userService.updateUser(newFoulen).subscribe(
                                     (responses: User) => {
@@ -181,7 +182,8 @@ export class OneDocumentComponent implements OnInit {
                                 score: this.foulen2.score + 3,
                                 description: this.foulen2.description,
                                 historiqueDocument: this.foulen2.historiqueDocument,
-                                historiqueExamen: this.foulen2.historiqueExamen
+                                historiqueExamen: this.foulen2.historiqueExamen,
+                                isEnabled: this.foulen2.isEnabled
                             }
                             this.userService.updateUser(newFoulen).subscribe(
                                 (responses: User) => {
@@ -224,7 +226,8 @@ export class OneDocumentComponent implements OnInit {
                                         score: this.foulen2.score + 1,
                                         description: this.foulen2.description,
                                         historiqueDocument: this.foulen2.historiqueDocument,
-                                        historiqueExamen: this.foulen2.historiqueExamen
+                                        historiqueExamen: this.foulen2.historiqueExamen,
+                                        isEnabled: this.foulen2.isEnabled
                                     }
                                     this.userService.updateUser(newFoulen).subscribe(
                                         (responses: User) => {
@@ -288,7 +291,8 @@ export class OneDocumentComponent implements OnInit {
                                     score: this.foulen2.score - 1,
                                     description: this.foulen2.description,
                                     historiqueDocument: this.foulen2.historiqueDocument,
-                                    historiqueExamen: this.foulen2.historiqueExamen
+                                    historiqueExamen: this.foulen2.historiqueExamen,
+                                    isEnabled: this.foulen2.isEnabled
                                 }
                                 this.userService.updateUser(newFoulen).subscribe(
                                     (responses: User) => {
@@ -348,7 +352,8 @@ export class OneDocumentComponent implements OnInit {
                                 score: this.foulen2.score - 3,
                                 description: this.foulen2.description,
                                 historiqueDocument: this.foulen2.historiqueDocument,
-                                historiqueExamen: this.foulen2.historiqueExamen
+                                historiqueExamen: this.foulen2.historiqueExamen,
+                                isEnabled: this.foulen2.isEnabled
                             }
                             this.userService.updateUser(newFoulen).subscribe(
                                 (responsess: User) => {
@@ -390,7 +395,8 @@ export class OneDocumentComponent implements OnInit {
                                         score: this.foulen2.score + 1,
                                         description: this.foulen2.description,
                                         historiqueDocument: this.foulen2.historiqueDocument,
-                                        historiqueExamen: this.foulen2.historiqueExamen
+                                        historiqueExamen: this.foulen2.historiqueExamen,
+                                        isEnabled: this.foulen2.isEnabled
                                     }
                                     this.userService.updateUser(newFoulen).subscribe(
                                         (responses: User) => {

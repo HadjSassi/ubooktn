@@ -20,7 +20,7 @@ export class AuthService {
                 firebase.auth().createUserWithEmailAndPassword(email, pass).then(
                     (test) => {
                         resolve();
-
+                        alert(pass);
 
                         const user: any = {
                             uid: test.user.uid.toString(),
@@ -35,6 +35,7 @@ export class AuthService {
                             description: '',
                             historiqueDocument: '',
                             historiqueExamen: '',
+                            isEnabled: false
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {

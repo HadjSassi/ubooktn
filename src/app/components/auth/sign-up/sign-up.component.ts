@@ -106,6 +106,7 @@ export class SignUpComponent implements OnInit {
                             description: '',
                             historiqueDocument: '',
                             historiqueExamen: '',
+                            isEnabled: true
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {
@@ -153,6 +154,7 @@ export class SignUpComponent implements OnInit {
                             description: '',
                             historiqueDocument: '',
                             historiqueExamen: '',
+                            isEnabled: true
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {
