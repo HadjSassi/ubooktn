@@ -62,6 +62,7 @@ export class AppComponent implements OnInit {
             || titlee === '/auth/signin'
             || titlee === '/404NotFound'
             || titlee === '/nucleoicons'
+            || titlee === '/confirmation'
             || titlee === '/documents/reglementions'
             || titlee === '/exams/reglementions');
     }
@@ -70,6 +71,7 @@ export class AppComponent implements OnInit {
         let titlee = this.location.prepareExternalUrl(this.location.path());
         titlee = titlee.slice(1);
         return !(titlee === '/auth/signup'
-            || titlee === '/auth/signin');
+            || titlee === '/auth/signin'
+            || titlee === '/confirmation');
     }
 }

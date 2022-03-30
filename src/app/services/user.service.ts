@@ -23,6 +23,10 @@ export class UserService {
         return this.http.get<User>(`${this.apiServeurUrl}/user/find/${id}`);
     }
 
+    getUserByUid(uid: string): Observable<User> {
+        return this.http.get<User>(`${this.apiServeurUrl}/user/findUid/${uid}`);
+    }
+
     public addUser(user: User): Observable<User> {
         return this.http.post<User>(`${this.apiServeurUrl}/user/add`, user);
     }

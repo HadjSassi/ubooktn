@@ -59,8 +59,7 @@ export class SignInComponent implements OnInit {
         this.name = form.value['name'];
         this.authService.createNewUser(this.email, this.pass, this.name).then(
             () => {
-                this.router.navigate(['acceuil']);
-                window.location.reload();
+                this.router.navigate(['/confirmation']);
             },
             (error) => {
                 this.errorMessage = 'Veuillez Changer les cordonnée.';

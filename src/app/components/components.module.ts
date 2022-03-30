@@ -53,6 +53,7 @@ import {NewEventComponent} from './events/new-event/new-event.component';
 import {NgbdModalContent} from './modal/modal.component';
 import {NgbdModalContentEvents} from './events/new-event/new-event.component';
 import {EditEventComponent} from './events/edit-event/edit-event.component';
+import {ConfirmationComponent} from './not-found/confirmation/confirmation.component';
 
 @NgModule({
     imports: [
@@ -110,7 +111,8 @@ import {EditEventComponent} from './events/edit-event/edit-event.component';
         OneCertificationComponent,
         OneCompetitionComponent,
         OneFormationComponent,
-        EditEventComponent
+        EditEventComponent,
+        ConfirmationComponent
     ],
     entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]

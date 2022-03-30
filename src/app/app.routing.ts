@@ -48,6 +48,7 @@ import {OneCertificationComponent} from './components/events/one-certification/o
 import {OneJourneyComponent} from './components/events/one-journey/one-journey.component';
 import {NewEventComponent} from './components/events/new-event/new-event.component';
 import {EditEventComponent} from './components/events/edit-event/edit-event.component';
+import {ConfirmationComponent} from './components/not-found/confirmation/confirmation.component';
 
 
 const routes: Routes = [
@@ -92,6 +93,7 @@ const routes: Routes = [
     {path: 'profils/all', component: AllProfilsComponent},
     {path: 'profils/view/:id', canActivate: [AuthGuard], component: OneProfilComponent},
     {path: '404NotFound', component: NotFoundComponent},
+    {path: 'confirmation', component: ConfirmationComponent},
     {path: '**', redirectTo: '/404NotFound'}
 ];
 

@@ -20,7 +20,6 @@ export class AuthService {
                 firebase.auth().createUserWithEmailAndPassword(email, pass).then(
                     (test) => {
                         resolve();
-                        alert(pass);
 
                         const user: any = {
                             uid: test.user.uid.toString(),
