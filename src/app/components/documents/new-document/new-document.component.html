@@ -37,9 +37,12 @@
                             #typeDocument="ngModel"
                             required ngModel>
                         <option value="Autre" selected>Other</option>
-                        <option value="Cours">Exam</option>
-                        <option value="TD">DS</option>
-                        <option value="Résumé">TP</option>
+                        <option value="Cours">Cours</option>
+                        <option value="TD">TD</option>
+                        <option value="TP">TP</option>
+                        <option value="DS">DS</option>
+                        <option value="Examen">Examen</option>
+                        <option value="Résumé">Résumé</option>
                     </select>
                     <div *ngIf="typeDocument.invalid && typeDocument.dirty " class="invalid-feedback">Pouvez vous
                         selectionner
@@ -92,13 +95,7 @@
                     </div>
                 </div>
                 <div class="form-group wow zoomIn">
-                    <label style="" class="h5 col" for="corrige">Document Correction</label>
-                    <input type="text" id="corrige" class="form-control col" style="" name="corrige"
-                           #corrige="ngModel"
-                           ngModel>
-                </div>
-                <div class="form-group wow zoomIn">
-                    <label style="" class="h5 col" for="associe">Related Exams</label>
+                    <label style="" class="h5 col" for="associe">Related Documents</label>
                     <textarea type="text" id="associe" class="form-control col" style=""
                               name="associe" #associe="ngModel" ngModel></textarea>
                 </div>
@@ -111,13 +108,13 @@
                               ngModel></textarea>
                     <div *ngIf="descriptionDocument.invalid && descriptionDocument.dirty " class="invalid-feedback">
                         Pouvez vous
-                        donncer la description du Document.
+                        donner la description du Document.
                     </div>
                 </div>
                 <div class="row text-center wow zoomIn">
                     <input type="file" (change)="detectFiles($event)" class="form-control mx-auto my-4 w-75"
-                           accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officeExamen.wordprocessingml.Examen">
-                    <span class="small w-75">&nbsp;&nbsp;&nbsp;&nbsp;Documents : PDF/DOC/DOCX/JPG/JPEG/PNG/GIF/WEBP/SVG+XML/MSWORD/...</span>
+                           accept=".pdf,.docx,application/msword,application/vnd.openxmlformats-officeExamen.wordprocessingml.Examen">
+                    <span class="small w-75">&nbsp;&nbsp;&nbsp;&nbsp;Documents : PDF/DOCX/MSWORD/</span>
 
                 </div>
                 <p class="text-success text-center font-weight-bold wow zoomIn" *ngIf="fileUploaded">File Loaded !</p>

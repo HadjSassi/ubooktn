@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {Formation} from '../../../model/Formation';
+import {Formation} from '../../../model/Event';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClubService} from '../../../services/club.service';
 import {CentreFormationService} from '../../../services/centre-formation.service';
 import {InstitusService} from '../../../services/institus.service';
 import {Institus} from '../../../model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
-import {FormationService} from '../../../services/formation.service';
+import {EventService} from '../../../services/event.service';
 import * as firebase from 'firebase';
 
 @Component({
@@ -30,7 +30,7 @@ export class OneFormationComponent implements OnInit {
     partenaires = [];
     isAuthor = false;
 
-    constructor(private formationService: FormationService, private route: ActivatedRoute,
+    constructor(private formationService: EventService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
                 private isntitusService: InstitusService) {
     }

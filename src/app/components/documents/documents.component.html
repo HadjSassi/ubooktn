@@ -104,7 +104,7 @@
                                             <div class="card-header">{{s.typeDocument}}</div>
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
-                                                <p class="card-text">{{s.niveauDocument}} {{s.matiereDocument}}</p>
+                                                <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                             <div class="card-header">{{s.typeDocument}}</div>
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
-                                                <p class="card-text">{{s.niveauDocument}} {{s.matiereDocument}}</p>
+                                                <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                          *ngIf="document.length !== 0">
                                         <div *ngFor="let s of docu" class="text-center" style="cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
-                                            <h5>[{{s.typeDocument}} {{s.matiereDocument}} {{s.niveauDocument}}
+                                            <h5>[{{s.typeDocument}} {{s.settings.niveau}} {{s.settings.matiere}}
                                                 ] {{s.nomDocument}}</h5>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                          *ngIf="document.length === 0">
                                         <div *ngFor="let s of docume" class="text-center" style="cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
-                                            <h5>[{{s.typeDocument}} {{s.matiereDocument}} {{s.niveauDocument}}
+                                            <h5>[{{s.typeDocument}} {{s.settings.niveau}} {{s.settings.matiere}}
                                                 ] {{s.nomDocument}}</h5>
                                         </div>
                                     </div>

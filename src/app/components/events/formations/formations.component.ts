@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../../model/User';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {Router} from '@angular/router';
@@ -13,8 +13,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 import * as firebase from 'firebase';
 import {environment} from '../../../../environments/environment';
 import {NgForm} from '@angular/forms';
-import {Formation} from '../../../model/Formation';
-import {FormationService} from '../../../services/formation.service';
+import {Formation} from '../../../model/Event';
+import {EventService} from '../../../services/event.service';
 import {SettingsService} from '../../../services/settings.service';
 
 @Component({
@@ -69,7 +69,7 @@ export class FormationsComponent implements OnInit {
     loading = true;
     grille = true;
 
-    constructor(private formationService: FormationService, private router: Router,
+    constructor(private formationService: EventService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
                 private settingsService: SettingsService) {

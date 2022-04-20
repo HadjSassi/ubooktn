@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Journey} from '../../../model/Journey';
 import {User} from '../../../model/User';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {JourneyService} from '../../../services/journey.service';

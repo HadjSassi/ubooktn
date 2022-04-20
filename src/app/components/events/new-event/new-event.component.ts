@@ -9,32 +9,48 @@ import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {FormationService} from '../../../services/formation.service';
+import {EventService} from '../../../services/event.service';
 import {CertificationService} from '../../../services/certification.service';
 import {CompetitionService} from '../../../services/competition.service';
 import {JourneyService} from '../../../services/journey.service';
-import {Formation} from '../../../model/Formation';
+import {Formation} from '../../../model/Event';
 import {Competition} from '../../../model/Competition';
 import {Journey} from '../../../model/Journey';
-import {Certification} from '../../../model/Certification';
+import {Certification} from '../../../model/UniversityOrganisms';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-modal-content',
     template: `
-        <div class="modal-header">
-            <h5 class="modal-title text-center">Select the related University Organisms</h5>
-        </div>
-        <div class="modal-body">
-            <app-background></app-background>
-        </div>
-        <div class="modal-footer">
-            <div class="left-side">
-                <button type="button" class="btn btn-danger btn-link" (click)="activeModal.close('Close click')">Cancel</button>
+        <style>
+            .modal-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                pointer-events: auto;
+                background-color: white;
+                background-clip: padding-box;
+                border: 1px solid rgba(0, 0, 0, .2);
+                border-radius: 0.3rem;
+                outline: 0;
+            }
+        </style>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Select the related University Organisms</h5>
             </div>
-            <div class="divider"></div>
-            <div class="right-side">
-                <button type="button" class="btn btn-default btn-link" (click)="bye()">Accept</button>
+            <div class="modal-body">
+                <app-background></app-background>
+            </div>
+            <div class="modal-footer">
+                <div class="left-side">
+                    <button type="button" class="btn btn-danger btn-link" (click)="activeModal.close('Close click')">Cancel</button>
+                </div>
+                <div class="divider"></div>
+                <div class="right-side">
+                    <button type="button" class="btn btn-default btn-link" (click)="bye()">Accept</button>
+                </div>
             </div>
         </div>
     `
@@ -95,7 +111,7 @@ export class NewEventComponent implements OnInit {
     noBooking = true;
 
     constructor(private settingsService: SettingsService,
-                private formationService: FormationService,
+                private formationService: EventService,
                 private certificationService: CertificationService,
                 private competitionService: CompetitionService,
                 private journeyService: JourneyService,

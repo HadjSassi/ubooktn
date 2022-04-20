@@ -72,7 +72,7 @@
                                     <div *ngIf="club.length !== 0"
                                          class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
                                         <div *ngFor="let s of cl" class="col m-2 card bg-light mb-3 wow fadeIn"
-                                             (click)="onViewClub(s.idClub)"
+                                             (click)="onViewClub(s.id)"
                                              style="max-width: 18rem; cursor: pointer">
                                             <div class="" style="width: 250px">
                                                 <img class="card-img-top"
@@ -81,7 +81,7 @@
                                                 <div class="card-body">
                                                 </div>
                                                 <div class="card-footer">
-                                                    <h5 class="card-title">{{s.nomClub}}</h5>
+                                                    <h5 class="card-title">{{s.nom}}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@
                                     <div *ngIf="club.length === 0"
                                          class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
                                         <div *ngFor="let s of clu" class="col m-2 card bg-light mb-3 wow fadeIn"
-                                             (click)="onViewClub(s.idClub)"
+                                             (click)="onViewClub(s.id)"
                                              style="max-width: 18rem; cursor: pointer">
                                             <div class="" style="width: 250px">
                                                 <img class="card-img-top"
@@ -98,7 +98,7 @@
                                                 <div class="card-body">
                                                 </div>
                                                 <div class="card-footer">
-                                                    <h5 class="card-title">{{s.nomClub}}</h5>
+                                                    <h5 class="card-title">{{s.nom}}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,15 +108,15 @@
                                     <div class="col wow fadeInUp"
                                          *ngIf="club.length !== 0">
                                         <div *ngFor="let s of cl" class="text-center" style="cursor: pointer"
-                                             (click)="onViewClub(s.idClub)">
-                                            <h5>{{s.nomClub}}</h5>
+                                             (click)="onViewClub(s.id)">
+                                            <h5>{{s.nom}}</h5>
                                         </div>
                                     </div>
                                     <div class="col wow fadeInUp"
                                          *ngIf="club.length === 0">
                                         <div *ngFor="let s of clu" class="text-center" style="cursor: pointer"
-                                             (click)="onViewClub(s.idClub)">
-                                            <h5>{{s.nomClub}}</h5>
+                                             (click)="onViewClub(s.id)">
+                                            <h5>{{s.nom}}</h5>
                                         </div>
                                     </div>
                                 </div>

@@ -19,7 +19,6 @@ import {BackgroundComponent} from './background/background.component';
 import {DocumentsComponent} from './documents/documents.component';
 import {EnivronnementUniversitaireComponent} from './enivronnement-universitaire/enivronnement-universitaire.component';
 import {EventsComponent} from './events/events.component';
-import {ExamsComponent} from './exams/exams.component';
 import {FaqComponent} from './faq/faq.component';
 import {GuideComponent} from './guide/guide.component';
 import {NotFoundComponent} from './not-found/not-found.component';
@@ -37,9 +36,6 @@ import {OneInstitusComponent} from './enivronnement-universitaire/one-institus/o
 import {CertificationsComponent} from './events/certifications/certifications.component';
 import {CompetitionsComponent} from './events/competitions/competitions.component';
 import {FormationsComponent} from './events/formations/formations.component';
-import {NewExamenComponent} from './exams/new-examen/new-examen.component';
-import {OneExamenComponent} from './exams/one-examen/one-examen.component';
-import {ReglementExamenComponent} from './exams/reglement-examen/reglement-examen.component';
 import {AllProfilsComponent} from './profils/all-profils/all-profils.component';
 import {OneProfilComponent} from './profils/one-profil/one-profil.component';
 import {CentreFormationComponent} from './enivronnement-universitaire/centre-formation/centre-formation.component';
@@ -81,7 +77,6 @@ import {ConfirmationComponent} from './not-found/confirmation/confirmation.compo
         DocumentsComponent,
         EnivronnementUniversitaireComponent,
         EventsComponent,
-        ExamsComponent,
         FaqComponent,
         GuideComponent,
         NotFoundComponent,
@@ -99,9 +94,6 @@ import {ConfirmationComponent} from './not-found/confirmation/confirmation.compo
         CertificationsComponent,
         CompetitionsComponent,
         FormationsComponent,
-        NewExamenComponent,
-        OneExamenComponent,
-        ReglementExamenComponent,
         AllProfilsComponent,
         OneProfilComponent,
         CentreFormationComponent,

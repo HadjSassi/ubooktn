@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Certification} from '../../../model/Certification';
+import {Certification} from '../../../model/UniversityOrganisms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClubService} from '../../../services/club.service';
 import {CentreFormationService} from '../../../services/centre-formation.service';
 import {InstitusService} from '../../../services/institus.service';
 import {Institus} from '../../../model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
 import {CertificationService} from '../../../services/certification.service';

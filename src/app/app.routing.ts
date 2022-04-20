@@ -14,10 +14,6 @@ import {DocumentsComponent} from './components/documents/documents.component';
 import {OneDocumentComponent} from './components/documents/one-document/one-document.component';
 import {ReglementComponent} from './components/documents/reglement/reglement.component';
 import {NewDocumentComponent} from './components/documents/new-document/new-document.component';
-import {ExamsComponent} from './components/exams/exams.component';
-import {OneExamenComponent} from './components/exams/one-examen/one-examen.component';
-import {NewExamenComponent} from './components/exams/new-examen/new-examen.component';
-import {ReglementExamenComponent} from './components/exams/reglement-examen/reglement-examen.component';
 import {BackgroundComponent} from './components/background/background.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {ProfilsComponent} from './components/profils/profils.component';
@@ -85,10 +81,6 @@ const routes: Routes = [
     {path: 'documents/new', canActivate: [AuthGuard], component: NewDocumentComponent},
     {path: 'documents/reglementions', canActivate: [AuthGuard], component: ReglementComponent},
     {path: 'documents/view/:id', canActivate: [AuthGuard], component: OneDocumentComponent},
-    {path: 'exams', component: ExamsComponent},
-    {path: 'exams/new', canActivate: [AuthGuard], component: NewExamenComponent},
-    {path: 'exams/reglementions', canActivate: [AuthGuard], component: ReglementExamenComponent},
-    {path: 'exams/view/:id', canActivate: [AuthGuard], component: OneExamenComponent},
     {path: 'profils', canActivate: [AuthGuard], component: ProfilsComponent},
     {path: 'profils/all', component: AllProfilsComponent},
     {path: 'profils/view/:id', canActivate: [AuthGuard], component: OneProfilComponent},

@@ -10,19 +10,19 @@
                     <li class="list-inline-item" *ngFor="let c of this.filiere"><p>{{c}}</p></li>
                 </ul>
                 <br *ngIf="this.cf.historique.length !== 0">
-                <h4 *ngIf="this.cf.historique.length !== 0">About {{this.cf.nomCf}}</h4>
+                <h4 *ngIf="this.cf.historique.length !== 0">About {{this.cf.nom}}</h4>
                 <h5>{{this.cf.historique}}</h5>
                 <br *ngIf="this.linkClub.length !== 0">
                 <h4 *ngIf="this.linkClub.length !== 0">Related Clubs : </h4>
                 <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
                     <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                            href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
+                            href="/#/university/Clubs/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
                 </ul>
                 <br *ngIf="this.linkInstitus.length !== 0">
                 <h4 *ngIf="this.linkInstitus.length !== 0">Related Institutes : </h4>
                 <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
                     <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                            href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span></li>
+                            href="/#/university/Institus/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
                 </ul>
                 <br *ngIf="this.linkPartenaires.length !== 0 && this.linkPartenaires[0] !== ''">
                 <h4 *ngIf="this.linkPartenaires.length !== 0 && this.linkPartenaires[0] !== ''">Related links : </h4>
@@ -54,7 +54,7 @@
                         <br>
                         <br>
                         <h1>{{this.cf.abreviation}}</h1>
-                        <h2>{{this.cf.nomCf}}</h2>
+                        <h2>{{this.cf.nom}}</h2>
                         <br>
                         <br>
                         <h5>{{this.cf.domaines}}</h5>

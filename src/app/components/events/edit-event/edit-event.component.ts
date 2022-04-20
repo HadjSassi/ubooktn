@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../../model/User';
 import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SettingsService} from '../../../services/settings.service';
-import {FormationService} from '../../../services/formation.service';
+import {EventService} from '../../../services/event.service';
 import {CertificationService} from '../../../services/certification.service';
 import {CompetitionService} from '../../../services/competition.service';
 import {JourneyService} from '../../../services/journey.service';
@@ -11,17 +11,17 @@ import {UserService} from '../../../services/user.service';
 import {Settings} from '../../../model/Settings';
 import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
-import {Formation} from '../../../model/Formation';
+import {Formation} from '../../../model/Event';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {Competition} from '../../../model/Competition';
 import {Journey} from '../../../model/Journey';
-import {Certification} from '../../../model/Certification';
+import {Certification} from '../../../model/UniversityOrganisms';
 import {NgbdModalContentEvents} from '../new-event/new-event.component';
 import {InstitusService} from '../../../services/institus.service';
 import {ClubService} from '../../../services/club.service';
 import {CentreFormationService} from '../../../services/centre-formation.service';
 import {Institus} from '../../../model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {CentreFormation} from '../../../model/CentreFormation';
 
 @Component({
@@ -65,7 +65,7 @@ export class EditEventComponent implements OnInit {
     event: any;
 
     constructor(private settingsService: SettingsService,
-                private formationService: FormationService,
+                private formationService: EventService,
                 private certificationService: CertificationService,
                 private competitionService: CompetitionService,
                 private journeyService: JourneyService,

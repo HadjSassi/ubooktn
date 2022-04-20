@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Institus} from 'app/model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {InstitusService} from '../../../services/institus.service';
 import {ClubService} from '../../../services/club.service';
 import {UserService} from '../../../services/user.service';
@@ -138,7 +138,7 @@ export class ClubsComponent implements OnInit {
     public search(key: string): void {
         const results: Club[] = [];
         for (const doc of this.clubs) {
-            if (doc.nomClub.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.domaine.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
                 results.push(doc);
             }

@@ -6,7 +6,7 @@ import {ClubService} from '../../../services/club.service';
 import {CentreFormationService} from '../../../services/centre-formation.service';
 import {InstitusService} from '../../../services/institus.service';
 import {Institus} from '../../../model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
 import * as firebase from 'firebase';

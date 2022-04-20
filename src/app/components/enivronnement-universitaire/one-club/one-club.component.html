@@ -15,17 +15,17 @@
                     <div class="row mt-2  wow fadeInUp">
                         <br>
                         <br *ngIf="this.club.historique.length !== 0">
-                        <h4 *ngIf="this.club.historique.length !== 0">About {{this.club.nomClub}}</h4>
+                        <h4 *ngIf="this.club.historique.length !== 0">About {{this.club.nom}}</h4>
                         <h5>{{this.club.historique}}</h5>
                         <br *ngIf="this.linkClub.length !== 0">
                         <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
                             <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                                    href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
+                                    href="/#/university/Clubs/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
                         </ul>
                         <br *ngIf="this.linkInstitus.length !== 0">
                         <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
                             <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                                    href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span>
+                                    href="/#/university/Institus/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span>
                             </li>
                         </ul>
                         <br *ngIf="this.urls.length !== 0">
@@ -41,13 +41,14 @@
                     <div class="text-center wow fadeInRight">
                         <br>
                         <br>
-                        <h1>{{this.club.nomClub}}</h1>
+                        <h1>{{this.club.nom}}</h1>
                         <br>
                         <br>
                         <h5>Club : {{this.club.domaine}}</h5>
                         <br>
                         <br>
-                        <h5><a class="text-primary" href="{{this.club.urlOfficel}}">Link : {{this.club.urlOfficel}}</a>
+                        <h5><a class="text-primary" href="{{this.club.urlOfficiel}}">Link
+                            : {{this.club.urlOfficiel}}</a>
                         </h5>
                     </div>
 

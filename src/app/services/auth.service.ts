@@ -21,7 +21,7 @@ export class AuthService {
                     (test) => {
                         resolve();
 
-                        const user: any = {
+                        const user: User = {
                             uid: test.user.uid.toString(),
                             mailUser: email,
                             nomUser: name,
@@ -32,9 +32,7 @@ export class AuthService {
                             urlLinkedIn: '',
                             score: 0,
                             description: '',
-                            historiqueDocument: '',
-                            historiqueExamen: '',
-                            isEnabled: false
+                            enabled: false
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {

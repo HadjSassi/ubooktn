@@ -3,7 +3,7 @@ import {InstitusService} from '../../../services/institus.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClubService} from '../../../services/club.service';
 import {UserService} from '../../../services/user.service';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {HttpErrorResponse} from '@angular/common/http';
 import * as firebase from 'firebase';
@@ -67,17 +67,17 @@ export class OneClubComponent implements OnInit {
         const id: number = this.route.snapshot.params['id'] - 0;
         this.clubService.getClubById(id).subscribe(
             (response: Club) => {
-                this.picsUrl = response.picUrl.split(',');
-                this.urls = response.urls.split(',');
+                this.picsUrl = response.picsUrls.split(',');
+                this.urls = response.urlPartenaires.split(',');
                 this.club = response;
-                this.link = response.urlOfficel;
-                const linkClub = response.listClubs.split(',');
-                const linkInstitus = response.listInstitus.split(',');
+                this.link = response.urlOfficiel;
+                const linkClub = response.urlClubs.split(',');
+                const linkInstitus = response.urlInstitus.split(',');
                 this.clubService.getClubs().subscribe(
                     (responses: Club[]) => {
                         for (const r of responses) {
                             for (const l of linkClub) {
-                                if (r.idClub.toString() === l) {
+                                if (r.id.toString() === l) {
                                     this.linkClub.push(r);
                                 }
                             }
@@ -91,7 +91,7 @@ export class OneClubComponent implements OnInit {
                     (responses: Institus[]) => {
                         for (const r of responses) {
                             for (const l of linkInstitus) {
-                                if (r.idInstitus.toString() === l) {
+                                if (r.id.toString() === l) {
                                     this.linkInstitus.push(r);
                                 }
                             }

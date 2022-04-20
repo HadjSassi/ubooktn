@@ -8,7 +8,7 @@ import {InstitusService} from './institus.service';
 import {ClubService} from './club.service';
 import {CentreFormationService} from './centre-formation.service';
 import {Institus} from '../model/Institus';
-import {Club} from '../model/Club';
+import {Club} from '../model/Clubs';
 import {CentreFormation} from '../model/CentreFormation';
 
 @Injectable({
@@ -40,6 +40,10 @@ export class SettingsService {
 
     getSettingsById(id: number): Observable<Settings> {
         return this.http.get<Settings>(`${this.apiServeurUrl}/settings/find/${id}`);
+    }
+
+    getSettingsByData(anee: string, mati: string, niv: string): Observable<Settings> {
+        return this.http.get<Settings>(`${this.apiServeurUrl}/settings/findData/${anee}&${mati}&${niv}`);
     }
 
     public addSettings(settings: Settings): Observable<Settings> {

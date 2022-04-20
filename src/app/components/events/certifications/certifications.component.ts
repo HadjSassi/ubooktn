@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Certification} from '../../../model/Certification';
+import {Certification} from '../../../model/UniversityOrganisms';
 import {User} from '../../../model/User';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {CertificationService} from '../../../services/certification.service';

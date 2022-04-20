@@ -19,10 +19,6 @@ export class UserService {
         return this.http.get<User[]>(`${this.apiServeurUrl}/user/all`);
     }
 
-    getUserById(id: number): Observable<User> {
-        return this.http.get<User>(`${this.apiServeurUrl}/user/find/${id}`);
-    }
-
     getUserByUid(uid: string): Observable<User> {
         return this.http.get<User>(`${this.apiServeurUrl}/user/findUid/${uid}`);
     }

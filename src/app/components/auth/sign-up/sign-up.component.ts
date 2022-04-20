@@ -93,7 +93,7 @@ export class SignUpComponent implements OnInit {
                         }
                     }
                     if (notFound) {
-                        const user: any = {
+                        const user: User = {
                             uid: value.user.uid.toString(),
                             mailUser: value.user.email,
                             nomUser: value.user.email.split('@')[0],
@@ -104,9 +104,7 @@ export class SignUpComponent implements OnInit {
                             urlLinkedIn: '',
                             score: 0,
                             description: '',
-                            historiqueDocument: '',
-                            historiqueExamen: '',
-                            isEnabled: true
+                            enabled: true
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {
@@ -141,7 +139,7 @@ export class SignUpComponent implements OnInit {
                         }
                     }
                     if (notFound) {
-                        const user: any = {
+                        const user: User = {
                             uid: value.user.uid.toString(),
                             mailUser: value.user.email,
                             nomUser: value.user.email.split('@')[0],
@@ -152,9 +150,7 @@ export class SignUpComponent implements OnInit {
                             urlLinkedIn: '',
                             score: 0,
                             description: '',
-                            historiqueDocument: '',
-                            historiqueExamen: '',
-                            isEnabled: true
+                            enabled: true
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {

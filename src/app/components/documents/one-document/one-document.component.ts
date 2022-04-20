@@ -20,7 +20,7 @@ import {environment} from '../../../../environments/environment';
     styleUrls: ['./one-document.component.css']
 })
 export class OneDocumentComponent implements OnInit {
-
+// todo the creator of this document could change some data or delete this document you should do it later okay !
 
     doc: any;
     // @ts-ignore
@@ -33,22 +33,22 @@ export class OneDocumentComponent implements OnInit {
     dislike = 0;
     likes: VoteDocument[] = [];
     idUser = 0;
-    voteInit: VoteDocument = {
+    voteInit = {
         voteId: 0,
-        documentId: 0,
+        document: null,
         voteType: 0,
-        userId: 0
+        user: null
     };
     // @ts-ignore
     user: User;
     activated = true;
-
+    idOfDocument = 0;
     commentList: CommentDocument[] = [];
-    comment: any = {
-        documentId: 0,
-        userUrl: '',
-        userName: '',
+    comment = {
+        idComment: 0,
         comment: '',
+        document: null,
+        user: null,
         timing: new Date()
     };
     interacted = false;
@@ -74,10 +74,6 @@ export class OneDocumentComponent implements OnInit {
 
 
     liker() {
-
-        console.log(this.voteInit);
-        console.log(this.idUser);
-
         if (this.liked) {
             this.liked = false;
             this.like--;
@@ -89,53 +85,6 @@ export class OneDocumentComponent implements OnInit {
                 },
                 error => {
                     alert(error.message);
-                }
-            );
-
-
-            // attribution score pour le client
-            firebase.auth().onAuthStateChanged(
-                (user) => {
-                    if (user) {
-                        const uid = user.uid.toString();
-                        this.userService.getUsers().subscribe(
-                            (response: User[]) => {
-                                for (const x of response) {
-                                    if (x.uid === uid) {
-                                        this.foulen2 = x;
-                                        break;
-                                    }
-                                }
-
-                                const newFoulen: User = {
-                                    idUser: this.foulen2.idUser,
-                                    uid: this.foulen2.uid,
-                                    mailUser: this.foulen2.mailUser,
-                                    nomUser: this.foulen2.nomUser,
-                                    prenomUser: this.foulen2.prenomUser,
-                                    urlPicUser: this.foulen2.urlPicUser,
-                                    job: this.foulen2.job,
-                                    urlFacebook: this.foulen2.urlFacebook,
-                                    urlLinkedIn: this.foulen2.urlLinkedIn,
-                                    score: this.foulen2.score - 1,
-                                    description: this.foulen2.description,
-                                    historiqueDocument: this.foulen2.historiqueDocument,
-                                    historiqueExamen: this.foulen2.historiqueExamen,
-                                    isEnabled: this.foulen2.isEnabled
-                                }
-                                this.userService.updateUser(newFoulen).subscribe(
-                                    (responses: User) => {
-                                        console.log(responses);
-                                    },
-                                    (error: HttpErrorResponse) => {
-                                        alert(error.message)
-                                    }
-                                );
-                            }
-                        );
-                    } else {
-                        console.log('dawa7 ha mbarka');
-                    }
                 }
             );
             this.interacted = false;
@@ -156,95 +105,7 @@ export class OneDocumentComponent implements OnInit {
                     alert(error.message);
                 }
             );
-
-            this.documentService.getDocumentById(this.route.snapshot.params['id'] - 0).subscribe(
-                (response: Document) => {
-                    const uid3: string = response.uid;
-                    this.userService.getUsers().subscribe(
-                        (responsees: User[]) => {
-                            for (const x of responsees) {
-                                if (x.uid === uid3) {
-                                    this.foulen2 = x;
-                                    break;
-                                }
-                            }
-
-                            const newFoulen: User = {
-                                idUser: this.foulen2.idUser,
-                                uid: this.foulen2.uid,
-                                mailUser: this.foulen2.mailUser,
-                                nomUser: this.foulen2.nomUser,
-                                prenomUser: this.foulen2.prenomUser,
-                                urlPicUser: this.foulen2.urlPicUser,
-                                job: this.foulen2.job,
-                                urlFacebook: this.foulen2.urlFacebook,
-                                urlLinkedIn: this.foulen2.urlLinkedIn,
-                                score: this.foulen2.score + 3,
-                                description: this.foulen2.description,
-                                historiqueDocument: this.foulen2.historiqueDocument,
-                                historiqueExamen: this.foulen2.historiqueExamen,
-                                isEnabled: this.foulen2.isEnabled
-                            }
-                            this.userService.updateUser(newFoulen).subscribe(
-                                (responses: User) => {
-                                    console.log(responses);
-                                },
-                                (error: HttpErrorResponse) => {
-                                    alert(error.message)
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-
             // attribution score pour le client
-            if (!this.interacted) {
-                firebase.auth().onAuthStateChanged(
-                    (user) => {
-                        if (user) {
-                            const uid = user.uid.toString();
-                            this.userService.getUsers().subscribe(
-                                (response: User[]) => {
-                                    for (const x of response) {
-                                        if (x.uid === uid) {
-                                            this.foulen2 = x;
-                                            break;
-                                        }
-                                    }
-
-                                    const newFoulen: User = {
-                                        idUser: this.foulen2.idUser,
-                                        uid: this.foulen2.uid,
-                                        mailUser: this.foulen2.mailUser,
-                                        nomUser: this.foulen2.nomUser,
-                                        prenomUser: this.foulen2.prenomUser,
-                                        urlPicUser: this.foulen2.urlPicUser,
-                                        job: this.foulen2.job,
-                                        urlFacebook: this.foulen2.urlFacebook,
-                                        urlLinkedIn: this.foulen2.urlLinkedIn,
-                                        score: this.foulen2.score + 1,
-                                        description: this.foulen2.description,
-                                        historiqueDocument: this.foulen2.historiqueDocument,
-                                        historiqueExamen: this.foulen2.historiqueExamen,
-                                        isEnabled: this.foulen2.isEnabled
-                                    }
-                                    this.userService.updateUser(newFoulen).subscribe(
-                                        (responses: User) => {
-                                            console.log(responses);
-                                        },
-                                        (error: HttpErrorResponse) => {
-                                            alert(error.message)
-                                        }
-                                    );
-                                }
-                            );
-                        } else {
-                            console.log('dawa7 ha mbarka');
-                        }
-                    }
-                );
-            }
             this.interacted = true;
         }
     }
@@ -254,6 +115,7 @@ export class OneDocumentComponent implements OnInit {
             this.disliked = false;
             this.dislike--;
             const vote2 = this.voteInit;
+            this.interacted = false;
             vote2.voteType = 0;
             this.voteService.updateVoteDocument(vote2).subscribe(
                 (respon: VoteDocument) => {
@@ -261,53 +123,6 @@ export class OneDocumentComponent implements OnInit {
                 },
                 error => {
                     alert(error.message);
-                }
-            );
-
-            // attribution score pour le client
-            firebase.auth().onAuthStateChanged(
-                (user) => {
-                    if (user) {
-                        const uid = user.uid.toString();
-                        this.userService.getUsers().subscribe(
-                            (response: User[]) => {
-                                for (const x of response) {
-                                    if (x.uid === uid) {
-                                        this.foulen2 = x;
-                                        break;
-                                    }
-                                }
-
-                                const newFoulen: User = {
-                                    idUser: this.foulen2.idUser,
-                                    uid: this.foulen2.uid,
-                                    mailUser: this.foulen2.mailUser,
-                                    nomUser: this.foulen2.nomUser,
-                                    prenomUser: this.foulen2.prenomUser,
-                                    urlPicUser: this.foulen2.urlPicUser,
-                                    job: this.foulen2.job,
-                                    urlFacebook: this.foulen2.urlFacebook,
-                                    urlLinkedIn: this.foulen2.urlLinkedIn,
-                                    score: this.foulen2.score - 1,
-                                    description: this.foulen2.description,
-                                    historiqueDocument: this.foulen2.historiqueDocument,
-                                    historiqueExamen: this.foulen2.historiqueExamen,
-                                    isEnabled: this.foulen2.isEnabled
-                                }
-                                this.userService.updateUser(newFoulen).subscribe(
-                                    (responses: User) => {
-                                        console.log(responses);
-                                    },
-                                    (error: HttpErrorResponse) => {
-                                        alert(error.message)
-                                    }
-                                );
-                            }
-                        );
-                        this.interacted = false;
-                    } else {
-                        console.log('dawa7 ha mbarka');
-                    }
                 }
             );
         } else {
@@ -327,93 +142,6 @@ export class OneDocumentComponent implements OnInit {
                     alert(error.message);
                 }
             );
-            this.documentService.getDocumentById(this.route.snapshot.params['id'] - 0).subscribe(
-                (response: Document) => {
-                    const uid3: string = response.uid;
-                    this.userService.getUsers().subscribe(
-                        (responses: User[]) => {
-                            for (const x of responses) {
-                                if (x.uid === uid3) {
-                                    this.foulen2 = x;
-                                    break;
-                                }
-                            }
-
-                            const newFoulen: User = {
-                                idUser: this.foulen2.idUser,
-                                uid: this.foulen2.uid,
-                                mailUser: this.foulen2.mailUser,
-                                nomUser: this.foulen2.nomUser,
-                                prenomUser: this.foulen2.prenomUser,
-                                urlPicUser: this.foulen2.urlPicUser,
-                                job: this.foulen2.job,
-                                urlFacebook: this.foulen2.urlFacebook,
-                                urlLinkedIn: this.foulen2.urlLinkedIn,
-                                score: this.foulen2.score - 3,
-                                description: this.foulen2.description,
-                                historiqueDocument: this.foulen2.historiqueDocument,
-                                historiqueExamen: this.foulen2.historiqueExamen,
-                                isEnabled: this.foulen2.isEnabled
-                            }
-                            this.userService.updateUser(newFoulen).subscribe(
-                                (responsess: User) => {
-                                    console.log(responsess);
-                                },
-                                (error: HttpErrorResponse) => {
-                                    alert(error.message)
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-            // attribution score pour le client
-            if (!this.interacted) {
-                firebase.auth().onAuthStateChanged(
-                    (user) => {
-                        if (user) {
-                            const uid = user.uid.toString();
-                            this.userService.getUsers().subscribe(
-                                (response: User[]) => {
-                                    for (const x of response) {
-                                        if (x.uid === uid) {
-                                            this.foulen2 = x;
-                                            break;
-                                        }
-                                    }
-
-                                    const newFoulen: User = {
-                                        idUser: this.foulen2.idUser,
-                                        uid: this.foulen2.uid,
-                                        mailUser: this.foulen2.mailUser,
-                                        nomUser: this.foulen2.nomUser,
-                                        prenomUser: this.foulen2.prenomUser,
-                                        urlPicUser: this.foulen2.urlPicUser,
-                                        job: this.foulen2.job,
-                                        urlFacebook: this.foulen2.urlFacebook,
-                                        urlLinkedIn: this.foulen2.urlLinkedIn,
-                                        score: this.foulen2.score + 1,
-                                        description: this.foulen2.description,
-                                        historiqueDocument: this.foulen2.historiqueDocument,
-                                        historiqueExamen: this.foulen2.historiqueExamen,
-                                        isEnabled: this.foulen2.isEnabled
-                                    }
-                                    this.userService.updateUser(newFoulen).subscribe(
-                                        (responses: User) => {
-                                            console.log(responses);
-                                        },
-                                        (error: HttpErrorResponse) => {
-                                            alert(error.message)
-                                        }
-                                    );
-                                }
-                            );
-                        } else {
-                            console.log('dawa7 ha mbarka');
-                        }
-                    }
-                );
-            }
             this.interacted = true;
         }
     }
@@ -446,15 +174,9 @@ export class OneDocumentComponent implements OnInit {
 
     searchUid(uid: string) {
 
-        this.userService.getUsers().subscribe(
-            (response: User[]) => {
-                this.users = response;
-                for (const i of this.users) {
-                    if (i.uid === uid) {
-                        this.foulen = i;
-                        break;
-                    }
-                }
+        this.userService.getUserByUid(uid).subscribe(
+            (response: User) => {
+                this.foulen = response;
                 this.foulen.score += 2;
 
 
@@ -504,15 +226,17 @@ export class OneDocumentComponent implements OnInit {
                 }
             }
         );
-        const ids: number = this.route.snapshot.params['id'];
-        const id: number = ids - 0;
+        const id: number = this.route.snapshot.params['id'] - 0;
+        this.idOfDocument = id;
         // id document récupéré
         let uid = '';
-        this.comment.documentId = id;
+        this.comment.document = {idDocument: id};
+        this.voteInit.document = {idDocument: id};
+        // c'est juste pour avoir tous les comment de ce document
         this.commentService.getCommentDocuments().subscribe(
             (response: CommentDocument[]) => {
                 for (const r of response) {
-                    if (r.documentId.toString() === id.toString()) {
+                    if (r.document.idDocument.toString() === id.toString()) {
                         this.commentList.push(r);
                     }
                 }
@@ -529,40 +253,27 @@ export class OneDocumentComponent implements OnInit {
                 if (user) {
                     uid = user.uid.toString();
                     // uid récupéré
-                    this.userService.getUsers().subscribe(
-                        (response: User[]) => {
-                            for (const i of response) {
-                                if (i.uid === uid) {
-                                    this.idUser = i.idUser - 0;
-                                    this.comment.userUrl = i.urlPicUser;
-                                    this.comment.userName = i.prenomUser + ' ' + i.nomUser;
-                                    // iduser récupéré
-                                    break;
-                                }
-                            }
-
-                            // zone de travail iduser found
-                            this.voteInit.documentId = id - 0;
-                            this.voteInit.userId = this.idUser;
+                    this.userService.getUserByUid(uid).subscribe(
+                        (response: User) => {
+                            this.comment.user = response;
+                            this.voteInit.user = response;
 
                             this.voteService.getVoteDocuments().subscribe(
                                 (responses: VoteDocument[]) => {
                                     for (const r of responses) {
-                                        if (r.documentId === id) {
+                                        if (r.document.idDocument.toString() === id.toString()) {
                                             this.likes.push(r);
                                         }
                                     }
                                     for (const r of this.likes) {
+                                        if (r.user.uid === uid) {
+                                            this.voteInit = r;
+                                            this.existe = true;
+                                        }
                                         if (r.voteType === 1) {
                                             this.like++;
                                         } else if (r.voteType === -1) {
                                             this.dislike++;
-                                        }
-                                    }
-                                    for (const r of this.likes) {
-                                        if (r.userId === this.idUser) {
-                                            this.voteInit = r;
-                                            break;
                                         }
                                     }
                                     if (this.voteInit.voteType === 1) {
@@ -570,16 +281,10 @@ export class OneDocumentComponent implements OnInit {
                                     } else if (this.voteInit.voteType === -1) {
                                         this.disliked = true;
                                     }
-                                    for (const r of this.likes) {
-                                        if (r.userId === this.idUser) {
-                                            this.existe = true;
-                                            break;
-                                        }
-                                    }
                                     if (!this.existe) {
                                         const vote3: any = {
-                                            userId: this.voteInit.userId,
-                                            documentId: this.voteInit.documentId,
+                                            user: responses,
+                                            document: this.voteInit.document.idDocument,
                                             voteType: 0
                                         }
                                         this.voteService.addVoteDocument(vote3).subscribe(
@@ -628,22 +333,13 @@ export class OneDocumentComponent implements OnInit {
     }
 
     del() {
-        this.documentService.getDocumentById(this.route.snapshot.params['id'] - 0).subscribe(
+        this.documentService.getDocumentById(this.idOfDocument).subscribe(
             (response: Document) => {
-                const uid3: string = response.uid;
-                this.userService.getUsers().subscribe(
-                    (responses: User[]) => {
-                        for (const x of responses) {
-                            if (x.uid === uid3) {
-                                this.foulen2 = x;
-                                break;
-                            }
-                        }
-
-                        const id: number = this.route.snapshot.params['id'] - 0;
+                this.userService.getUserByUid(response.uid.uid).subscribe(
+                    (responses: User) => {
+                        this.foulen2 = responses;
                         // punir l'utilsateur
-                        const ins = {
-                            idUser: this.foulen2.idUser,
+                        const ins: User = {
                             uid: this.foulen2.uid,
                             mailUser: this.foulen2.mailUser,
                             nomUser: this.foulen2.nomUser,
@@ -654,8 +350,7 @@ export class OneDocumentComponent implements OnInit {
                             urlLinkedIn: this.foulen2.urlLinkedIn,
                             score: this.foulen2.score - 10,
                             description: this.foulen2.description,
-                            historiqueDocument: this.foulen2.historiqueDocument,
-                            historiqueExamen: this.foulen2.historiqueExamen,
+                            enabled: this.foulen2.enabled
                         };
 
                         // @ts-ignore
@@ -669,7 +364,7 @@ export class OneDocumentComponent implements OnInit {
                             }
                         );
 
-                        // supprimer de la base de donnée
+                        // todo supprimer de la base de donnée
                         if (this.doc.urlDocument !== '') {
                             const storageRef = firebase.storage().refFromURL(this.doc.urlDocument);
                             storageRef.delete().then(
@@ -684,7 +379,7 @@ export class OneDocumentComponent implements OnInit {
                         }
 
 
-                        this.documentService.deleteDocument(id).subscribe();
+                        this.documentService.deleteDocument(this.idOfDocument).subscribe();
 
                     },
                     error => {

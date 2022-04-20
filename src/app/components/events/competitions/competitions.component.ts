@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CentreFormation} from '../../../model/CentreFormation';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {User} from '../../../model/User';
 import {CentreFormationService} from '../../../services/centre-formation.service';
 import {Router} from '@angular/router';

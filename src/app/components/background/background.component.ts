@@ -3,7 +3,7 @@ import {CentreFormationService} from '../../services/centre-formation.service';
 import {ClubService} from '../../services/club.service';
 import {InstitusService} from '../../services/institus.service';
 import {CentreFormation} from '../../model/CentreFormation';
-import {Club} from '../../model/Club';
+import {Club} from '../../model/Clubs';
 import {Institus} from '../../model/Institus';
 import {SettingsService} from '../../services/settings.service';
 

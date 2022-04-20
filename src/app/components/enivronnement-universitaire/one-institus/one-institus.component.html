@@ -12,19 +12,19 @@
                     <li class="list-inline-item" *ngFor="let c of this.filiere"><p>{{c}}</p></li>
                 </ul>
                 <br *ngIf="this.intitus.historique.length !== 0">
-                <h4 *ngIf="this.intitus.historique.length !== 0">About {{this.intitus.nomInstitus}}</h4>
+                <h4 *ngIf="this.intitus.historique.length !== 0">About {{this.intitus.nom}}</h4>
                 <h5>{{this.intitus.historique}}</h5>
                 <br *ngIf="this.linkClub.length !== 0">
                 <h4 *ngIf="this.linkClub.length !== 0">Related Clubs : </h4>
                 <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
                     <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                            href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
+                            href="/#/university/Clubs/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
                 </ul>
                 <br *ngIf="this.linkInstitus.length !== 0">
                 <h4 *ngIf="this.linkInstitus.length !== 0">Related Institutes : </h4>
                 <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
                     <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                            href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span></li>
+                            href="/#/university/Institus/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
                 </ul>
                 <br *ngIf="this.urls.length !== 0 && this.urls[0] !== ''">
                 <h4 *ngIf="this.urls.length !== 0 && this.urls[0] !== ''">Related links : </h4>
@@ -56,15 +56,15 @@
                         <br>
                         <br>
                         <h1>{{this.intitus.abreviation}}</h1>
-                        <h2>{{this.intitus.nomInstitus}}</h2>
+                        <h2>{{this.intitus.nom}}</h2>
                         <br>
                         <br>
                         <h5>{{this.intitus.type}}</h5>
                         <h5>University of {{this.intitus.universite}}</h5>
                         <br>
                         <br>
-                        <h5><a class="text-primary" href="{{this.intitus.urlOfficel}}">Link
-                            : {{this.intitus.urlOfficel}}</a></h5>
+                        <h5><a class="text-primary" href="{{this.intitus.urlOfficiel}}">Link
+                            : {{this.intitus.urlOfficiel}}</a></h5>
                     </div>
 
                 </div>

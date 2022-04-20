@@ -1,4 +1,6 @@
-export interface Journey {
+import {User} from './User';
+
+export interface Event {
     id: number,
     nom: string,
     clubs: string,
@@ -19,5 +21,6 @@ export interface Journey {
     registrationDateLimit: string,
     shown: string,
     picsUrl: string,
-    uid: string
+    type: string,
+    uid: User
 }

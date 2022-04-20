@@ -106,6 +106,7 @@ export class SignInComponent implements OnInit {
     gmail() {
         const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
         this.afAuth.signInWithPopup(googleAuthProvider).then(value => {
+            // todo just call find user by uid; if none then notfound = true
             let notFound = true;
             this.userService.getUsers().subscribe(
                 (result: User[]) => {
@@ -118,7 +119,7 @@ export class SignInComponent implements OnInit {
                         }
                     }
                     if (notFound) {
-                        const user: any = {
+                        const user: User = {
                             uid: value.user.uid.toString(),
                             mailUser: value.user.email,
                             nomUser: value.user.email.split('@')[0],
@@ -129,9 +130,7 @@ export class SignInComponent implements OnInit {
                             urlLinkedIn: '',
                             score: 0,
                             description: '',
-                            historiqueDocument: '',
-                            historiqueExamen: '',
-                            isEnabled: true
+                            enabled: true
                         }
                         this.userService.addUser(user).subscribe(
                             (response: User) => {

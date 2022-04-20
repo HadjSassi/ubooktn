@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Institus} from '../../../model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {User} from '../../../model/User';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClubService} from '../../../services/club.service';
@@ -96,7 +96,7 @@ export class OneCentreFormationComponent implements OnInit {
                     (responses: Club[]) => {
                         for (const r of responses) {
                             for (const l of clubing) {
-                                if (r.idClub.toString() === l) {
+                                if (r.id.toString() === l) {
                                     this.linkClub.push(r);
                                 }
                             }
@@ -110,7 +110,7 @@ export class OneCentreFormationComponent implements OnInit {
                     (responses: Institus[]) => {
                         for (const r of responses) {
                             for (const l of instituing) {
-                                if (r.idInstitus.toString() === l) {
+                                if (r.id.toString() === l) {
                                     this.linkInstitus.push(r);
                                 }
                             }

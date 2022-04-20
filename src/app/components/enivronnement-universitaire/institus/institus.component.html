@@ -97,7 +97,7 @@
                                     <div *ngIf="Institus.length !== 0"
                                          class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
                                         <div *ngFor="let s of Insti" class="col m-2 card bg-light mb-3 wow fadeIn"
-                                             (click)="onViewInstitus(s.idInstitus)"
+                                             (click)="onViewInstitus(s.id)"
                                              style="max-width: 18rem; cursor: pointer">
                                             <img class="card-img-top"
                                                  src="{{s.logo}}"
@@ -105,7 +105,7 @@
                                             <div class="card-body">
                                             </div>
                                             <div class="card-footer">
-                                                <h5 class="card-title">{{s.abreviation}}<br>{{s.nomInstitus}}</h5>
+                                                <h5 class="card-title">{{s.abreviation}}<br>{{s.nom}}</h5>
                                                 <p class="card-text">{{s.type}}<br>{{s.region}}</p>
                                             </div>
                                         </div>
@@ -113,7 +113,7 @@
                                     <div *ngIf="Institus.length === 0"
                                          class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
                                         <div *ngFor="let s of Instit" class="col m-2 card bg-light mb-3 wow fadeIn"
-                                             (click)="onViewInstitus(s.idInstitus)"
+                                             (click)="onViewInstitus(s.id)"
                                              style="max-width: 18rem; cursor: pointer">
                                             <img class="card-img-top"
                                                  src="{{s.logo}}"
@@ -121,7 +121,7 @@
                                             <div class="card-body">
                                             </div>
                                             <div class="card-footer">
-                                                <h5 class="card-title">{{s.abreviation}}<br>{{s.nomInstitus}}</h5>
+                                                <h5 class="card-title">{{s.abreviation}}<br>{{s.nom}}</h5>
                                                 <p class="card-text">{{s.type}}<br>{{s.region}}</p>
                                             </div>
                                         </div>
@@ -131,15 +131,15 @@
                                     <div class="col wow fadeInUp"
                                          *ngIf="Institus.length !== 0">
                                         <div *ngFor="let s of Insti" class="text-center" style="cursor: pointer"
-                                             (click)="onViewInstitus(s.idInstitus)">
-                                            <h5>[{{s.abreviation}}] {{s.nomInstitus}}</h5>
+                                             (click)="onViewInstitus(s.id)">
+                                            <h5>[{{s.abreviation}}] {{s.nom}}</h5>
                                         </div>
                                     </div>
                                     <div class="col wow fadeInUp"
                                          *ngIf="Institus.length === 0">
                                         <div *ngFor="let s of Instit" class="text-center" style="cursor: pointer"
-                                             (click)="onViewInstitus(s.idInstitus)">
-                                            <h5>[{{s.abreviation}}] {{s.nomInstitus}}</h5>
+                                             (click)="onViewInstitus(s.id)">
+                                            <h5>[{{s.abreviation}}] {{s.nom}}</h5>
                                         </div>
                                     </div>
                                 </div>

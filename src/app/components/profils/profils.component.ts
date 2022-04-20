@@ -68,7 +68,7 @@ export class ProfilsComponent implements OnInit {
                     }
                 );
                 for (const u of this.usersA) {
-                    if (u.idUser.toString() === this.foulen.idUser.toString()) {
+                    if (u.uid === this.foulen.uid) {
                         this.rang = this.usersA.indexOf(u) + 1;
                         break;
                     }
@@ -126,7 +126,6 @@ export class ProfilsComponent implements OnInit {
         }
 
         const rajel: User = {
-            idUser: this.foulen.idUser,
             uid: this.foulen.uid,
             mailUser: mail,
             nomUser: nom,
@@ -137,9 +136,7 @@ export class ProfilsComponent implements OnInit {
             urlLinkedIn: linkedin,
             score: this.foulen.score,
             description: description,
-            historiqueDocument: this.foulen.historiqueDocument,
-            historiqueExamen: this.foulen.historiqueExamen,
-            isEnabled: this.foulen.isEnabled
+            enabled: true
         }
         this.userService.updateUser(rajel).subscribe(
             (response: User) => {

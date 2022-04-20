@@ -122,7 +122,7 @@ export class AllProfilsComponent implements OnInit {
         }
     }
 
-    seeOneProfile(idUser: number) {
+    seeOneProfile(idUser: string) {
         this.router.navigate(['/profils', 'view', idUser]);
     }
 

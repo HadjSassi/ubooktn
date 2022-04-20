@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Institus} from 'app/model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {UserService} from '../../../services/user.service';
 import {InstitusService} from '../../../services/institus.service';
 import {ClubService} from '../../../services/club.service';
@@ -99,12 +99,12 @@ export class InstitusComponent implements OnInit {
                 this.Instit = [];
                 this.Instituss = response;
                 this.Instituss.sort(function (a, b) {
-                        if (a.nomInstitus < b.nomInstitus) {
-                            return -1;
-                        }
-                        if (a.nomInstitus > b.nomInstitus) {
-                            return 1;
-                        }
+                    if (a.nom < b.nom) {
+                        return -1;
+                    }
+                    if (a.nom > b.nom) {
+                        return 1;
+                    }
                         return 0;
                     }
                 );
@@ -137,7 +137,7 @@ export class InstitusComponent implements OnInit {
     public search(key: string): void {
         const results: Institus[] = [];
         for (const doc of this.Instituss) {
-            if (doc.nomInstitus.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.abreviation.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.type.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.universite.toLowerCase().indexOf(key.toLowerCase()) !== -1
