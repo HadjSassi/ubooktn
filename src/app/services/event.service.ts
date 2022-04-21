@@ -18,6 +18,22 @@ export class EventService {
         return this.http.get<Event[]>(`${this.apiServeurUrl}/Event/all`);
     }
 
+    public getCertification(): Observable<Event[]> {
+        return this.http.get<Event[]>(`${this.apiServeurUrl}/Event/Certification`);
+    }
+
+    public getCompetition(): Observable<Event[]> {
+        return this.http.get<Event[]>(`${this.apiServeurUrl}/Event/Competition`);
+    }
+
+    public getFormation(): Observable<Event[]> {
+        return this.http.get<Event[]>(`${this.apiServeurUrl}/Event/Formation`);
+    }
+
+    public getJourney(): Observable<Event[]> {
+        return this.http.get<Event[]>(`${this.apiServeurUrl}/Event/Journey`);
+    }
+
 
     getEventById(id: number): Observable<Event> {
         return this.http.get<Event>(`${this.apiServeurUrl}/Event/find/${id}`);

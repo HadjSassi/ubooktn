@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Journey} from '../../../model/Journey';
+import {Event} from '../../../model/Event';
 import {User} from '../../../model/User';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {CentreFormation} from '../../../model/CentreFormation';
-import {JourneyService} from '../../../services/journey.service';
+import {EventService} from '../../../services/event.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {ClubService} from '../../../services/club.service';
@@ -30,10 +30,10 @@ export class JourneyComponent implements OnInit {
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
     nbElmParPage = 10; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
     nbMaxPage2 = 0;
-    public Evenements: Journey[] = [];
-    public Evenement: Journey[] = [];
-    public evenements: Journey[] = [];
-    public evenement: Journey[] = [];
+    public Evenements: Event[] = [];
+    public Evenement: Event[] = [];
+    public evenements: Event[] = [];
+    public evenement: Event[] = [];
     public zone = ['Ariana', 'Beja', 'BenArous', 'Bizerte', 'Gabes', 'Gafsa', 'Gbeli',
         'Jendouba', 'Kairouan', 'Kasserine', 'kef', 'Mahdia', 'Manouba', 'Mednine', 'Monastir',
         'Nabeul', 'Sfax', 'SidiBouZid', 'Siliana', 'Sousse', 'Tataouine', 'Tozeur', 'Tunis', 'Zaghouan'
@@ -70,7 +70,7 @@ export class JourneyComponent implements OnInit {
     loading = true;
     grille = true;
 
-    constructor(private journeyService: JourneyService, private router: Router,
+    constructor(private journeyService: EventService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
                 private settingsService: SettingsService) {
@@ -79,15 +79,15 @@ export class JourneyComponent implements OnInit {
     ngOnInit(): void {
         this.clubss = this.settingsService.listClubs;
         for (const i of this.clubss) {
-            this.clubs.push(i.idClub);
+            this.clubs.push(i.id);
         }
         this.instituss = this.settingsService.listInstitus;
         for (const i of this.instituss) {
-            this.institus.push(i.idInstitus);
+            this.institus.push(i.id);
         }
         this.cfs = this.settingsService.listCfs;
         for (const i of this.cfs) {
-            this.cf.push(i.idCf);
+            this.cf.push(i.id);
         }
         let uid = '';
         firebase.auth().onAuthStateChanged(
@@ -120,7 +120,7 @@ export class JourneyComponent implements OnInit {
     }
 
     onViewJourney(id: number) {
-        this.router.navigate(['/event', 'journey', id]);
+        this.router.navigate(['/event', id]);
     }
 
     public getCompetions(): void {
@@ -128,8 +128,8 @@ export class JourneyComponent implements OnInit {
         this.Evenement = [];
         this.evenements = [];
         this.evenement = [];
-        this.journeyService.getJourneys().subscribe(
-            (response: Journey[]) => {
+        this.journeyService.getJourney().subscribe(
+            (response: Event[]) => {
                 this.Evenements = response;
                 this.Evenements.sort(function (a, b) {
                         if (a.nom < b.nom) {
@@ -160,7 +160,7 @@ export class JourneyComponent implements OnInit {
     }
 
     public search(key: string): void {
-        const results: Journey[] = [];
+        const results: Event[] = [];
         let z;
         const listClubs: string[] = [];
         const listInstitus: string[] = [];
@@ -180,7 +180,7 @@ export class JourneyComponent implements OnInit {
             for (const y of list) {
                 z = this.clubs.indexOf(Number(y));
                 const name = this.clubss[z];
-                ch = ch + name.nomClub + ',';
+                ch = ch + name.nom + ',';
             }
             this.listClubsNames.push(ch);
         }
@@ -197,7 +197,7 @@ export class JourneyComponent implements OnInit {
                 z = this.institus.indexOf(Number(y));
                 const name = this.instituss[z];
                 sh = sh + name.abreviation + ',';
-                ch = ch + name.nomInstitus + ',';
+                ch = ch + name.nom + ',';
 
             }
             this.listInstitusNames.push(ch);
@@ -215,7 +215,7 @@ export class JourneyComponent implements OnInit {
             for (const y of list) {
                 z = this.cf.indexOf(Number(y));
                 const name = this.cfs[z];
-                ch = ch + name.nomCf + ',';
+                ch = ch + name.nom + ',';
                 if (sh !== null) {
                     sh = sh + name.abreviation + ',';
                 }
@@ -271,7 +271,7 @@ export class JourneyComponent implements OnInit {
         console.log(this.startD);
         console.log(this.finishings);
         let i = this.nbPage;
-        let results: Journey[] = [];
+        let results: Event[] = [];
 
         for (const doc of this.Evenements) {
             if (
@@ -303,7 +303,7 @@ export class JourneyComponent implements OnInit {
 
     onPageChange(currentPage: number) {
         if (this.Evenement.length === 0) {
-            const results: Journey[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenements) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {
@@ -318,7 +318,7 @@ export class JourneyComponent implements OnInit {
             }
             this.evenements = results;
         } else {
-            const results: Journey[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenement) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {

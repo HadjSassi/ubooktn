@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Certification} from '../../../model/UniversityOrganisms';
+import {Event} from '../../../model/Event';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClubService} from '../../../services/club.service';
 import {CentreFormationService} from '../../../services/centre-formation.service';
@@ -8,20 +8,20 @@ import {Institus} from '../../../model/Institus';
 import {Club} from '../../../model/Clubs';
 import {CentreFormation} from '../../../model/CentreFormation';
 import {HttpErrorResponse} from '@angular/common/http';
-import {CertificationService} from '../../../services/certification.service';
+import {EventService} from '../../../services/event.service';
 import {UserService} from '../../../services/user.service';
 import * as firebase from 'firebase';
 import {User} from '../../../model/User';
 import {environment} from '../../../../environments/environment';
 
 @Component({
-    selector: 'app-one-certification',
-    templateUrl: './one-certification.component.html',
-    styleUrls: ['./one-certification.component.css']
+    selector: 'app-one-event',
+    templateUrl: './one-event.component.html',
+    styleUrls: ['./one-event.component.css']
 })
-export class OneCertificationComponent implements OnInit {
+export class OneEventComponent implements OnInit {
 
-    comp: Certification;
+    comp: Event;
     img = '';
     start = '';
     finish = '';
@@ -33,20 +33,20 @@ export class OneCertificationComponent implements OnInit {
     partenaires = [];
     isAuthor = false;
 
-    constructor(private certificationService: CertificationService, private route: ActivatedRoute,
+    constructor(private eventService: EventService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
                 private isntitusService: InstitusService, private userService: UserService) {
     }
 
     ngOnInit(): void {
-        this.certificationService.getCertificationById(this.route.snapshot.params['id']).subscribe(
-            (resolve: Certification) => {
+        this.eventService.getEventById(this.route.snapshot.params['id']).subscribe(
+            (resolve: Event) => {
                 this.comp = resolve;
                 this.img = resolve.affiche;
                 firebase.auth().onAuthStateChanged(
                     (user) => {
-                        console.log(user.uid, this.comp.uid, user.uid === this.comp.uid);
-                        if (user.uid === this.comp.uid) {
+                        console.log(user.uid, this.comp.uid, user.uid === this.comp.uid.uid);
+                        if (user.uid === this.comp.uid.uid) {
                             this.isAuthor = true;
                         }
                     }
@@ -61,7 +61,7 @@ export class OneCertificationComponent implements OnInit {
                     (result: Institus[]) => {
                         h = resolve.institus.split((','));
                         for (const x of result) {
-                            if (h.indexOf(x.idInstitus.toString()) !== -1) {
+                            if (h.indexOf(x.id.toString()) !== -1) {
                                 this.institus.push(x);
                             }
                         }
@@ -71,7 +71,7 @@ export class OneCertificationComponent implements OnInit {
                     (result: Club[]) => {
                         h = resolve.clubs.split((','));
                         for (const x of result) {
-                            if (h.indexOf(x.idClub.toString()) !== -1) {
+                            if (h.indexOf(x.id.toString()) !== -1) {
                                 this.clubs.push(x);
                             }
                         }
@@ -81,7 +81,7 @@ export class OneCertificationComponent implements OnInit {
                     (result: CentreFormation[]) => {
                         h = resolve.trainingCenters.split(',');
                         for (const x of result) {
-                            if (h.indexOf(x.idCf.toString()) !== -1) {
+                            if (h.indexOf(x.id.toString()) !== -1) {
                                 this.cfs.push(x);
                             }
                         }

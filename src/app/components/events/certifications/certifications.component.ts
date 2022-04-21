@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Certification} from '../../../model/UniversityOrganisms';
+import {Event} from '../../../model/Event';
 import {User} from '../../../model/User';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {CentreFormation} from '../../../model/CentreFormation';
-import {CertificationService} from '../../../services/certification.service';
+import {EventService} from '../../../services/event.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {ClubService} from '../../../services/club.service';
@@ -28,10 +28,10 @@ export class CertificationsComponent implements OnInit {
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
     nbElmParPage = 10; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
     nbMaxPage2 = 0;
-    public Evenements: Certification[] = [];
-    public Evenement: Certification[] = [];
-    public evenements: Certification[] = [];
-    public evenement: Certification[] = [];
+    public Evenements: Event[] = [];
+    public Evenement: Event[] = [];
+    public evenements: Event[] = [];
+    public evenement: Event[] = [];
     public zone = ['Ariana', 'Beja', 'BenArous', 'Bizerte', 'Gabes', 'Gafsa', 'Gbeli',
         'Jendouba', 'Kairouan', 'Kasserine', 'kef', 'Mahdia', 'Manouba', 'Mednine', 'Monastir',
         'Nabeul', 'Sfax', 'SidiBouZid', 'Siliana', 'Sousse', 'Tataouine', 'Tozeur', 'Tunis', 'Zaghouan'
@@ -68,7 +68,7 @@ export class CertificationsComponent implements OnInit {
     loading = true;
     grille = true;
 
-    constructor(private certificationService: CertificationService, private router: Router,
+    constructor(private certificationService: EventService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
                 private instituService: InstitusService, private cfService: CentreFormationService,
                 private settingsService: SettingsService) {
@@ -77,40 +77,26 @@ export class CertificationsComponent implements OnInit {
     ngOnInit(): void {
         this.clubss = this.settingsService.listClubs;
         for (const i of this.clubss) {
-            this.clubs.push(i.idClub);
+            this.clubs.push(i.id);
         }
         this.instituss = this.settingsService.listInstitus;
         for (const i of this.instituss) {
-            this.institus.push(i.idInstitus);
+            this.institus.push(i.id);
         }
         this.cfs = this.settingsService.listCfs;
         for (const i of this.cfs) {
-            this.cf.push(i.idCf);
+            this.cf.push(i.id);
         }
         let uid = '';
         firebase.auth().onAuthStateChanged(
             (user) => {
                 if (user) {
                     uid = user.uid.toString();
-                    this.userService.getUsers().subscribe(
-                        (response: User[]) => {
-                            for (const i of response) {
-                                if (i.uid === uid) {
-                                    this.foulen = i;
-                                    if (this.foulen.mailUser === environment.admine) {
-                                        this.isAdmin = true
-                                    }
-                                    break;
-                                }
-                            }
-                        },
-                        (error: HttpErrorResponse) => {
-                            alert(error.message);
+                    this.userService.getUserByUid(uid).subscribe(
+                        (response: User) => {
+                            this.foulen = response;
                         }
                     );
-                } else {
-                    uid = 'dawa7';
-                    console.log('dawa7 ha mbarka');
                 }
             }
         );
@@ -118,7 +104,7 @@ export class CertificationsComponent implements OnInit {
     }
 
     onViewCertification(id: number) {
-        this.router.navigate(['/event', 'certifications', id]);
+        this.router.navigate(['/event', id]);
     }
 
     public getCompetions(): void {
@@ -126,8 +112,8 @@ export class CertificationsComponent implements OnInit {
         this.Evenement = [];
         this.evenements = [];
         this.evenement = [];
-        this.certificationService.getCertifications().subscribe(
-            (response: Certification[]) => {
+        this.certificationService.getCertification().subscribe(
+            (response: Event[]) => {
                 this.Evenements = response;
                 this.Evenements.sort(function (a, b) {
                         if (a.nom < b.nom) {
@@ -158,7 +144,7 @@ export class CertificationsComponent implements OnInit {
     }
 
     public search(key: string): void {
-        const results: Certification[] = [];
+        const results: Event[] = [];
         let z;
         const listClubs: string[] = [];
         const listInstitus: string[] = [];
@@ -178,7 +164,7 @@ export class CertificationsComponent implements OnInit {
             for (const y of list) {
                 z = this.clubs.indexOf(Number(y));
                 const name = this.clubss[z];
-                ch = ch + name.nomClub + ',';
+                ch = ch + name.nom + ',';
             }
             this.listClubsNames.push(ch);
         }
@@ -195,7 +181,7 @@ export class CertificationsComponent implements OnInit {
                 z = this.institus.indexOf(Number(y));
                 const name = this.instituss[z];
                 sh = sh + name.abreviation + ',';
-                ch = ch + name.nomInstitus + ',';
+                ch = ch + name.nom + ',';
 
             }
             this.listInstitusNames.push(ch);
@@ -213,7 +199,7 @@ export class CertificationsComponent implements OnInit {
             for (const y of list) {
                 z = this.cf.indexOf(Number(y));
                 const name = this.cfs[z];
-                ch = ch + name.nomCf + ',';
+                ch = ch + name.nom + ',';
                 if (sh !== null) {
                     sh = sh + name.abreviation + ',';
                 }
@@ -269,7 +255,7 @@ export class CertificationsComponent implements OnInit {
         console.log(this.startD);
         console.log(this.finishings);
         let i = this.nbPage;
-        let results: Certification[] = [];
+        let results: Event[] = [];
 
         for (const doc of this.Evenements) {
             if (
@@ -301,7 +287,7 @@ export class CertificationsComponent implements OnInit {
 
     onPageChange(currentPage: number) {
         if (this.Evenement.length === 0) {
-            const results: Certification[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenements) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {
@@ -316,7 +302,7 @@ export class CertificationsComponent implements OnInit {
             }
             this.evenements = results;
         } else {
-            const results: Certification[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenement) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {

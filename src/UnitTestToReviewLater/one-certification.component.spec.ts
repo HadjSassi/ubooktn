@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {OneCertificationComponent} from '../app/components/events/one-certification/one-certification.component';
+import {OneEventComponent} from '../app/components/events/one-event/one-event.component';
 
 describe('OneCertificationComponent', () => {
-    let component: OneCertificationComponent;
-    let fixture: ComponentFixture<OneCertificationComponent>;
+    let component: OneEventComponent;
+    let fixture: ComponentFixture<OneEventComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [OneCertificationComponent]
+            declarations: [OneEventComponent]
         })
             .compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(OneCertificationComponent);
+        fixture = TestBed.createComponent(OneEventComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

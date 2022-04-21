@@ -10,13 +10,7 @@ import * as firebase from 'firebase';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../../../services/event.service';
-import {CertificationService} from '../../../services/certification.service';
-import {CompetitionService} from '../../../services/competition.service';
-import {JourneyService} from '../../../services/journey.service';
-import {Formation} from '../../../model/Event';
-import {Competition} from '../../../model/Competition';
-import {Journey} from '../../../model/Journey';
-import {Certification} from '../../../model/UniversityOrganisms';
+import {Event} from '../../../model/Event';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -111,10 +105,7 @@ export class NewEventComponent implements OnInit {
     noBooking = true;
 
     constructor(private settingsService: SettingsService,
-                private formationService: EventService,
-                private certificationService: CertificationService,
-                private competitionService: CompetitionService,
-                private journeyService: JourneyService,
+                private eventService: EventService,
                 private router: Router,
                 private userService: UserService,
                 private settingService: SettingsService,
@@ -178,6 +169,7 @@ export class NewEventComponent implements OnInit {
             const tel = form.value['tel'];
             const registrationLink = form.value['link'];
             const eventPartenaires = form.value['associe'];
+            const eventType = form.value['event'];
             let eventclubs = '';
             let eventInstitus = '';
             let eventCfs = '';
@@ -224,105 +216,25 @@ export class NewEventComponent implements OnInit {
                             registrationDateLimit: this.dating(this.limitDate),
                             shown: 'false',
                             picsUrl: '',
+                            type: eventType,
                             uid: uid
                         }
-                        switch (form.value['event']) {
-                            case 'forma' :
-                                this.formationService.addFormation(evenement).subscribe(
-                                    (response: Formation) => {
-                                        console.log(response);
-                                        this.router.navigate(['event']);
-
-                                        firebase.auth().onAuthStateChanged(
-                                            (users) => {
-                                                if (users) {
-                                                    uid = users.uid.toString();
-                                                    this.searchUid(uid);
-                                                } else {
-                                                    uid = 'dawa7';
-                                                    console.log('dawa7 ha mbarka');
-                                                }
-                                            }
-                                        );
-                                    },
-                                    (error: HttpErrorResponse) => {
-                                        alert(error.message);
+                        this.eventService.addEvent(evenement).subscribe(
+                            (reeesp: Event) => {
+                                this.router.navigate(['event']);
+                                firebase.auth().onAuthStateChanged(
+                                    (users) => {
+                                        if (users) {
+                                            uid = users.uid.toString();
+                                            this.searchUid(uid);
+                                        } else {
+                                            uid = 'dawa7';
+                                            console.log('dawa7 ha mbarka');
+                                        }
                                     }
                                 );
-                                break;
-                            case 'comp' :
-                                this.competitionService.addCompetition(evenement).subscribe(
-                                    (response: Competition) => {
-                                        console.log(response);
-                                        this.router.navigate(['event']);
-
-                                        firebase.auth().onAuthStateChanged(
-                                            (users) => {
-                                                if (users) {
-                                                    uid = users.uid.toString();
-                                                    this.searchUid(uid);
-                                                } else {
-                                                    uid = 'dawa7';
-                                                    console.log('dawa7 ha mbarka');
-                                                }
-                                            }
-                                        );
-                                    },
-                                    (error: HttpErrorResponse) => {
-                                        alert(error.message);
-                                    }
-                                );
-                                break;
-                            case 'jour' :
-                                this.journeyService.addJourney(evenement).subscribe(
-                                    (response: Journey) => {
-                                        console.log(response);
-                                        this.router.navigate(['event']);
-
-                                        firebase.auth().onAuthStateChanged(
-                                            (users) => {
-                                                if (users) {
-                                                    uid = users.uid.toString();
-                                                    this.searchUid(uid);
-                                                } else {
-                                                    uid = 'dawa7';
-                                                    console.log('dawa7 ha mbarka');
-                                                }
-                                            }
-                                        );
-                                    },
-                                    (error: HttpErrorResponse) => {
-                                        alert(error.message);
-                                    }
-                                );
-                                break;
-                            case 'certif' :
-                                this.certificationService.addCertification(evenement).subscribe(
-                                    (response: Certification) => {
-                                        console.log(response);
-                                        this.router.navigate(['event']);
-
-                                        firebase.auth().onAuthStateChanged(
-                                            (users) => {
-                                                if (users) {
-                                                    uid = users.uid.toString();
-                                                    this.searchUid(uid);
-                                                } else {
-                                                    uid = 'dawa7';
-                                                    console.log('dawa7 ha mbarka');
-                                                }
-                                            }
-                                        );
-                                    },
-                                    (error: HttpErrorResponse) => {
-                                        alert(error.message);
-                                    }
-                                );
-                                break;
-                            default:
-                                console.log('ha ezzedine barra dawa7 kima mbarka');
-                                break;
-                        }
+                            }
+                        )
                     }
                 });
         }

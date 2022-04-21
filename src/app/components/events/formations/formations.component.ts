@@ -13,7 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import * as firebase from 'firebase';
 import {environment} from '../../../../environments/environment';
 import {NgForm} from '@angular/forms';
-import {Formation} from '../../../model/Event';
+import {Event} from '../../../model/Event';
 import {EventService} from '../../../services/event.service';
 import {SettingsService} from '../../../services/settings.service';
 
@@ -29,10 +29,10 @@ export class FormationsComponent implements OnInit {
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
     nbElmParPage = 10; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
     nbMaxPage2 = 0;
-    public Evenements: Formation[] = [];
-    public Evenement: Formation[] = [];
-    public evenements: Formation[] = [];
-    public evenement: Formation[] = [];
+    public Evenements: Event[] = [];
+    public Evenement: Event[] = [];
+    public evenements: Event[] = [];
+    public evenement: Event[] = [];
     public zone = ['Ariana', 'Beja', 'BenArous', 'Bizerte', 'Gabes', 'Gafsa', 'Gbeli',
         'Jendouba', 'Kairouan', 'Kasserine', 'kef', 'Mahdia', 'Manouba', 'Mednine', 'Monastir',
         'Nabeul', 'Sfax', 'SidiBouZid', 'Siliana', 'Sousse', 'Tataouine', 'Tozeur', 'Tunis', 'Zaghouan'
@@ -78,15 +78,15 @@ export class FormationsComponent implements OnInit {
     ngOnInit(): void {
         this.clubss = this.settingsService.listClubs;
         for (const i of this.clubss) {
-            this.clubs.push(i.idClub);
+            this.clubs.push(i.id);
         }
         this.instituss = this.settingsService.listInstitus;
         for (const i of this.instituss) {
-            this.institus.push(i.idInstitus);
+            this.institus.push(i.id);
         }
         this.cfs = this.settingsService.listCfs;
         for (const i of this.cfs) {
-            this.cf.push(i.idCf);
+            this.cf.push(i.id);
         }
         let uid = '';
         firebase.auth().onAuthStateChanged(
@@ -119,7 +119,7 @@ export class FormationsComponent implements OnInit {
     }
 
     onViewFormation(id: number) {
-        this.router.navigate(['/event', 'training', id]);
+        this.router.navigate(['/event', id]);
     }
 
     public getCompetions(): void {
@@ -127,8 +127,8 @@ export class FormationsComponent implements OnInit {
         this.Evenement = [];
         this.evenements = [];
         this.evenement = [];
-        this.formationService.getFormations().subscribe(
-            (response: Formation[]) => {
+        this.formationService.getFormation().subscribe(
+            (response: Event[]) => {
                 this.Evenements = response;
                 this.Evenements.sort(function (a, b) {
                         if (a.nom < b.nom) {
@@ -159,7 +159,7 @@ export class FormationsComponent implements OnInit {
     }
 
     public search(key: string): void {
-        const results: Formation[] = [];
+        const results: Event[] = [];
         let z;
         const listClubs: string[] = [];
         const listInstitus: string[] = [];
@@ -179,7 +179,7 @@ export class FormationsComponent implements OnInit {
             for (const y of list) {
                 z = this.clubs.indexOf(Number(y));
                 const name = this.clubss[z];
-                ch = ch + name.nomClub + ',';
+                ch = ch + name.nom + ',';
             }
             this.listClubsNames.push(ch);
         }
@@ -196,7 +196,7 @@ export class FormationsComponent implements OnInit {
                 z = this.institus.indexOf(Number(y));
                 const name = this.instituss[z];
                 sh = sh + name.abreviation + ',';
-                ch = ch + name.nomInstitus + ',';
+                ch = ch + name.nom + ',';
 
             }
             this.listInstitusNames.push(ch);
@@ -214,7 +214,7 @@ export class FormationsComponent implements OnInit {
             for (const y of list) {
                 z = this.cf.indexOf(Number(y));
                 const name = this.cfs[z];
-                ch = ch + name.nomCf + ',';
+                ch = ch + name.nom + ',';
                 if (sh !== null) {
                     sh = sh + name.abreviation + ',';
                 }
@@ -270,7 +270,7 @@ export class FormationsComponent implements OnInit {
         console.log(this.startD);
         console.log(this.finishings);
         let i = this.nbPage;
-        let results: Formation[] = [];
+        let results: Event[] = [];
 
         for (const doc of this.Evenements) {
             if (
@@ -302,7 +302,7 @@ export class FormationsComponent implements OnInit {
 
     onPageChange(currentPage: number) {
         if (this.Evenement.length === 0) {
-            const results: Formation[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenements) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {
@@ -317,7 +317,7 @@ export class FormationsComponent implements OnInit {
             }
             this.evenements = results;
         } else {
-            const results: Formation[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenement) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {

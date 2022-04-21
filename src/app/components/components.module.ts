@@ -41,10 +41,7 @@ import {OneProfilComponent} from './profils/one-profil/one-profil.component';
 import {CentreFormationComponent} from './enivronnement-universitaire/centre-formation/centre-formation.component';
 import {OneCentreFormationComponent} from './enivronnement-universitaire/one-centre-formation/one-centre-formation.component';
 import {JourneyComponent} from './events/journey/journey.component';
-import {OneJourneyComponent} from './events/one-journey/one-journey.component';
-import {OneCertificationComponent} from './events/one-certification/one-certification.component';
-import {OneCompetitionComponent} from './events/one-competition/one-competition.component';
-import {OneFormationComponent} from './events/one-formation/one-formation.component';
+import {OneEventComponent} from './events/one-event/one-event.component';
 import {NewEventComponent} from './events/new-event/new-event.component';
 import {NgbdModalContent} from './modal/modal.component';
 import {NgbdModalContentEvents} from './events/new-event/new-event.component';
@@ -98,11 +95,8 @@ import {ConfirmationComponent} from './not-found/confirmation/confirmation.compo
         OneProfilComponent,
         CentreFormationComponent,
         OneCentreFormationComponent,
-        JourneyComponent,
-        OneJourneyComponent,
-        OneCertificationComponent,
-        OneCompetitionComponent,
-        OneFormationComponent,
+        JourneyComponent, ,
+        OneEventComponent,
         EditEventComponent,
         ConfirmationComponent
     ],

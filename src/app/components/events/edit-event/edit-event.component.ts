@@ -3,19 +3,13 @@ import {User} from '../../../model/User';
 import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SettingsService} from '../../../services/settings.service';
 import {EventService} from '../../../services/event.service';
-import {CertificationService} from '../../../services/certification.service';
-import {CompetitionService} from '../../../services/competition.service';
-import {JourneyService} from '../../../services/journey.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {Settings} from '../../../model/Settings';
 import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
-import {Formation} from '../../../model/Event';
+import {Event} from '../../../model/Event';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
-import {Competition} from '../../../model/Competition';
-import {Journey} from '../../../model/Journey';
-import {Certification} from '../../../model/UniversityOrganisms';
 import {NgbdModalContentEvents} from '../new-event/new-event.component';
 import {InstitusService} from '../../../services/institus.service';
 import {ClubService} from '../../../services/club.service';
@@ -65,10 +59,7 @@ export class EditEventComponent implements OnInit {
     event: any;
 
     constructor(private settingsService: SettingsService,
-                private formationService: EventService,
-                private certificationService: CertificationService,
-                private competitionService: CompetitionService,
-                private journeyService: JourneyService,
+                private eventService: EventService,
                 private userService: UserService,
                 private settingService: SettingsService,
                 private modalService: NgbModal,
@@ -85,8 +76,8 @@ export class EditEventComponent implements OnInit {
         switch (type) {
             case 'journey' :
                 this.isJourney = true;
-                this.journeyService.getJourneyById(id).subscribe(
-                    (result: Journey) => {
+                this.eventService.getEventById(id).subscribe(
+                    (result: Event) => {
                         this.event = result;
                         firebase.auth().onAuthStateChanged(
                             (user) => {
@@ -106,7 +97,7 @@ export class EditEventComponent implements OnInit {
                         this.instituService.getInstituss().subscribe(
                             (res: Institus[]) => {
                                 for (const x of res) {
-                                    if (result.institus.indexOf(x.idInstitus.toString()) !== -1) {
+                                    if (result.institus.indexOf(x.id.toString()) !== -1) {
                                         this.instituing.push(x);
                                     }
                                 }
@@ -115,7 +106,7 @@ export class EditEventComponent implements OnInit {
                         this.clubService.getClubs().subscribe(
                             (res: Club[]) => {
                                 for (const x of res) {
-                                    if (result.clubs.indexOf(x.idClub.toString()) !== -1) {
+                                    if (result.clubs.indexOf(x.id.toString()) !== -1) {
                                         this.clubing.push(x);
                                     }
                                 }
@@ -124,7 +115,7 @@ export class EditEventComponent implements OnInit {
                         this.cfService.getCentreFormations().subscribe(
                             (res: CentreFormation[]) => {
                                 for (const x of res) {
-                                    if (result.trainingCenters.indexOf(x.idCf.toString()) !== -1) {
+                                    if (result.trainingCenters.indexOf(x.id.toString()) !== -1) {
                                         this.cfing.push(x);
                                     }
                                 }
@@ -135,8 +126,8 @@ export class EditEventComponent implements OnInit {
                 break;
             case 'competition':
                 this.isCompetition = true;
-                this.competitionService.getCompetitionById(id).subscribe(
-                    (result: Competition) => {
+                this.eventService.getEventById(id).subscribe(
+                    (result: Event) => {
                         this.event = result;
                         firebase.auth().onAuthStateChanged(
                             (user) => {
@@ -156,7 +147,7 @@ export class EditEventComponent implements OnInit {
                         this.instituService.getInstituss().subscribe(
                             (res: Institus[]) => {
                                 for (const x of res) {
-                                    if (result.institus.indexOf(x.idInstitus.toString()) !== -1) {
+                                    if (result.institus.indexOf(x.id.toString()) !== -1) {
                                         this.instituing.push(x);
                                     }
                                 }
@@ -165,7 +156,7 @@ export class EditEventComponent implements OnInit {
                         this.clubService.getClubs().subscribe(
                             (res: Club[]) => {
                                 for (const x of res) {
-                                    if (result.clubs.indexOf(x.idClub.toString()) !== -1) {
+                                    if (result.clubs.indexOf(x.id.toString()) !== -1) {
                                         this.clubing.push(x);
                                     }
                                 }
@@ -174,7 +165,7 @@ export class EditEventComponent implements OnInit {
                         this.cfService.getCentreFormations().subscribe(
                             (res: CentreFormation[]) => {
                                 for (const x of res) {
-                                    if (result.trainingCenters.indexOf(x.idCf.toString()) !== -1) {
+                                    if (result.trainingCenters.indexOf(x.id.toString()) !== -1) {
                                         this.cfing.push(x);
                                     }
                                 }
@@ -190,8 +181,8 @@ export class EditEventComponent implements OnInit {
                 break;
             case 'certification':
                 this.isCertification = true;
-                this.certificationService.getCertificationById(id).subscribe(
-                    (result: Certification) => {
+                this.eventService.getEventById(id).subscribe(
+                    (result: Event) => {
                         this.event = result;
                         firebase.auth().onAuthStateChanged(
                             (user) => {
@@ -211,7 +202,7 @@ export class EditEventComponent implements OnInit {
                         this.instituService.getInstituss().subscribe(
                             (res: Institus[]) => {
                                 for (const x of res) {
-                                    if (result.institus.indexOf(x.idInstitus.toString()) !== -1) {
+                                    if (result.institus.indexOf(x.id.toString()) !== -1) {
                                         this.instituing.push(x);
                                     }
                                 }
@@ -220,7 +211,7 @@ export class EditEventComponent implements OnInit {
                         this.clubService.getClubs().subscribe(
                             (res: Club[]) => {
                                 for (const x of res) {
-                                    if (result.clubs.indexOf(x.idClub.toString()) !== -1) {
+                                    if (result.clubs.indexOf(x.id.toString()) !== -1) {
                                         this.clubing.push(x);
                                     }
                                 }
@@ -229,7 +220,7 @@ export class EditEventComponent implements OnInit {
                         this.cfService.getCentreFormations().subscribe(
                             (res: CentreFormation[]) => {
                                 for (const x of res) {
-                                    if (result.trainingCenters.indexOf(x.idCf.toString()) !== -1) {
+                                    if (result.trainingCenters.indexOf(x.id.toString()) !== -1) {
                                         this.cfing.push(x);
                                     }
                                 }
@@ -240,8 +231,8 @@ export class EditEventComponent implements OnInit {
                 break;
             case 'training':
                 this.isFormation = true;
-                this.formationService.getFormationById(id).subscribe(
-                    (result: Formation) => {
+                this.eventService.getEventById(id).subscribe(
+                    (result: Event) => {
                         this.event = result;
                         firebase.auth().onAuthStateChanged(
                             (user) => {
@@ -261,7 +252,7 @@ export class EditEventComponent implements OnInit {
                         this.instituService.getInstituss().subscribe(
                             (res: Institus[]) => {
                                 for (const x of res) {
-                                    if (result.institus.indexOf(x.idInstitus.toString()) !== -1) {
+                                    if (result.institus.indexOf(x.id.toString()) !== -1) {
                                         this.instituing.push(x);
                                     }
                                 }
@@ -270,7 +261,7 @@ export class EditEventComponent implements OnInit {
                         this.clubService.getClubs().subscribe(
                             (res: Club[]) => {
                                 for (const x of res) {
-                                    if (result.clubs.indexOf(x.idClub.toString()) !== -1) {
+                                    if (result.clubs.indexOf(x.id.toString()) !== -1) {
                                         this.clubing.push(x);
                                     }
                                 }
@@ -279,7 +270,7 @@ export class EditEventComponent implements OnInit {
                         this.cfService.getCentreFormations().subscribe(
                             (res: CentreFormation[]) => {
                                 for (const x of res) {
-                                    if (result.trainingCenters.indexOf(x.idCf.toString()) !== -1) {
+                                    if (result.trainingCenters.indexOf(x.id.toString()) !== -1) {
                                         this.cfing.push(x);
                                     }
                                 }
@@ -336,8 +327,8 @@ export class EditEventComponent implements OnInit {
             }
             switch (type) {
                 case 'journey':
-                    this.journeyService.updateJourney(this.event).subscribe(
-                        (result: Journey) => {
+                    this.eventService.updateEvent(this.event).subscribe(
+                        (result: Event) => {
                             console.log(result);
                             this.router.navigate(['/event', 'journey', id]);
                         }, error => {
@@ -346,8 +337,8 @@ export class EditEventComponent implements OnInit {
                     );
                     break;
                 case 'competition':
-                    this.competitionService.updateCompetition(this.event).subscribe(
-                        (result: Competition) => {
+                    this.eventService.updateEvent(this.event).subscribe(
+                        (result: Event) => {
                             console.log(result);
                             this.router.navigate(['/event', 'competitions', id]);
                         }, error => {
@@ -356,8 +347,8 @@ export class EditEventComponent implements OnInit {
                     );
                     break;
                 case 'certification':
-                    this.certificationService.updateCertification(this.event).subscribe(
-                        (result: Certification) => {
+                    this.eventService.updateEvent(this.event).subscribe(
+                        (result: Event) => {
                             console.log(result);
                             this.router.navigate(['/event', 'certifications', id]);
                         }, error => {
@@ -366,8 +357,8 @@ export class EditEventComponent implements OnInit {
                     );
                     break;
                 case 'training':
-                    this.formationService.updateFormation(this.event).subscribe(
-                        (result: Formation) => {
+                    this.eventService.updateEvent(this.event).subscribe(
+                        (result: Event) => {
                             console.log(result);
                             this.router.navigate(['/event', 'training', id]);
                         }, error => {
@@ -468,27 +459,10 @@ export class EditEventComponent implements OnInit {
 
     supprim() {
         const id = this.route.snapshot.params['id'];
-        const type = this.route.snapshot.params['type'];
         const txt = 'Are you sure to delete ' + this.event.nom;
         if (confirm(txt)) {
-            switch (type) {
-                case 'journey':
-                    this.journeyService.deleteJourney(id).subscribe();
-                    this.router.navigate(['/event']);
-                    break;
-                case 'competition':
-                    this.competitionService.deleteCompetition(id).subscribe();
-                    this.router.navigate(['/event']);
-                    break;
-                case 'certification':
-                    this.certificationService.deleteCertification(id).subscribe();
-                    this.router.navigate(['/event']);
-                    break;
-                case 'training':
-                    this.formationService.deleteFormation(id).subscribe();
-                    this.router.navigate(['/event']);
-                    break;
-            }
+            this.eventService.deleteEvent(id).subscribe();
+            this.router.navigate(['/event']);
         } else {
             console.log('Nothing happened !')
         }
