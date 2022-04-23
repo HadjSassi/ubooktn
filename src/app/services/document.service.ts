@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Document} from '../model/Document';
 import * as firebase from 'firebase';
@@ -33,28 +33,14 @@ export class DocumentService {
         return this.http.delete<void>(`${this.apiServeurUrl}/document/delete/${id}`);
     }
 
-    uploadFile(file: File) {
-        return new Promise(
-            (resolve, reject) => {
-                console.log(file.name);
-                const upload = firebase.storage().ref()
-                    .child('Documents/' + file.name)
-                    .put(file);
-                console.log(upload);
-                upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
-                    () => {
-                        console.log('Chargement...');
-                    },
-                    (error) => {
-                        console.log('Erreur de chargement : ' + error);
-                        reject();
-                    },
-                    () => {
-                        resolve(upload.snapshot.ref.getDownloadURL());
-                    }
-                );
-            }
-        );
+    uploadFile(file: File): Observable<HttpEvent<{}>> {
+        const data: FormData = new FormData();
+        data.append('file', file);
+        const newRequest = new HttpRequest('POST', 'http://localhost:8081/upload/Document', data, {
+            reportProgress: true,
+            responseType: 'text'
+        });
+        return this.http.request(newRequest);
     }
 
 }

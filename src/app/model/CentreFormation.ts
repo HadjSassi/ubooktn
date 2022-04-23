@@ -1,15 +1,8 @@
-export interface CentreFormation {
-    idCf: number,
-    nomCf: string,
+import {UniversityOrganisms} from './UniversityOrganisms';
+
+export interface CentreFormation extends UniversityOrganisms {
     abreviation: string,
     region: string,
-    historique: string,
     domaines: string,
-    reglement: string,
-    logo: string,
-    urlOfficiel: string,
-    urlClubs: string,
-    urlPartenaires: string,
-    urlInstitus: string,
-    picsUrls: string
+    reglement: string
 }

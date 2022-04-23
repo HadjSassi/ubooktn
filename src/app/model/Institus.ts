@@ -1,20 +1,12 @@
-export interface Institus {
-    idInstitus: number,
-    nomInstitus: string,
+import {UniversityOrganisms} from './UniversityOrganisms';
+
+export interface Institus extends UniversityOrganisms {
     abreviation: string,
     universite: string,
     region: string,
-    historique: string,
     filieres: string,
-    logo: string,
-    urlOfficel: string,
-    listInstitus: string,
-    picUrl: string,
-    urls: string,
     sexe: string,
     type: string,
     nbChambre: string,
-    reglement: string,
-    listClubs: string,
-    voirAussi: string
+    reglement: string
 }

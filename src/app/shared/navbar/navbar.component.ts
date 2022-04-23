@@ -89,6 +89,7 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
+        document.getElementById('log').textContent = 'Sign In/Sign Up'
         this.authServie.signOutUser();
     }
 }

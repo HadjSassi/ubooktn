@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="500">
+<nav class="navbar navbar-expand-lg navbar-light navbar-float fixed-top">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="#">U-BooK.tn</a>
+            <a href="#/acceuil" class="navbar-brand">U-<span class="text-primary">BooK</span></a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse"
                     data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false"
                     aria-label="Toggle navigation" (click)="sidebarToggle()">
@@ -10,27 +10,33 @@
                 <span class="navbar-toggler-bar"></span>
             </button>
         </div>
-        <div class="navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav ml-auto">
+        <div class="navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a routerLinkActive="active" routerLink="aboutUs" class="nav-link"><i class="nc-icon nc-send"></i>
-                        Contact Us</a>
+                    <a routerLinkActive="active" routerLink="event" class="nav-link"><i
+                            class="nc-icon nc-layout-11"></i> Events</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLinkActive="active" routerLink="event/new" class="nav-link"><i
+                            class="nc-icon nc-album-2"></i>
+                        Add Event</a>
                 </li>
                 <li class="nav-item">
                     <a routerLinkActive="active" routerLink="university" class="nav-link"><i
                             class="nc-icon nc-bank"></i> University</a>
                 </li>
                 <li class="nav-item">
-                    <a routerLinkActive="active" routerLink="event" class="nav-link"><i
-                            class="nc-icon nc-layout-11"></i> Events</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLinkActive="active" routerLink="exams" class="nav-link"><i
-                            class="nc-icon nc-book-bookmark"></i> Exams</a>
+                    <a routerLinkActive="active" routerLink="documents" class="nav-link"><i
+                            class="nc-icon nc-book-bookmark"></i>Blank Exams</a>
                 </li>
                 <li class="nav-item">
                     <a routerLinkActive="active" routerLink="documents" class="nav-link"><i
                             class="nc-icon nc-single-copy-04"></i> Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLinkActive="active" routerLink="documents/reglementions" class="nav-link"><i
+                            class="nc-icon nc-paper"></i>
+                        Add Document</a>
                 </li>
                 <li class="nav-item">
                     <div class="dropdown">
@@ -42,14 +48,11 @@
                         </div>
                     </div>
                 </li>
-                <!--<li class="nav-item" *ngIf="isHome()">
-                    <a routerLinkActive="active" routerLink="signup"  class="btn btn-danger btn-round">Sign in / Sign up</a>
-                </li>-->
                 <li class="nav-item">
-                    <a *ngIf="!isRegistred ; else logouts" routerLink="auth/signup" class="btn btn-danger btn-round">Sign
-                        in / Sign up</a>
-                    <ng-template #logouts><a (click)="logout()" class="btn btn-danger btn-round"
-                                             routerLink="auth/signup">Log out</a>
+                    <a *ngIf="!isRegistred ; else logouts" routerLink="auth/signin" class="btn btn-purple btn-round">Sign
+                        IN / Sign UP</a>
+                    <ng-template #logouts><a id="log" (click)="logout()" class="btn btn-purple btn-round"
+                                             routerLink="auth/signin">Log out</a>
                     </ng-template>
                 </li>
             </ul>

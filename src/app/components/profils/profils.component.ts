@@ -3,7 +3,7 @@ import {User} from '../../model/User';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
 
@@ -68,7 +68,7 @@ export class ProfilsComponent implements OnInit {
                     }
                 );
                 for (const u of this.usersA) {
-                    if (u.idUser.toString() === this.foulen.idUser.toString()) {
+                    if (u.uid === this.foulen.uid) {
                         this.rang = this.usersA.indexOf(u) + 1;
                         break;
                     }
@@ -126,7 +126,6 @@ export class ProfilsComponent implements OnInit {
         }
 
         const rajel: User = {
-            idUser: this.foulen.idUser,
             uid: this.foulen.uid,
             mailUser: mail,
             nomUser: nom,
@@ -137,8 +136,7 @@ export class ProfilsComponent implements OnInit {
             urlLinkedIn: linkedin,
             score: this.foulen.score,
             description: description,
-            historiqueDocument: this.foulen.historiqueDocument,
-            historiqueExamen: this.foulen.historiqueExamen,
+            enabled: true
         }
         this.userService.updateUser(rajel).subscribe(
             (response: User) => {
@@ -154,7 +152,8 @@ export class ProfilsComponent implements OnInit {
 
 
     onUploadFile(file: File) {
-        if (this.foulen.urlPicUser !== '../../../../assets/img/icon.png') {
+        // this is soooo importanat how to delete the older image you should do it later
+        /*if (this.foulen.urlPicUser.indexOf('assets/img/icon.png') === -1) {
             const storageRef = firebase.storage().refFromURL(this.foulen.urlPicUser);
             storageRef.delete().then(
                 () => {
@@ -176,6 +175,20 @@ export class ProfilsComponent implements OnInit {
                 this.fileIsUploading = false;
                 this.fileUploaded = true;
                 this.message = 'Chargé.';
+            }
+        );*/
+        this.fileIsUploading = true;
+        this.userService.uploadFile(file).subscribe(
+            event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log('file still');
+                } else if (event instanceof HttpResponse) {
+                    console.log('File success');
+                    this.fileUrl = 'assets/Storage/PicUser/' + file.name;
+                    console.log(this.fileUrl)
+                    this.fileIsUploading = false;
+                    this.fileUploaded = true;
+                }
             }
         );
     }

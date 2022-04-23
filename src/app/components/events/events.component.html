@@ -1,19 +1,25 @@
-<div class="wrapper">
-    <div class="page-header page-header-xs" data-parallax="true"
-         style="background-image: url('./assets/img/library/66.jpg');">
-        <div class="filter"></div>
+<div class="container mt-1 mt-5">
+    <div class="">
+        <div class="row justify-content-center align-items-center h-50">
+            <div class="col-md-6">
+                <h2 class="text-center wow fadeInUp" style="text-decoration: underline">University Events</h2>
+            </div>
+        </div>
     </div>
-    <div class="row text-center">
-        <h1 class="col">
-            University Events
-        </h1>
-    </div>
-    <br>
-    <br>
+</div>
+
+<div class="wrapper wow fadeInUp">
     <div class="m-auto" style="width: 75%; ">
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <ngb-tabset [justify]="'center'">
+                    <ngb-tab title="+">
+                        <ng-template ngbTabContent>
+                            <h2 class="wow fadeIn">Would you like to Add your event !<br>Just Click On the button below
+                                !</h2><br>
+                            <a href="/#/event/new" class="btn btn-outline-primary wow fadeIn">Add Event</a>
+                        </ng-template>
+                    </ngb-tab>
                     <ngb-tab title="Journey">
                         <ng-template ngbTabContent>
                             <app-journey></app-journey>
@@ -42,3 +48,4 @@
     <br>
     <br>
 </div>
+

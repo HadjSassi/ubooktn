@@ -1,9 +1,9 @@
 <div class="wrapper">
     <!--    la zone de recherche -->
-    <div class="col-sm-3" style="margin: 3% auto -2%;">
+    <div class="" style="margin: 3% auto -3%;">
         <div class="form-group">
             <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
-                   class="form-control" placeholder="Search">
+                   class="form-control border-dark" placeholder="Search">
         </div>
     </div>
     <br>
@@ -15,11 +15,24 @@
                     <div class="col-3">
                         <div class="">
                             <div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div>
+                                    <div class="row">
+                                        <button class="btn"
+                                                [class]="{'btn-outline-default':!grille,'btn-default':grille}"
+                                                (click)="onGrille()"><i style="font-size: 150%"
+                                                                        class="fa fa-th-large"></i></button>
+                                        <button class="btn"
+                                                [class]="{'btn-outline-default':grille,'btn-default':!grille}"
+                                                (click)="onGrille()"><i style="font-size: 150%"
+                                                                        class="fa fa-th-list"></i></button>
+                                    </div>
+                                </div>
+                                <br>
                                 <form #form="ngForm" (change)="onSubmit(form)">
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
                                     <div>
                                         <div class="row" style="margin-left: auto">
                                             <input class="col-5 fa-lg mb-5" type="number" id="inlineCheckbox1"
@@ -71,24 +84,65 @@
                         </div>
                     </div>
                     <!--                les resultat-->
+                    <div class="wow fadeIn" style="margin-left: 25%;" [hidden]="!loading">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
                     <div class="col-md-9">
                         <div class="text-center">
                             <div class="">
                                 <h4>Results :</h4>
                                 <hr>
-                                <div *ngIf="Institus.length !== 0">
-                                    <p *ngFor="let s of Insti">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewInstitus(s.idInstitus)">{{s.nomInstitus}}</a>
-                                    </p>
-                                </div>
-                                <div *ngIf="Institus.length === 0">
-                                    <p *ngFor="let s of Instit">
-                                        <a class="btn btn-link btn-default"
-                                           (click)="onViewInstitus(s.idInstitus)">{{s.nomInstitus}}</a>
-                                    </p>
-                                </div>
 
+                                <div *ngIf="grille">
+                                    <div *ngIf="Institus.length !== 0"
+                                         class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                        <div *ngFor="let s of Insti" class="col m-2 card bg-light mb-3 wow fadeIn"
+                                             (click)="onViewInstitus(s.id)"
+                                             style="max-width: 18rem; cursor: pointer">
+                                            <img class="card-img-top"
+                                                 src="{{s.logo}}"
+                                                 alt="Card image cap">
+                                            <div class="card-body">
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="card-title">{{s.abreviation}}<br>{{s.nom}}</h5>
+                                                <p class="card-text">{{s.type}}<br>{{s.region}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="Institus.length === 0"
+                                         class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                        <div *ngFor="let s of Instit" class="col m-2 card bg-light mb-3 wow fadeIn"
+                                             (click)="onViewInstitus(s.id)"
+                                             style="max-width: 18rem; cursor: pointer">
+                                            <img class="card-img-top"
+                                                 src="{{s.logo}}"
+                                                 alt="Card image cap">
+                                            <div class="card-body">
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="card-title">{{s.abreviation}}<br>{{s.nom}}</h5>
+                                                <p class="card-text">{{s.type}}<br>{{s.region}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!grille">
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="Institus.length !== 0">
+                                        <div *ngFor="let s of Insti" class="text-center" style="cursor: pointer"
+                                             (click)="onViewInstitus(s.id)">
+                                            <h5>[{{s.abreviation}}] {{s.nom}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="Institus.length === 0">
+                                        <div *ngFor="let s of Instit" class="text-center" style="cursor: pointer"
+                                             (click)="onViewInstitus(s.id)">
+                                            <h5>[{{s.abreviation}}] {{s.nom}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="">

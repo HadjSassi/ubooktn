@@ -92,12 +92,21 @@
   @include btn-styles($danger-color, $danger-states-color);
 }
 
+.btn-purple {
+  @include btn-styles($purple-color, $purple-states-color);
+}
+
 .btn-neutral {
   @include btn-styles($white-color, $default-states-color);
 }
 
 .btn-outline-default {
   @include btn-outline-styles($default-color, $default-states-color);
+}
+
+
+.btn-outline-purple {
+  @include btn-outline-styles($purple-color, $purple-states-color);
 }
 
 .btn-outline-primary {

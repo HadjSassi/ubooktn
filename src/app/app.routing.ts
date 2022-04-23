@@ -14,10 +14,6 @@ import {DocumentsComponent} from './components/documents/documents.component';
 import {OneDocumentComponent} from './components/documents/one-document/one-document.component';
 import {ReglementComponent} from './components/documents/reglement/reglement.component';
 import {NewDocumentComponent} from './components/documents/new-document/new-document.component';
-import {ExamsComponent} from './components/exams/exams.component';
-import {OneExamenComponent} from './components/exams/one-examen/one-examen.component';
-import {NewExamenComponent} from './components/exams/new-examen/new-examen.component';
-import {ReglementExamenComponent} from './components/exams/reglement-examen/reglement-examen.component';
 import {BackgroundComponent} from './components/background/background.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {ProfilsComponent} from './components/profils/profils.component';
@@ -42,21 +38,21 @@ import {AuthGuard} from './services/auth.guard';
 import {CentreFormationComponent} from './components/enivronnement-universitaire/centre-formation/centre-formation.component';
 import {OneCentreFormationComponent} from './components/enivronnement-universitaire/one-centre-formation/one-centre-formation.component';
 import {JourneyComponent} from './components/events/journey/journey.component';
-import {OneCompetitionComponent} from './components/events/one-competition/one-competition.component';
-import {OneFormationComponent} from './components/events/one-formation/one-formation.component';
-import {OneCertificationComponent} from './components/events/one-certification/one-certification.component';
-import {OneJourneyComponent} from './components/events/one-journey/one-journey.component';
+import {OneEventComponent} from './components/events/one-event/one-event.component';
+import {NewEventComponent} from './components/events/new-event/new-event.component';
+import {EditEventComponent} from './components/events/edit-event/edit-event.component';
+import {ConfirmationComponent} from './components/not-found/confirmation/confirmation.component';
 
 
 const routes: Routes = [
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: '', redirectTo: 'acceuil', pathMatch: 'full'},
     {path: 'home', component: ComponentsComponent},
     {path: 'user-profile', component: ProfileComponent},
     {path: 'landing', component: LandingComponent},
     {path: 'nucleoicons', component: NucleoiconsComponent},
     {path: 'acceuil', component: AcceuilComponent},
-    {path: 'auth/signup', component: SignUpComponent},
-    {path: 'auth/signin', component: SignInComponent},
+    {path: 'auth/signin', component: SignUpComponent},
+    {path: 'auth/signup', component: SignInComponent},
     {path: 'guide', component: GuideComponent},
     {path: 'FAQ', component: FaqComponent},
     {path: 'aboutUs', component: AboutComponent},
@@ -68,26 +64,22 @@ const routes: Routes = [
     {path: 'university/TrainingCenter', component: CentreFormationComponent},
     {path: 'university/TrainingCenter/:id', component: OneCentreFormationComponent},
     {path: 'event', component: EventsComponent},
+    {path: 'event/new', canActivate: [AuthGuard], component: NewEventComponent},
+    {path: 'event/edit/:type/:id', canActivate: [AuthGuard], component: EditEventComponent},
     {path: 'event/competitions', component: CompetitionsComponent},
-    {path: 'event/competitions/:id', component: OneCompetitionComponent},
     {path: 'event/training', component: FormationsComponent},
-    {path: 'event/training/:id', component: OneFormationComponent},
     {path: 'event/certifications', component: CertificationsComponent},
-    {path: 'event/certifications/:id', component: OneCertificationComponent},
+    {path: 'event/:id', component: OneEventComponent},
     {path: 'event/journey', component: JourneyComponent},
-    {path: 'event/journey/:id', component: OneJourneyComponent},
     {path: 'documents', component: DocumentsComponent},
     {path: 'documents/new', canActivate: [AuthGuard], component: NewDocumentComponent},
     {path: 'documents/reglementions', canActivate: [AuthGuard], component: ReglementComponent},
     {path: 'documents/view/:id', canActivate: [AuthGuard], component: OneDocumentComponent},
-    {path: 'exams', component: ExamsComponent},
-    {path: 'exams/new', canActivate: [AuthGuard], component: NewExamenComponent},
-    {path: 'exams/reglementions', canActivate: [AuthGuard], component: ReglementExamenComponent},
-    {path: 'exams/view/:id', canActivate: [AuthGuard], component: OneExamenComponent},
     {path: 'profils', canActivate: [AuthGuard], component: ProfilsComponent},
     {path: 'profils/all', component: AllProfilsComponent},
     {path: 'profils/view/:id', canActivate: [AuthGuard], component: OneProfilComponent},
     {path: '404NotFound', component: NotFoundComponent},
+    {path: 'confirmation', component: ConfirmationComponent},
     {path: '**', redirectTo: '/404NotFound'}
 ];
 

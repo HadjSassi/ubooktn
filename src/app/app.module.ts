@@ -13,14 +13,11 @@ import {ComponentsModule} from './components/components.module';
 import {ExamplesModule} from './examples/examples.module';
 import {HttpClientModule} from '@angular/common/http';
 import {InstitusService} from './services/institus.service';
-import {CommentExamService} from './services/comment-exam.service';
 import {ClubService} from './services/club.service';
 import {CommentDocumentService} from './services/comment-document.service';
 import {UserService} from './services/user.service';
 import {AuthService} from './services/auth.service';
 import {VoteDocumentService} from './services/vote-document.service';
-import {ExamenService} from './services/examen.service';
-import {VoteExamService} from './services/vote-exam.service';
 import {AuthGuard} from './services/auth.guard';
 import {DocumentService} from './services/document.service';
 
@@ -30,10 +27,8 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import {CentreFormationService} from './services/centre-formation.service';
-import {CertificationService} from './services/certification.service';
-import {CompetitionService} from './services/competition.service';
-import {FormationService} from './services/formation.service';
-import {JourneyService} from './services/journey.service';
+import {EventService} from './services/event.service';
+import {NouisliderModule} from 'ng2-nouislider';
 
 firebase.initializeApp(environment.firebase);
 
@@ -42,35 +37,6 @@ firebase.initializeApp(environment.firebase);
         AppComponent,
         NavbarComponent,
         FooterComponent,
-        // PubComponent,
-        // DocumentsComponent,
-        // OneDocumentComponent,
-        // ReglementComponent,
-        // NewDocumentComponent,
-        // ExamsComponent,
-        // OneExamenComponent,
-        // NewExamenComponent,
-        // ReglementExamenComponent,
-        // BackgroundComponent,
-        // NotFoundComponent,
-        // EnivronnementUniversitaireComponent,
-        // ProfilsComponent,
-        // OneProfilComponent,
-        // SignInComponent,
-        // SignUpComponent,
-        // ClubsComponent,
-        // InstitusComponent,
-        // AcceuilComponent,
-        // OneInstitusComponent,
-        // OneClubComponent,
-        // AllProfilsComponent,
-        // CompetitionsComponent,
-        // CertificationsComponent,
-        // FormationsComponent,
-        // EventsComponent,
-        // GuideComponent,
-        // FaqComponent,
-        // AboutComponent
     ],
     imports: [
         BrowserModule,
@@ -81,9 +47,10 @@ firebase.initializeApp(environment.firebase);
         ExamplesModule,
         AppRoutingModule,
         HttpClientModule,
+        AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
-        AngularFireStorageModule
-
+        AngularFireStorageModule,
+        NouisliderModule
     ],
     providers: [
         AuthGuard,
@@ -91,16 +58,10 @@ firebase.initializeApp(environment.firebase);
         DocumentService,
         AngularFireAuth,
         UserService,
-        CertificationService,
-        CompetitionService,
-        FormationService,
-        JourneyService,
+        EventService,
         CentreFormationService,
         CommentDocumentService,
-        CommentExamService,
-        ExamenService,
         VoteDocumentService,
-        VoteExamService,
         InstitusService,
         ClubService],
     bootstrap: [AppComponent]

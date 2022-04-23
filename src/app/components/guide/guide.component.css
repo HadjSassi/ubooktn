@@ -1,0 +1,31 @@
+.background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px;
+    text-align: center;
+}
+
+
+.blur {
+    filter: blur(8px);
+    height: 350px;
+}
+
+.iii {
+    position: absolute;
+    width: 90%;
+    transform: translate(0%, 0%);
+    align-content: center;
+}
+
+/*.iii {
+    position: absolute;
+    !*top: 50%;*!
+    !*left: 50%;*!
+    transform: translate(-2%, 50%);
+    !*z-index: 2;*!
+    width: 92%;
+    !*padding: 20px;*!
+    text-align: center;
+}*/
+

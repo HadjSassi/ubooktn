@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SettingsService} from '../../services/settings.service';
 
 @Component({
     selector: 'app-events',
@@ -7,10 +8,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class EventsComponent implements OnInit {
 
-    constructor() {
+    constructor(private settingsService: SettingsService) {
     }
 
     ngOnInit(): void {
+        this.settingsService.getAllOrganisms();
     }
 
 }

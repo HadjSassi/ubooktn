@@ -15,3 +15,22 @@ ngb-pagination ::ng-deep ul > li:not(.active) > a {
 ngb-pagination ::ng-deep ul > li.active > a {
     color: #dcdcdc !important;
 }
+
+.background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px;
+    text-align: center;
+}
+
+.blur {
+    filter: blur(8px);
+    height: 350px;
+}
+
+.iii {
+    position: absolute;
+    width: 80%;
+    transform: translate(5%, 0%);
+    align-content: center;
+}

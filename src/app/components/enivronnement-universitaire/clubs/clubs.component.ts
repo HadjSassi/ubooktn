@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Institus} from 'app/model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {InstitusService} from '../../../services/institus.service';
 import {ClubService} from '../../../services/club.service';
 import {UserService} from '../../../services/user.service';
@@ -18,7 +18,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class ClubsComponent implements OnInit {
 
-    // @ts-ignore
+    loading = true;
     foulen: User;
     public isAdmin = false;
     currentPage = 1;
@@ -39,6 +39,8 @@ export class ClubsComponent implements OnInit {
     fileIsUploading = false;
     fileUrl = '';
     message = '';
+    grille = true;
+
     public domaines: string[] = [];
 
     constructor(private clubService: ClubService, private router: Router,
@@ -125,6 +127,7 @@ export class ClubsComponent implements OnInit {
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);
@@ -135,7 +138,7 @@ export class ClubsComponent implements OnInit {
     public search(key: string): void {
         const results: Club[] = [];
         for (const doc of this.clubs) {
-            if (doc.nomClub.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.domaine.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
                 results.push(doc);
             }
@@ -257,25 +260,8 @@ export class ClubsComponent implements OnInit {
 
     }
 
-    onUploadFile(file: File) {
-        this.fileIsUploading = true;
-        this.userService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                console.log('terminé!');
-                console.log(url);
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
-                this.message = 'Chargé.';
-            }
-        );
+    onGrille() {
+        this.grille = !this.grille;
     }
-
-    // @ts-ignore
-    detectFiles(event) {
-        this.onUploadFile(event.target.files[0]);
-    }
-
 
 }

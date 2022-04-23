@@ -3,6 +3,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {User} from '../../../model/User';
 import {UserService} from '../../../services/user.service';
 import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-all-profils',
@@ -10,7 +11,7 @@ import {NgForm} from '@angular/forms';
     styleUrls: ['./all-profils.component.css']
 })
 export class AllProfilsComponent implements OnInit {
-
+    loading = true;
     rang: User[] = [];
     currentPage = 1;
     nbMaxPage2 = 0;
@@ -22,7 +23,7 @@ export class AllProfilsComponent implements OnInit {
     public utilisateur: User[] = []; // la liste des documents affiché d'aprés documentS
     public user: User[] = []; // la liste des documments affiché d'aprés document
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -68,6 +69,7 @@ export class AllProfilsComponent implements OnInit {
                 }
                 this.nbMaxPage = Math.ceil(this.Users.length / this.nbElmParPage);
                 this.nbMaxPage2 = this.nbMaxPage * 10;
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);
@@ -120,5 +122,8 @@ export class AllProfilsComponent implements OnInit {
         }
     }
 
+    seeOneProfile(idUser: string) {
+        this.router.navigate(['/profils', 'view', idUser]);
+    }
 
 }

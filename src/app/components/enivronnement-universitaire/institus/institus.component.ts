@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Institus} from 'app/model/Institus';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {UserService} from '../../../services/user.service';
 import {InstitusService} from '../../../services/institus.service';
 import {ClubService} from '../../../services/club.service';
@@ -19,6 +19,7 @@ import {environment} from '../../../../environments/environment';
 export class InstitusComponent implements OnInit {
 
 
+    loading = true;
     currentPage = 1;
     nbMaxPage = 0;
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
@@ -40,6 +41,7 @@ export class InstitusComponent implements OnInit {
 
     foulen: User;
     public isAdmin = false;
+    grille = true;
 
 
     file: File = null; // Variable to store file
@@ -97,12 +99,12 @@ export class InstitusComponent implements OnInit {
                 this.Instit = [];
                 this.Instituss = response;
                 this.Instituss.sort(function (a, b) {
-                        if (a.nomInstitus < b.nomInstitus) {
-                            return -1;
-                        }
-                        if (a.nomInstitus > b.nomInstitus) {
-                            return 1;
-                        }
+                    if (a.nom < b.nom) {
+                        return -1;
+                    }
+                    if (a.nom > b.nom) {
+                        return 1;
+                    }
                         return 0;
                     }
                 );
@@ -124,6 +126,7 @@ export class InstitusComponent implements OnInit {
                         alert(error.message);
                     }
                 );
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);
@@ -134,7 +137,7 @@ export class InstitusComponent implements OnInit {
     public search(key: string): void {
         const results: Institus[] = [];
         for (const doc of this.Instituss) {
-            if (doc.nomInstitus.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.abreviation.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.type.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.universite.toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -285,25 +288,8 @@ export class InstitusComponent implements OnInit {
 
     }
 
-    onUploadFile(file: File) {
-        this.fileIsUploading = true;
-        this.userService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                console.log('terminé!');
-                console.log(url);
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
-                this.message = 'Chargé.';
-            }
-        );
+    onGrille() {
+        this.grille = !this.grille;
     }
-
-    // @ts-ignore
-    detectFiles(event) {
-        this.onUploadFile(event.target.files[0]);
-    }
-
 
 }

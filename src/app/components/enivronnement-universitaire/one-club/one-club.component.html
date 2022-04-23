@@ -1,36 +1,63 @@
-<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.picsUrl[0]+ ')'}">
-    <div class="filter"></div>
-    <div class="container text-center">
-        <img src="{{this.club.logo}}" alt="club logo"/>
+<div>
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <div class="avatar wow fadeInLeft">
+                        <img src="{{this.club.logo}}" alt="Circle Image"
+                             style=""
+                             class=" img-no-padding img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="row mt-2  wow fadeInUp">
+                        <br>
+                        <br *ngIf="this.club.historique.length !== 0">
+                        <h4 *ngIf="this.club.historique.length !== 0">About {{this.club.nom}}</h4>
+                        <h5>{{this.club.historique}}</h5>
+                        <br *ngIf="this.linkClub.length !== 0">
+                        <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
+                            <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
+                                    href="/#/university/Clubs/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
+                        </ul>
+                        <br *ngIf="this.linkInstitus.length !== 0">
+                        <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
+                            <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
+                                    href="/#/university/Institus/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span>
+                            </li>
+                        </ul>
+                        <br *ngIf="this.urls.length !== 0">
+                        <ul class="list-inline" *ngIf="this.urls.length !== 0">
+                            <li class="list-inline-item" *ngFor="let c of this.urls"><a
+                                    href="/#/university/Institus/{{c}}">{{c}}</a><span>&nbsp;</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="text-center wow fadeInRight">
+                        <br>
+                        <br>
+                        <h1>{{this.club.nom}}</h1>
+                        <br>
+                        <br>
+                        <h5>Club : {{this.club.domaine}}</h5>
+                        <br>
+                        <br>
+                        <h5><a class="text-primary" href="{{this.club.urlOfficiel}}">Link
+                            : {{this.club.urlOfficiel}}</a>
+                        </h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="text-center" style="font-size: 150%;">
-    <h2 style="font-size: 200%"><span>{{this.club.nomClub}}</span><h5>Club
-        : {{this.club.domaine}}</h5></h2>
-    <br>
-    <p><a href="{{this.club.urlOfficel}}">{{this.club.urlOfficel}}</a></p>
-    <br *ngIf="this.club.historique.length !== 0">
-    <p>{{this.club.historique}}</p>
-    <br *ngIf="this.linkClub.length !== 0">
-    <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
-        <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                href="/#/university/Clubs/{{c.idClub}}">{{c.nomClub}}</a><span>&nbsp;</span></li>
-    </ul>
-    <br *ngIf="this.linkInstitus.length !== 0">
-    <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
-        <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                href="/#/university/Institus/{{c.idInstitus}}">{{c.nomInstitus}}</a><span>&nbsp;</span></li>
-    </ul>
-    <br *ngIf="this.urls.length !== 0">
-    <ul class="list-inline" *ngIf="this.urls.length !== 0">
-        <li class="list-inline-item" *ngFor="let c of this.urls"><a
-                href="/#/university/Institus/{{c}}">{{c}}</a><span>&nbsp;</span></li>
-    </ul>
-</div>
-
-
-<div class="container">
+<div class="container wow fadeIn">
     <div class="row">
         <div class="col-md-8 mr-auto ml-auto">
             <div class="card page-carousel">

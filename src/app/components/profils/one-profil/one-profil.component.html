@@ -1,58 +1,29 @@
-<div class="wrapper">
-    <div class="page-header page-header-xs" data-parallax="true"
-         style="background-image: url('./assets/img/library/17.jpg');">
-        <!--         style="background-image: url('./assets/img/library/17.jpg');">-->
-        <!--         style="background-image: url('./assets/img/library/35.jpg');">-->
-        <!--         style="background-image: url('./assets/img/library/44.jpeg');">-->
-        <!--         style="background-image: url('./assets/img/library/52.jpg');">-->
-        <div class="filter"></div>
-    </div>
-    <div class="section profile-content">
-        <div class="container">
-            <div class="owner">
-                <div class="avatar">
-                    <img src="{{foulen.urlPicUser}}" alt="Circle Image" style="clip-path: circle()"
-                         class="img-circle img-no-padding img-responsive">
-                </div>
-                <div class="name">
-                    <h3 class="title">{{foulen.prenomUser}} {{foulen.nomUser}}<br/></h3>
-                    <h4 class="description">{{foulen.job}}</h4>
-                </div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h5>Score : {{foulen.score}} | Rank : {{this.rang}}</h5>
-                    <br/>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class=" p-3 py-4">
+                <div class="text-center wow fadeInDown"><img src="{{foulen.urlPicUser}}" style="clip-path: circle()"
+                                                             width="200" class="rounded-circle"></div>
+                <div class="text-center mt-3">
+                    <h2 class="mt-2 mb-0 wow fadeInUp">{{foulen.prenomUser}} {{foulen.nomUser}}</h2> <h4
+                        class="wow fadeInUp">{{foulen.job}}</h4>
+                    <h5 class="wow fadeInUp">Score : {{foulen.score}} | Rank : {{this.rang}}</h5>
+                    <h5 class="wow fadeInUp">Email : <a class="text-primary"
+                                                        href="mailto:{{foulen.mailUser}}">{{this.foulen.mailUser}}</a>
+                    </h5>
+                    <div class="px-4 mt-1 wow fadeInUp">
+                        <p class="fonts">{{foulen.description}}</p>
+                    </div>
+                    <ul class="social-list">
+                        <li *ngIf="fb"><a class="text-primary" href="{{foulen.urlFacebook}}"><i
+                                class="fa fa-facebook wow fadeIn"></i></a></li>
+                        <li *ngIf="li"><a class="text-primary" href="{{foulen.urlLinkedIn}}"><i
+                                class="fa fa-linkedin wow fadeIn"></i></a></li>
+                        <li *ngIf="mail"><a class="text-primary" href="mailto:{{foulen.mailUser}}"><i
+                                class="fa fa-google wow fadeIn"></i></a></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="row" *ngIf="mail">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h5>Email : <a href="mailto:{{foulen.mailUser}}">{{this.foulen.mailUser}}</a></h5>
-                    <br/>
-                </div>
-            </div>
-            <div class="row" *ngIf="fb">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h5>Facebook : <a href="{{foulen.urlFacebook}}">{{this.foulen.urlFacebook}}</a></h5>
-                    <br/>
-                </div>
-            </div>
-            <div class="row" *ngIf="li">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h5>LinkedIn : <a href="{{foulen.urlLinkedIn}}">{{this.foulen.urlLinkedIn}}</a></h5>
-                    <br/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <p>{{foulen.description}}</p>
-                    <br/>
-                </div>
-            </div>
-            <br/>
         </div>
     </div>
 </div>

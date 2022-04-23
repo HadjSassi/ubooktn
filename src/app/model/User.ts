@@ -1,5 +1,4 @@
 export interface User {
-    idUser: number;
     uid: string;
     mailUser: string;
     nomUser: string;
@@ -10,6 +9,5 @@ export interface User {
     urlLinkedIn: string;
     score: number;
     description: string;
-    historiqueDocument: string;
-    historiqueExamen: string;
+    enabled: boolean;
 }

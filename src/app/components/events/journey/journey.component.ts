@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Journey} from '../../../model/Journey';
+import {Event} from '../../../model/Event';
 import {User} from '../../../model/User';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {Institus} from '../../../model/Institus';
 import {CentreFormation} from '../../../model/CentreFormation';
-import {JourneyService} from '../../../services/journey.service';
+import {EventService} from '../../../services/event.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {ClubService} from '../../../services/club.service';
@@ -15,6 +15,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import * as firebase from 'firebase';
 import {environment} from '../../../../environments/environment';
 import {NgForm} from '@angular/forms';
+import {SettingsService} from '../../../services/settings.service';
 
 @Component({
     selector: 'app-journey',
@@ -29,20 +30,17 @@ export class JourneyComponent implements OnInit {
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
     nbElmParPage = 10; // on veut afficher un nombre d'element par page et comme ca influence le nombre de pages
     nbMaxPage2 = 0;
-    public Evenements: Journey[] = [];
-    public Evenement: Journey[] = [];
-    public evenements: Journey[] = [];
-    public evenement: Journey[] = [];
+    public Evenements: Event[] = [];
+    public Evenement: Event[] = [];
+    public evenements: Event[] = [];
+    public evenement: Event[] = [];
     public zone = ['Ariana', 'Beja', 'BenArous', 'Bizerte', 'Gabes', 'Gafsa', 'Gbeli',
         'Jendouba', 'Kairouan', 'Kasserine', 'kef', 'Mahdia', 'Manouba', 'Mednine', 'Monastir',
         'Nabeul', 'Sfax', 'SidiBouZid', 'Siliana', 'Sousse', 'Tataouine', 'Tozeur', 'Tunis', 'Zaghouan'
     ];
     foulen: User;
     public isAdmin = false;
-    startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
-    finishings: NgbDateStruct;
-    capacitySlider = 500;
-    priceSlider = [0, 500];
+    priceSlider = [0, 5000];
     freeIndicator = 'Free';
     focus: any;
     file: File = null; // Variable to store file
@@ -61,43 +59,36 @@ export class JourneyComponent implements OnInit {
     cf: number[] = [];
     listCfNames: string[] = [];
     listCfabrev: string[] = [];
+    themes = this.settingsService.themes;
+    themeT = [];
+    startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
+    startD: NgbDateStruct;
+    startB = false;
+    finishings: NgbDateStruct;
+    finishD: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
+    finishB = false;
+    loading = true;
+    grille = true;
 
-    constructor(private journeyService: JourneyService, private router: Router,
+    constructor(private journeyService: EventService, private router: Router,
                 private userService: UserService, private clubService: ClubService,
-                private instituService: InstitusService, private cfService: CentreFormationService) {
+                private instituService: InstitusService, private cfService: CentreFormationService,
+                private settingsService: SettingsService) {
     }
 
     ngOnInit(): void {
-        this.clubService.getClubs().subscribe(
-            (response: Club[]) => {
-                this.clubss = response;
-                for (const i of response) {
-                    this.clubs.push(i.idClub);
-                }
-            }, (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
-        this.instituService.getInstituss().subscribe(
-            (response: Institus[]) => {
-                this.instituss = response;
-                for (const i of response) {
-                    this.institus.push(i.idInstitus);
-                }
-            }, (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
-        this.cfService.getCentreFormations().subscribe(
-            (response: CentreFormation[]) => {
-                this.cfs = response;
-                for (const i of response) {
-                    this.cf.push(i.idCf);
-                }
-            }, (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
+        this.clubss = this.settingsService.listClubs;
+        for (const i of this.clubss) {
+            this.clubs.push(i.id);
+        }
+        this.instituss = this.settingsService.listInstitus;
+        for (const i of this.instituss) {
+            this.institus.push(i.id);
+        }
+        this.cfs = this.settingsService.listCfs;
+        for (const i of this.cfs) {
+            this.cf.push(i.id);
+        }
         let uid = '';
         firebase.auth().onAuthStateChanged(
             (user) => {
@@ -129,7 +120,7 @@ export class JourneyComponent implements OnInit {
     }
 
     onViewJourney(id: number) {
-        this.router.navigate(['/event', 'journeys', id]);
+        this.router.navigate(['/event', id]);
     }
 
     public getCompetions(): void {
@@ -137,8 +128,8 @@ export class JourneyComponent implements OnInit {
         this.Evenement = [];
         this.evenements = [];
         this.evenement = [];
-        this.journeyService.getJourneys().subscribe(
-            (response: Journey[]) => {
+        this.journeyService.getJourney().subscribe(
+            (response: Event[]) => {
                 this.Evenements = response;
                 this.Evenements.sort(function (a, b) {
                         if (a.nom < b.nom) {
@@ -150,54 +141,6 @@ export class JourneyComponent implements OnInit {
                         return 0;
                     }
                 );
-                let z;
-                const listClubs: string[] = [];
-                const listInstitus: string[] = [];
-                const listCf: string[] = [];
-                for (const x of this.Evenements) {
-                    listClubs.push(x.clubs);
-                    listInstitus.push(x.institus);
-                    listCf.push(x.trainingCenters);
-                }
-                for (const x of listClubs) {
-                    let ch = '';
-                    const list = x.split(',');
-                    for (const y of list) {
-                        z = this.clubs.indexOf(Number(y));
-                        const name = this.clubss[z];
-                        ch = ch + name.nomClub + ',';
-                    }
-                    this.listClubsNames.push(ch);
-                }
-                for (const x of listInstitus) {
-                    let ch = '';
-                    let sh = '';
-                    const list = x.split(',');
-                    for (const y of list) {
-                        z = this.institus.indexOf(Number(y));
-                        const name = this.instituss[z];
-                        sh = sh + name.abreviation + ',';
-                        ch = ch + name.nomInstitus + ',';
-
-                    }
-                    this.listInstitusNames.push(ch);
-                    this.listInstitusabrev.push(sh);
-                }
-                for (const x of listCf) {
-                    let ch = '';
-                    let sh = '';
-                    const list = x.split(',');
-                    for (const y of list) {
-                        z = this.cf.indexOf(Number(y));
-                        const name = this.cfs[z];
-                        ch = ch + name.nomCf + ',';
-                        if (sh !== null) {
-                            sh = sh + name.abreviation + ',';
-                        }
-                    }
-                    this.listCfNames.push(ch);
-                    this.listCfabrev.push(sh);
-                }
                 let i = 0;
                 for (const e of response) {
                     if (i === this.nbElmParPage) {
@@ -208,6 +151,7 @@ export class JourneyComponent implements OnInit {
                 }
                 this.nbMaxPage = Math.ceil(response.length / this.nbElmParPage);
                 this.nbMaxPage2 = this.nbMaxPage * 10;
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);
@@ -216,7 +160,69 @@ export class JourneyComponent implements OnInit {
     }
 
     public search(key: string): void {
-        const results: Journey[] = [];
+        const results: Event[] = [];
+        let z;
+        const listClubs: string[] = [];
+        const listInstitus: string[] = [];
+        const listCf: string[] = [];
+        for (const x of this.Evenements) {
+            listClubs.push(x.clubs);
+            listInstitus.push(x.institus);
+            listCf.push(x.trainingCenters);
+        }
+        for (const x of listClubs) {
+            if (x === '') {
+                this.listClubsNames.push('');
+                continue;
+            }
+            let ch = '';
+            const list = x.split(',');
+            for (const y of list) {
+                z = this.clubs.indexOf(Number(y));
+                const name = this.clubss[z];
+                ch = ch + name.nom + ',';
+            }
+            this.listClubsNames.push(ch);
+        }
+        for (const x of listInstitus) {
+            if (x === '') {
+                this.listInstitusNames.push('');
+                this.listInstitusabrev.push('');
+                continue;
+            }
+            let ch = '';
+            let sh = '';
+            const list = x.split(',');
+            for (const y of list) {
+                z = this.institus.indexOf(Number(y));
+                const name = this.instituss[z];
+                sh = sh + name.abreviation + ',';
+                ch = ch + name.nom + ',';
+
+            }
+            this.listInstitusNames.push(ch);
+            this.listInstitusabrev.push(sh);
+        }
+        for (const x of listCf) {
+            if (x === '') {
+                this.listCfNames.push('');
+                this.listCfabrev.push('');
+                continue;
+            }
+            let ch = '';
+            let sh = '';
+            const list = x.split(',');
+            for (const y of list) {
+                z = this.cf.indexOf(Number(y));
+                const name = this.cfs[z];
+                ch = ch + name.nom + ',';
+                if (sh !== null) {
+                    sh = sh + name.abreviation + ',';
+                }
+            }
+            this.listCfNames.push(ch);
+            this.listCfabrev.push(sh);
+        }
         let j = 0;
         for (const doc of this.Evenements) {
             if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -230,12 +236,6 @@ export class JourneyComponent implements OnInit {
                 results.push(doc);
             }
             j++;
-            /*if (this.listClubsNames[j].toLowerCase().indexOf(key.toLowerCase()) !== -1
-                || this.listInstitusNames[j].toLowerCase().indexOf(key.toLowerCase()) !== -1
-                || this.listCfNames[j].toLowerCase().indexOf(key.toLowerCase()) !== -1
-            ) {
-                results.push(doc);
-            }*/
         }
         this.Evenement = results;
         this.evenement = [];
@@ -267,58 +267,18 @@ export class JourneyComponent implements OnInit {
         } else {
             this.nbElmParPage = form.value['page'];
         }
-        let Informatique = '';
-        let Entrepreneurship = '';
-        let Robotique = '';
-        let Literature = '';
-        let Management = '';
-        let Other = '';
-        const starting = form.value['starting'];
-        const finishing = form.value['finishing'];
-
-        if (form.value['Informatique']) {
-            Informatique = document.getElementById('Informatique').attributes['value'].value;
-        }
-        if (form.value['Entrepreneurship']) {
-            Entrepreneurship = document.getElementById('Entrepreneurship').attributes['value'].value;
-        }
-        if (form.value['Robotique']) {
-            Robotique = document.getElementById('Robotique').attributes['value'].value;
-        }
-        if (form.value['Literature']) {
-            Literature = document.getElementById('Literature').attributes['value'].value;
-        }
-        if (form.value['Management']) {
-            Management = document.getElementById('Management').attributes['value'].value;
-        }
-        if (form.value['Other']) {
-            Other = document.getElementById('Other').attributes['value'].value;
-        }
-        console.log(Entrepreneurship);
-        console.log(Informatique);
-        console.log(Robotique);
-        console.log(Literature);
-        console.log(Management);
-        console.log(Other);
-        console.log(this.capacitySlider);
         console.log(this.priceSlider);
-        console.log(starting);
-        console.log(finishing);
+        console.log(this.startD);
+        console.log(this.finishings);
         let i = this.nbPage;
-        let results: Journey[] = [];
+        let results: Event[] = [];
 
         for (const doc of this.Evenements) {
             if (
-                doc.themes.toString().toLowerCase().indexOf(Entrepreneurship.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Informatique.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Robotique.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Literature.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Management.toLowerCase()) !== -1
-                && doc.themes.toString().toLowerCase().indexOf(Other.toLowerCase()) !== -1
-                && Number(doc.capacity) <= this.capacitySlider
+                this.validateTheme(this.themeT, doc.themes)
                 && Number(doc.price) <= this.priceSlider[1]
                 && Number(doc.price) >= this.priceSlider[0]
-                && this.verifDate(doc.startingDate, doc.finishingDate, this.startings, this.finishings)
+                && this.verifDate(doc.startingDate, doc.finishingDate, this.startD, this.finishings)
             ) {
                 results.push(doc);
             }
@@ -343,7 +303,7 @@ export class JourneyComponent implements OnInit {
 
     onPageChange(currentPage: number) {
         if (this.Evenement.length === 0) {
-            const results: Journey[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenements) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {
@@ -358,7 +318,7 @@ export class JourneyComponent implements OnInit {
             }
             this.evenements = results;
         } else {
-            const results: Journey[] = [];
+            const results: Event[] = [];
             let i = 0;
             for (const doc of this.Evenement) {
                 if (i < this.nbElmParPage * (currentPage - 1)) {
@@ -378,13 +338,57 @@ export class JourneyComponent implements OnInit {
     verifDate(eventS: string, eventF: string, starting: NgbDateStruct, finishing: NgbDateStruct) {
         const eventS1: Date = new Date(eventS);
         const eventF1: Date = new Date(eventF);
-        const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
-        const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
-        return starting1.getTime() <= eventS1.getTime()
-            && starting1.getTime() <= eventF1.getTime()
-            && finishing1.getTime() >= eventS1.getTime()
-            && finishing1.getTime() >= eventF1.getTime();
-
+        if (this.finishB && !this.startB) {
+            const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
+            return finishing1.getTime() >= eventS1.getTime()
+                && finishing1.getTime() >= eventF1.getTime();
+        } else if (!this.startB && !this.finishB) {
+            return true;
+        } else if (this.startB && !this.finishB) {
+            const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
+            return starting1.getTime() <= eventS1.getTime()
+                && starting1.getTime() <= eventF1.getTime();
+        } else {
+            const starting1: Date = new Date(starting.month + ' ' + starting.day + ' ' + starting.year);
+            const finishing1: Date = new Date(finishing.month + ' ' + finishing.day + ' ' + finishing.year);
+            return starting1.getTime() <= eventS1.getTime()
+                && starting1.getTime() <= eventF1.getTime()
+                && finishing1.getTime() >= eventS1.getTime()
+                && finishing1.getTime() >= eventF1.getTime();
+        }
     }
 
+    themeing(ch: string) {
+        if (this.themeT.indexOf(ch) === -1) {
+            this.themeT.push(ch);
+            this.themeT.sort();
+        } else {
+            this.themeT.splice(this.themeT.indexOf(ch), 1);
+        }
+    }
+
+    validateTheme(themeT: string[], ch: string) {
+        const list = ch.split(',');
+        for (const x of themeT) {
+            if (list.indexOf(x) === -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    startingDate(form: NgForm) {
+        this.startB = true;
+        this.onSubmit(form);
+    }
+
+    finishingDate(form: NgForm) {
+        this.finishD = this.finishings;
+        this.finishB = true;
+        this.onSubmit(form);
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
+    }
 }

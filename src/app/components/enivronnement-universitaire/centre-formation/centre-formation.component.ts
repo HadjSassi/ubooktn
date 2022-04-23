@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../../model/User';
-import {Club} from '../../../model/Club';
+import {Club} from '../../../model/Clubs';
 import {ClubService} from '../../../services/club.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
@@ -20,6 +20,7 @@ import {CentreFormationService} from '../../../services/centre-formation.service
 export class CentreFormationComponent implements OnInit {
 
 
+    loading = true;
     currentPage = 1;
     nbMaxPage = 0;
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
@@ -45,6 +46,7 @@ export class CentreFormationComponent implements OnInit {
     fileIsUploading = false;
     fileUrl = '';
     message = '';
+    grille = true;
 
     constructor(private centreFormationService: CentreFormationService, private router: Router,
                 private userService: UserService, private clubService: ClubService) {
@@ -95,12 +97,12 @@ export class CentreFormationComponent implements OnInit {
                 this.Instit = [];
                 this.Instituss = response;
                 this.Instituss.sort(function (a, b) {
-                        if (a.nomCf < b.nomCf) {
-                            return -1;
-                        }
-                        if (a.nomCf > b.nomCf) {
-                            return 1;
-                        }
+                    if (a.nom < b.nom) {
+                        return -1;
+                    }
+                    if (a.nom > b.nom) {
+                        return 1;
+                    }
                         return 0;
                     }
                 );
@@ -122,6 +124,7 @@ export class CentreFormationComponent implements OnInit {
                         alert(error.message);
                     }
                 );
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);
@@ -132,7 +135,7 @@ export class CentreFormationComponent implements OnInit {
     public search(key: string): void {
         const results: CentreFormation[] = [];
         for (const doc of this.Instituss) {
-            if (doc.nomCf.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.abreviation.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.domaines.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.region.toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -262,6 +265,10 @@ export class CentreFormationComponent implements OnInit {
             }
             this.Insti = results;
         }
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
     }
 
 }

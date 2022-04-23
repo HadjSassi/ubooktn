@@ -15,6 +15,7 @@ import {Document} from '../../model/Document';
 })
 export class DocumentsComponent implements OnInit {
 
+    loading = true;
     currentPage = 1;
     nbMaxPage = 0;
     nbPage = 0; // on peut avoir pls pages donc on le regroupes par des pages , ceci represente sa numéro
@@ -29,6 +30,7 @@ export class DocumentsComponent implements OnInit {
     niveau: string[] = [];
     annee: string[] = [];
     nbMaxPage2 = 0;
+    grille = true;
 
     constructor(private documentService: DocumentService,
                 private router: Router,
@@ -86,10 +88,6 @@ export class DocumentsComponent implements OnInit {
         this.router.navigate(['/documents', 'view', id]);
     }
 
-    onNewDocument() {
-        this.router.navigate(['/documents', 'reglementions']);
-    }
-
     public getDocument(): void {
         this.documentService.getDocuments().subscribe(
             (response: Document[]) => {
@@ -118,6 +116,7 @@ export class DocumentsComponent implements OnInit {
                 if (this.nbMaxPage > 1) {
                     this.isnext = true;
                 }
+                this.loading = false;
             },
             (error: HttpErrorResponse) => {
                 alert(error.message);
@@ -130,8 +129,8 @@ export class DocumentsComponent implements OnInit {
         for (const doc of this.documents) {
             if (doc.nomDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.typeDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1
-                || doc.matiereDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1
-                || doc.niveauDocument.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+                || doc.settings.matiere.toLowerCase().indexOf(key.toLowerCase()) !== -1
+                || doc.settings.niveau.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
                 results.push(doc);
             }
         }
@@ -166,10 +165,10 @@ export class DocumentsComponent implements OnInit {
         let results: Document[] = [];
         for (const doc of this.documents) {
             if (
-                doc.niveauDocument.toString().toLowerCase().indexOf(niveauDocument.toLowerCase()) !== -1
+                doc.settings.niveau.toString().toLowerCase().indexOf(niveauDocument.toLowerCase()) !== -1
                 && doc.typeDocument.toString().toLowerCase().indexOf(typeDocument.toLowerCase()) !== -1
-                && doc.matiereDocument.toString().toLowerCase().indexOf(matiereDocument.toLowerCase()) !== -1
-                && doc.anneeDocument.toString().toLowerCase().indexOf(anneeDocument.toLowerCase()) !== -1
+                && doc.settings.matiere.toString().toLowerCase().indexOf(matiereDocument.toLowerCase()) !== -1
+                && doc.settings.annee.toString().toLowerCase().indexOf(anneeDocument.toLowerCase()) !== -1
             ) {
                 results.push(doc);
             }
@@ -229,5 +228,9 @@ export class DocumentsComponent implements OnInit {
             }
             this.docu = results;
         }
+    }
+
+    onGrille() {
+        this.grille = !this.grille;
     }
 }

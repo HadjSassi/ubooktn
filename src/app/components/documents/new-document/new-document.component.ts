@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {User} from '../../../model/User';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
@@ -8,6 +8,7 @@ import {NgForm} from '@angular/forms';
 import {DocumentService} from '../../../services/document.service';
 import {Settings} from '../../../model/Settings';
 import * as firebase from 'firebase';
+import {resolve} from '@angular/compiler-cli/src/ngtsc/file_system';
 
 @Component({
     selector: 'app-new-document',
@@ -84,49 +85,89 @@ export class NewDocumentComponent implements OnInit {
         firebase.auth().onAuthStateChanged(
             (user) => {
                 if (user) {
-                    uid = user.uid.toString();
-                    console.log(this.fileUrl);
-                    const document = {
-                        nomDocument: form.value['nomDocument'],
-                        typeDocument: form.value['typeDocument'],
-                        matiereDocument: form.value['matiereDocument'],
-                        niveauDocument: form.value['niveauDocument'],
-                        anneeDocument: form.value['anneeDocument'],
-                        descriptionDocument: form.value['descriptionDocument'],
-                        corrigeDocument: form.value['corrige'],
-                        documentAssoscie: form.value['associe'],
-                        urlDocument: this.fileUrl,
-                        afficheDocument: '',
-                        uid: uid
-                    };
-                    // @ts-ignore
-                    this.documentService.addDocument(document).subscribe(
-                        // @ts-ignore
-                        (response: Document) => {
-                            console.log(response);
-                            this.router.navigate(['documents']);
+                    const mat = form.value['matiereDocument'];
+                    const niv = form.value['niveauDocument'];
+                    const ane = form.value['anneeDocument'];
+                    let setting: any = this.settingService.getSettingsByData(ane, mat, niv);
+                    if (setting === null) {
+                        this.settingService.addSettings(setting).subscribe(
+                            (response: Settings) => {
+                                setting = response;
+                                this.userService.getUserByUid(user.uid).subscribe(
+                                    (resolves: User) => {
+                                        this.foulen = resolves;
+                                        const document = {
+                                            nomDocument: form.value['nomDocument'],
+                                            typeDocument: form.value['typeDocument'],
+                                            settings: setting,
+                                            descriptionDocument: form.value['descriptionDocument'],
+                                            documentAssoscie: form.value['associe'],
+                                            urlDocument: this.fileUrl,
+                                            afficheDocument: '',
+                                            uid: this.foulen
+                                        };
+                                        // @ts-ignore
+                                        this.documentService.addDocument(document).subscribe(
+                                            // @ts-ignore
+                                            (responsee: Document) => {
+                                                console.log(responsee);
+                                                this.router.navigate(['documents']);
 
-                            firebase.auth().onAuthStateChanged(
-                                (users) => {
-                                    if (users) {
-                                        uid = users.uid.toString();
-                                        this.searchUid(uid);
-                                    } else {
-                                        uid = 'dawa7';
-                                        console.log('dawa7 ha mbarka');
+                                                firebase.auth().onAuthStateChanged(
+                                                    (users) => {
+                                                        if (users) {
+                                                            uid = users.uid.toString();
+                                                            this.searchUid(uid);
+                                                        } else {
+                                                            uid = 'dawa7';
+                                                            console.log('dawa7 ha mbarka');
+                                                        }
+                                                    }
+                                                );
+                                            }
+                                        );
                                     }
-                                }
-                            );
-                        },
-                        (error: HttpErrorResponse) => {
-                            alert(error.message);
-                        }
-                    );
+                                )
 
+                            }
+                        )
+                    } else {
+                        this.userService.getUserByUid(user.uid).subscribe(
+                            (resolves: User) => {
+                                this.foulen = resolves;
+                                const document = {
+                                    nomDocument: form.value['nomDocument'],
+                                    typeDocument: form.value['typeDocument'],
+                                    settings: setting,
+                                    descriptionDocument: form.value['descriptionDocument'],
+                                    documentAssoscie: form.value['associe'],
+                                    urlDocument: this.fileUrl,
+                                    afficheDocument: '',
+                                    uid: this.foulen
+                                };
+                                // @ts-ignore
+                                this.documentService.addDocument(document).subscribe(
+                                    // @ts-ignore
+                                    (responsee: Document) => {
+                                        console.log(responsee);
+                                        this.router.navigate(['documents']);
 
-                } else {
-                    uid = 'dawa7';
-                    console.log('dawa7 ha mbarka');
+                                        firebase.auth().onAuthStateChanged(
+                                            (users) => {
+                                                if (users) {
+                                                    uid = users.uid.toString();
+                                                    this.searchUid(uid);
+                                                } else {
+                                                    uid = 'dawa7';
+                                                    console.log('dawa7 ha mbarka');
+                                                }
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        )
+                    }
                 }
             }
         );
@@ -166,12 +207,17 @@ export class NewDocumentComponent implements OnInit {
 
     onUploadFile(file: File) {
         this.fileIsUploading = true;
-        this.documentService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
+        this.documentService.uploadFile(file).subscribe(
+            event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log('file still');
+                } else if (event instanceof HttpResponse) {
+                    console.log('File success');
+                    this.fileUrl = 'assets/Storage/Documents/' + file.name;
+                    console.log(this.fileUrl)
+                    this.fileIsUploading = false;
+                    this.fileUploaded = true;
+                }
             }
         );
     }
