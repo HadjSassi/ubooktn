@@ -204,25 +204,11 @@ export class OneDocumentComponent implements OnInit {
             (user) => {
                 if (user) {
                     uids = user.uid.toString();
-                    this.userService.getUsers().subscribe(
-                        (response: User[]) => {
-                            for (const i of response) {
-                                if (i.uid === uids) {
-                                    this.foulen2 = i;
-                                    if (this.foulen2.mailUser === environment.admine) {
-                                        this.isAdmin = true
-                                    }
-                                    break;
-                                }
-                            }
-                        },
-                        (error: HttpErrorResponse) => {
-                            alert(error.message);
+                    this.userService.getUserByUid(uids).subscribe(
+                        (response: User) => {
+                            this.foulen2 = response;
                         }
                     );
-                } else {
-                    uid = 'dawa7';
-                    console.log('dawa7 ha mbarka');
                 }
             }
         );
@@ -242,9 +228,6 @@ export class OneDocumentComponent implements OnInit {
                 }
                 this.commentList.reverse();
                 this.commentList = this.commentList.slice(0, 10);
-            },
-            error => {
-                alert(error.message);
             }
         );
 
@@ -283,10 +266,11 @@ export class OneDocumentComponent implements OnInit {
                                     }
                                     if (!this.existe) {
                                         const vote3: any = {
-                                            user: responses,
-                                            document: this.voteInit.document.idDocument,
+                                            user: response,
+                                            document: {idDocument: id},
                                             voteType: 0
                                         }
+                                        console.log(vote3);
                                         this.voteService.addVoteDocument(vote3).subscribe(
                                             (responsess: VoteDocument) => {
                                                 this.voteInit = responsess;

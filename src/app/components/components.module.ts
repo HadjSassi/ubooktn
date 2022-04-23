@@ -95,7 +95,7 @@ import {ConfirmationComponent} from './not-found/confirmation/confirmation.compo
         OneProfilComponent,
         CentreFormationComponent,
         OneCentreFormationComponent,
-        JourneyComponent, ,
+        JourneyComponent,
         OneEventComponent,
         EditEventComponent,
         ConfirmationComponent
