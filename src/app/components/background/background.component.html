@@ -8,15 +8,15 @@
     </div>
     <h3>Institus : </h3>
     <h4 *ngFor="let x of this.resultsInstitus">
-        <button class="btn btn-default" (click)="instituing(x)">{{x.nomInstitus}}</button>
+        <button class="btn btn-default" (click)="instituing(x)">{{x.nom}}</button>
     </h4>
     <h3>Clubs : </h3>
     <h4 *ngFor="let x of this.resultsClub">
-        <button class="btn btn-default" (click)="clubing(x)">{{x.nomClub}}</button>
+        <button class="btn btn-default" (click)="clubing(x)">{{x.nom}}</button>
     </h4>
     <h3>Training Centers : </h3>
     <h4 *ngFor="let x of this.resultsCf">
-        <button class="btn btn-default" (click)="cfing(x)">{{x.nomCf}}</button>
+        <button class="btn btn-default" (click)="cfing(x)">{{x.nom}}</button>
     </h4>
 
 </div>

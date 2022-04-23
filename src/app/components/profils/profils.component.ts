@@ -152,7 +152,7 @@ export class ProfilsComponent implements OnInit {
 
 
     onUploadFile(file: File) {
-        // this is soooo importanat how to delete the older image you should do it later
+        // todo this is soooo importanat how to delete the older image you should do it later
         /*if (this.foulen.urlPicUser.indexOf('assets/img/icon.png') === -1) {
             const storageRef = firebase.storage().refFromURL(this.foulen.urlPicUser);
             storageRef.delete().then(
@@ -181,6 +181,7 @@ export class ProfilsComponent implements OnInit {
         this.userService.uploadFile(file).subscribe(
             event => {
                 if (event.type === HttpEventType.UploadProgress) {
+                    this.fileIsUploading = true;
                     console.log('file still');
                 } else if (event instanceof HttpResponse) {
                     console.log('File success');
@@ -188,6 +189,7 @@ export class ProfilsComponent implements OnInit {
                     console.log(this.fileUrl)
                     this.fileIsUploading = false;
                     this.fileUploaded = true;
+                    this.message = 'Picture Updated! Click on Apply Changes!';
                 }
             }
         );

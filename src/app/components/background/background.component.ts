@@ -33,22 +33,16 @@ export class BackgroundComponent implements OnInit {
         this.cfService.getCentreFormations().subscribe(
             (result: CentreFormation[]) => {
                 this.cf = result;
-            }, error => {
-                console.log('dawa7');
             }
         );
         this.clubService.getClubs().subscribe(
             (result: Club[]) => {
                 this.clubs = result;
-            }, error => {
-                console.log('dawa7i');
             }
         );
         this.institusService.getInstituss().subscribe(
             (result: Institus[]) => {
                 this.institus = result;
-            }, error => {
-                console.log('dawa7ou');
             }
         );
     }
@@ -56,7 +50,7 @@ export class BackgroundComponent implements OnInit {
     search(key: any) {
         this.resultsCf = [];
         for (const doc of this.cf) {
-            if (doc.nomCf.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.abreviation.toLowerCase().indexOf(key.toLowerCase()) !== -1
             ) {
                 this.resultsCf.push(doc);
@@ -64,14 +58,14 @@ export class BackgroundComponent implements OnInit {
         }
         this.resultsClub = [];
         for (const doc of this.clubs) {
-            if (doc.nomClub.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
             ) {
                 this.resultsClub.push(doc);
             }
         }
         this.resultsInstitus = [];
         for (const doc of this.institus) {
-            if (doc.nomInstitus.toLowerCase().indexOf(key.toLowerCase()) !== -1
+            if (doc.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
                 || doc.abreviation.toLowerCase().indexOf(key.toLowerCase()) !== -1
             ) {
                 this.resultsInstitus.push(doc);

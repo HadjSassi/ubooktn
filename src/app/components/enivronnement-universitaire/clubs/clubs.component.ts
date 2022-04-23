@@ -240,11 +240,11 @@ export class ClubsComponent implements OnInit {
 
 
         const ins = {
-            nomClub: nom,
+            nom: nom,
             domaine: ddd,
             historique: histo,
-            picUrl: this.fileUrl,
-            urls: urls,
+            picsUrls: this.fileUrl,
+            urlPartenaires: urls,
         };
 
         // @ts-ignore

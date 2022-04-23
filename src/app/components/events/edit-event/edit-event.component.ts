@@ -5,7 +5,6 @@ import {SettingsService} from '../../../services/settings.service';
 import {EventService} from '../../../services/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
-import {Settings} from '../../../model/Settings';
 import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
 import {Event} from '../../../model/Event';
@@ -27,9 +26,6 @@ export class EditEventComponent implements OnInit {
     fileUploaded = false;
     fileIsUploading = false;
     fileUrl = '';
-    matiere: string[] = [];
-    niveau: string[] = [];
-    annee: string[] = [];
     users: User[] = [];
     foulen: User;
     file: File = null; // Variable to store file
@@ -73,6 +69,7 @@ export class EditEventComponent implements OnInit {
     ngOnInit(): void {
         const id = this.route.snapshot.params['id'];
         const type = this.route.snapshot.params['type'];
+        console.log(type);
         switch (type) {
             case 'journey' :
                 this.isJourney = true;
@@ -179,7 +176,8 @@ export class EditEventComponent implements OnInit {
                     }
                 );
                 break;
-            case 'certification':
+            case 'certifications':
+                console.log('certification here we are !');
                 this.isCertification = true;
                 this.eventService.getEventById(id).subscribe(
                     (result: Event) => {
@@ -297,21 +295,21 @@ export class EditEventComponent implements OnInit {
             let eventCfs = '';
             if (this.instituing.length !== 0) {
                 for (const x of this.instituing) {
-                    eventInstitus += x.idInstitus + ',';
+                    eventInstitus += x.id + ',';
                 }
                 eventInstitus = eventInstitus.substring(0, (eventInstitus.length - 1));
                 this.event.institus = eventInstitus;
             }
             if (this.clubing.length !== 0) {
                 for (const x of this.clubing) {
-                    eventclubs += x.idClub + ',';
+                    eventclubs += x.id + ',';
                 }
                 eventclubs = eventclubs.substring(0, (eventclubs.length - 1));
                 this.event.clubs = eventclubs;
             }
             if (this.cfing.length !== 0) {
                 for (const x of this.cfing) {
-                    eventCfs += x.idCf + ',';
+                    eventCfs += x.id + ',';
                 }
                 eventCfs = eventCfs.substring(0, (eventCfs.length - 1));
                 this.event.trainingCenters = eventCfs;
@@ -439,17 +437,17 @@ export class EditEventComponent implements OnInit {
     }
 
     closeInstitus(c: any) {
-        console.log(c.nomInstitus);
+        console.log(c.nom);
         this.instituing.splice(this.instituing.indexOf(c), 1);
     }
 
     closeClub(c: any) {
-        console.log(c.nomInstitus);
+        console.log(c.nom);
         this.clubing.splice(this.clubing.indexOf(c), 1);
     }
 
     closeCf(c: any) {
-        console.log(c.nomInstitus);
+        console.log(c.nom);
         this.cfing.splice(this.cfing.indexOf(c), 1);
     }
 

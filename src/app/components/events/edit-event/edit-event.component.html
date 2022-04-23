@@ -73,7 +73,7 @@
                     <div class="form-group wow zoomIn">
                         <h4 *ngIf="this.instituing.length !== 0">Institus : </h4>
                         <div class="row col-md-12">
-                            <h5 *ngFor="let c of this.instituing">{{c.nomInstitus}}
+                            <h5 *ngFor="let c of this.instituing">{{c.nom}}
                                 <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
                                         (click)="closeInstitus(c)">
                                     <span aria-hidden="true">&times;</span>
@@ -82,7 +82,7 @@
                         </div>
                         <h4 *ngIf="this.clubing.length !== 0">Clubs : </h4>
                         <div class="row col-md-12">
-                            <h5 *ngFor="let c of this.clubing">{{c.nomClub}}
+                            <h5 *ngFor="let c of this.clubing">{{c.nom}}
                                 <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
                                         (click)="closeClub(c)">
                                     <span aria-hidden="true">&times;</span>
@@ -91,7 +91,7 @@
                         </div>
                         <h4 *ngIf="this.cfing.length !== 0">Training Centers : </h4>
                         <div class="row col-md-12">
-                            <h5 *ngFor="let c of this.cfing">{{c.nomCf}}
+                            <h5 *ngFor="let c of this.cfing">{{c.nom}}
                                 <button type="button" style="margin-top: -1%;" class="close" aria-label="Close"
                                         (click)="closeCf(c)">
                                     <span aria-hidden="true">&times;</span>

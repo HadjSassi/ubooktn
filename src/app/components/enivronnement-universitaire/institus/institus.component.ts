@@ -259,20 +259,23 @@ export class InstitusComponent implements OnInit {
         }
 
         const ins = {
-            nomInstitus: nom,
+            nom: nom,
             abreviation: abr,
             universite: universite,
             region: region,
             historique: histo,
             filieres: fil,
-            picUrl: this.fileUrl,
-            urls: urls,
+            picsUrls: this.fileUrl,
+            urlPartenaires: urls,
             sexe: sexe,
             type: type,
             nbChambre: nbc,
             reglement: regl,
-            listClubs: listClubs,
-            voirAussi: ''
+            urlClubs: listClubs,
+            urlCfs: '',
+            urlInstitus: '',
+            urlOfficiel: '',
+            logo: ''
         };
 
         // @ts-ignore

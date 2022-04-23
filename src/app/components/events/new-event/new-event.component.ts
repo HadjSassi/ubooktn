@@ -79,10 +79,6 @@ export class NewEventComponent implements OnInit {
     users: User[] = [];
     foulen: User;
     file: File = null; // Variable to store file
-    isForma = true;
-    isCertif = false;
-    isComp = false;
-    isJour = false;
     capacitySlider = 5000;
     priceSlider = 0;
     startings: NgbDateStruct = {year: new Date().getUTCFullYear() - 2, month: 1, day: 1};
@@ -165,7 +161,6 @@ export class NewEventComponent implements OnInit {
             });
     }
 
-
     onSubmit(form: NgForm) {
         if (this.ready) {
             this.submited = true;
@@ -183,19 +178,19 @@ export class NewEventComponent implements OnInit {
             const description = form.value['description'];
             if (this.instituing.length !== 0) {
                 for (const x of this.instituing) {
-                    eventInstitus += x.idInstitus + ',';
+                    eventInstitus += x.id + ',';
                 }
                 eventInstitus = eventInstitus.substring(0, (eventInstitus.length - 1));
             }
             if (this.clubing.length !== 0) {
                 for (const x of this.clubing) {
-                    eventclubs += x.idClub + ',';
+                    eventclubs += x.id + ',';
                 }
                 eventclubs = eventclubs.substring(0, (eventclubs.length - 1));
             }
             if (this.cfing.length !== 0) {
                 for (const x of this.cfing) {
-                    eventCfs += x.idCf + ',';
+                    eventCfs += x.id + ',';
                 }
                 eventCfs = eventCfs.substring(0, (eventCfs.length - 1));
             }
@@ -341,17 +336,17 @@ export class NewEventComponent implements OnInit {
     }
 
     closeInstitus(c: any) {
-        console.log(c.nomInstitus);
+        console.log(c.nom);
         this.instituing.splice(this.instituing.indexOf(c), 1);
     }
 
     closeClub(c: any) {
-        console.log(c.nomInstitus);
+        console.log(c.nom);
         this.clubing.splice(this.clubing.indexOf(c), 1);
     }
 
     closeCf(c: any) {
-        console.log(c.nomInstitus);
+        console.log(c.nom);
         this.cfing.splice(this.cfing.indexOf(c), 1);
     }
 

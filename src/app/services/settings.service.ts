@@ -98,29 +98,28 @@ export class SettingsService {
         this.institusService.getInstituss().subscribe(
             (result: Institus[]) => {
                 this.listInstitus = result;
-            }, error => {
-                console.log(error);
+                console.log(result);
             }
         );
-        let i: any = {
-            idInstitus: 0,
-            nomInstitus: '',
+        const i: Institus = {
+            id: 0,
+            nom: '',
             abreviation: '',
             universite: '',
             region: '',
             historique: '',
             filieres: '',
             logo: '',
-            urlOfficel: '',
-            listInstitus: '',
-            picUrl: '',
-            urls: '',
+            urlOfficiel: '',
+            urlInstitus: '',
+            picsUrls: '',
+            urlPartenaires: '',
             sexe: '',
             type: '',
             nbChambre: '',
             reglement: '',
-            listClubs: '',
-            voirAussi: ''
+            urlClubs: '',
+            urlCfs: ''
         };
         this.listInstitus.push(i);
         this.clubService.getClubs().subscribe(
@@ -130,19 +129,20 @@ export class SettingsService {
                 console.log(error);
             }
         );
-        i = {
-            idClub: 0,
-            nomClub: '',
+        const ii: Club = {
+            id: 0,
+            nom: '',
             domaine: '',
             historique: '',
-            picUrl: '',
-            urls: '',
+            picsUrls: '',
+            urlPartenaires: '',
             logo: '',
-            urlOfficel: '',
-            listClubs: '',
-            listInstitus: ''
+            urlOfficiel: '',
+            urlClubs: '',
+            urlInstitus: '',
+            urlCfs: ''
         };
-        this.listClubs.push(i);
+        this.listClubs.push(ii);
         this.cfService.getCentreFormations().subscribe(
             (result: CentreFormation[]) => {
                 this.listCfs = result;
@@ -150,9 +150,9 @@ export class SettingsService {
                 console.log(error);
             }
         );
-        i = {
-            idCf: 0,
-            nomCf: '',
+        const iii: CentreFormation = {
+            id: 0,
+            nom: '',
             abreviation: '',
             region: '',
             historique: '',
@@ -163,9 +163,10 @@ export class SettingsService {
             urlClubs: '',
             urlPartenaires: '',
             urlInstitus: '',
-            picsUrls: ''
+            picsUrls: '',
+            urlCfs: ''
         };
-        this.listCfs.push(i);
+        this.listCfs.push(iii);
     }
 
 }
