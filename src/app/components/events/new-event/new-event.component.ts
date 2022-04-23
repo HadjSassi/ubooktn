@@ -151,11 +151,18 @@ export class NewEventComponent implements OnInit {
                         }
                     }
                 );
-            },
-            error => {
-                alert(error.message);
             }
         );
+        firebase.auth().onAuthStateChanged(
+            (user) => {
+                if (user) {
+                    this.userService.getUserByUid(user.uid).subscribe(
+                        (uss: User) => {
+                            this.foulen = uss;
+                        }
+                    );
+                }
+            });
     }
 
 
@@ -217,22 +224,12 @@ export class NewEventComponent implements OnInit {
                             shown: 'false',
                             picsUrl: '',
                             type: eventType,
-                            uid: uid
+                            uid: this.foulen
                         }
                         this.eventService.addEvent(evenement).subscribe(
                             (reeesp: Event) => {
                                 this.router.navigate(['event']);
-                                firebase.auth().onAuthStateChanged(
-                                    (users) => {
-                                        if (users) {
-                                            uid = users.uid.toString();
-                                            this.searchUid(uid);
-                                        } else {
-                                            uid = 'dawa7';
-                                            console.log('dawa7 ha mbarka');
-                                        }
-                                    }
-                                );
+                                this.searchUid(this.foulen.uid);
                             }
                         )
                     }

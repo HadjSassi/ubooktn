@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CommentDocument} from '../model/CommentDocument';
+import {Document} from '../model/Document';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +16,10 @@ export class CommentDocumentService {
 
     public getCommentDocuments(): Observable<CommentDocument[]> {
         return this.http.get<CommentDocument[]>(`${this.apiServeurUrl}/comment_document/all`);
+    }
+
+    public getCommentDocumentsByDocument(id: number): Observable<CommentDocument[]> {
+        return this.http.get<CommentDocument[]>(`${this.apiServeurUrl}/comment_document/allForOne/${id}`);
     }
 
     public getCommentDocumentById(id: number): Observable<CommentDocument> {

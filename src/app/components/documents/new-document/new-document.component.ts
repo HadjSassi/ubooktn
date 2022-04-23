@@ -8,7 +8,7 @@ import {NgForm} from '@angular/forms';
 import {DocumentService} from '../../../services/document.service';
 import {Settings} from '../../../model/Settings';
 import * as firebase from 'firebase';
-import {resolve} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {any} from 'codelyzer/util/function';
 
 @Component({
     selector: 'app-new-document',
@@ -72,9 +72,7 @@ export class NewDocumentComponent implements OnInit {
                         }
                     }
                 );
-            },
-            error => {
-                alert(error.message);
+                this.annee.reverse();
             }
         );
     }
@@ -88,11 +86,47 @@ export class NewDocumentComponent implements OnInit {
                     const mat = form.value['matiereDocument'];
                     const niv = form.value['niveauDocument'];
                     const ane = form.value['anneeDocument'];
-                    let setting: any = this.settingService.getSettingsByData(ane, mat, niv);
-                    if (setting === null) {
-                        this.settingService.addSettings(setting).subscribe(
-                            (response: Settings) => {
-                                setting = response;
+                    const settingg: any = {
+                        'matiere': mat,
+                        'niveau': niv,
+                        'annee': ane
+                    }
+                    this.settingService.getSettingsByData(ane, mat, niv).subscribe(
+                        (setting: Settings) => {
+                            if (setting === null) {
+                                console.log('Creation of a new settings!');
+                                this.settingService.addSettings(settingg).subscribe(
+                                    (response: Settings) => {
+                                        setting = response;
+                                        this.userService.getUserByUid(user.uid).subscribe(
+                                            (resolves: User) => {
+                                                this.foulen = resolves;
+                                                const document = {
+                                                    nomDocument: form.value['nomDocument'],
+                                                    typeDocument: form.value['typeDocument'],
+                                                    settings: setting,
+                                                    descriptionDocument: form.value['descriptionDocument'],
+                                                    documentAssoscie: form.value['associe'],
+                                                    urlDocument: this.fileUrl,
+                                                    afficheDocument: '',
+                                                    uid: this.foulen
+                                                };
+                                                // @ts-ignore
+                                                this.documentService.addDocument(document).subscribe(
+                                                    // @ts-ignore
+                                                    (responsee: Document) => {
+                                                        console.log(responsee);
+                                                        this.router.navigate(['documents']);
+                                                        this.searchUid(this.foulen.uid);
+                                                    }
+                                                );
+                                            }
+                                        )
+
+                                    }
+                                )
+                            } else {
+                                console.log(setting);
                                 this.userService.getUserByUid(user.uid).subscribe(
                                     (resolves: User) => {
                                         this.foulen = resolves;
@@ -128,46 +162,9 @@ export class NewDocumentComponent implements OnInit {
                                         );
                                     }
                                 )
-
                             }
-                        )
-                    } else {
-                        this.userService.getUserByUid(user.uid).subscribe(
-                            (resolves: User) => {
-                                this.foulen = resolves;
-                                const document = {
-                                    nomDocument: form.value['nomDocument'],
-                                    typeDocument: form.value['typeDocument'],
-                                    settings: setting,
-                                    descriptionDocument: form.value['descriptionDocument'],
-                                    documentAssoscie: form.value['associe'],
-                                    urlDocument: this.fileUrl,
-                                    afficheDocument: '',
-                                    uid: this.foulen
-                                };
-                                // @ts-ignore
-                                this.documentService.addDocument(document).subscribe(
-                                    // @ts-ignore
-                                    (responsee: Document) => {
-                                        console.log(responsee);
-                                        this.router.navigate(['documents']);
-
-                                        firebase.auth().onAuthStateChanged(
-                                            (users) => {
-                                                if (users) {
-                                                    uid = users.uid.toString();
-                                                    this.searchUid(uid);
-                                                } else {
-                                                    uid = 'dawa7';
-                                                    console.log('dawa7 ha mbarka');
-                                                }
-                                            }
-                                        );
-                                    }
-                                );
-                            }
-                        )
-                    }
+                        }
+                    );
                 }
             }
         );

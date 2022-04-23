@@ -52,7 +52,7 @@ export class OneDocumentComponent implements OnInit {
         timing: new Date()
     };
     interacted = false;
-
+    isPdf = false;
     users: User[] = [];
     // @ts-ignore
     foulen: User;
@@ -197,7 +197,6 @@ export class OneDocumentComponent implements OnInit {
 
     }
 
-
     ngOnInit(): void {
         let uids = '';
         firebase.auth().onAuthStateChanged(
@@ -218,18 +217,6 @@ export class OneDocumentComponent implements OnInit {
         let uid = '';
         this.comment.document = {idDocument: id};
         this.voteInit.document = {idDocument: id};
-        // c'est juste pour avoir tous les comment de ce document
-        this.commentService.getCommentDocuments().subscribe(
-            (response: CommentDocument[]) => {
-                for (const r of response) {
-                    if (r.document.idDocument.toString() === id.toString()) {
-                        this.commentList.push(r);
-                    }
-                }
-                this.commentList.reverse();
-                this.commentList = this.commentList.slice(0, 10);
-            }
-        );
 
         firebase.auth().onAuthStateChanged(
             (user) => {
@@ -241,50 +228,18 @@ export class OneDocumentComponent implements OnInit {
                             this.comment.user = response;
                             this.voteInit.user = response;
 
-                            this.voteService.getVoteDocuments().subscribe(
-                                (responses: VoteDocument[]) => {
-                                    for (const r of responses) {
-                                        if (r.document.idDocument.toString() === id.toString()) {
-                                            this.likes.push(r);
-                                        }
-                                    }
-                                    for (const r of this.likes) {
-                                        if (r.user.uid === uid) {
-                                            this.voteInit = r;
-                                            this.existe = true;
-                                        }
-                                        if (r.voteType === 1) {
-                                            this.like++;
-                                        } else if (r.voteType === -1) {
-                                            this.dislike++;
-                                        }
-                                    }
-                                    if (this.voteInit.voteType === 1) {
-                                        this.liked = true;
-                                    } else if (this.voteInit.voteType === -1) {
-                                        this.disliked = true;
-                                    }
-                                    if (!this.existe) {
-                                        const vote3: any = {
-                                            user: response,
-                                            document: {idDocument: id},
-                                            voteType: 0
-                                        }
-                                        console.log(vote3);
-                                        this.voteService.addVoteDocument(vote3).subscribe(
-                                            (responsess: VoteDocument) => {
-                                                this.voteInit = responsess;
-                                            },
-                                            (error: HttpErrorResponse) => {
-                                                alert(error.message);
-                                            }
-                                        );
-                                    }
-                                },
-                                error => {
-                                    alert(error.message);
-                                }
-                            );
+                            /* this.voteService.getVoteDocuments().subscribe(
+                                 (responses: VoteDocument[]) => {
+                                     for (const r of responses) {
+                                         if (r.document.idDocument.toString() === id.toString()) {
+                                             this.likes.push(r);
+                                         }
+                                     }
+                                 },
+                                 error => {
+                                     alert(error.message);
+                                 }
+                             );*/
 
 
                             this.documentService.getDocumentById(id).subscribe(
@@ -293,7 +248,59 @@ export class OneDocumentComponent implements OnInit {
                                     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.doc.urlDocument);
                                     if (this.doc.urlDocument !== '') {
                                         this.isUrl = true;
+                                        const chh = this.doc.urlDocument.substr(-4, 4);
+                                        if (chh === '.pdf') {
+                                            this.isPdf = true;
+                                        }
                                     }
+                                    console.log(responses);
+                                    // comments of that document !
+                                    this.commentService.getCommentDocumentsByDocument(responses.idDocument).subscribe(
+                                        (resultatComment: CommentDocument[]) => {
+                                            this.commentList = resultatComment;
+                                            this.commentList.reverse();
+                                            this.commentList = this.commentList.slice(0, 10);
+                                            console.log(resultatComment);
+                                        }
+                                    );
+                                    // votes of that document !
+                                    this.voteService.getVoteDocumentsByDocument(responses.idDocument).subscribe(
+                                        (resultatVote: VoteDocument[]) => {
+                                            console.log(resultatVote);
+                                            this.likes = resultatVote;
+                                            for (const r of this.likes) {
+                                                if (r.user.uid === uid) {
+                                                    this.voteInit = r;
+                                                    this.existe = true;
+                                                }
+                                                if (r.voteType === 1) {
+                                                    this.like++;
+                                                } else if (r.voteType === -1) {
+                                                    this.dislike++;
+                                                }
+                                            }
+                                            if (this.voteInit.voteType === 1) {
+                                                this.liked = true;
+                                            } else if (this.voteInit.voteType === -1) {
+                                                this.disliked = true;
+                                            }
+                                            if (!this.existe) {
+                                                const vote3: any = {
+                                                    user: response,
+                                                    document: {idDocument: id},
+                                                    voteType: 0
+                                                }
+                                                this.voteService.addVoteDocument(vote3).subscribe(
+                                                    (responsess: VoteDocument) => {
+                                                        this.voteInit = responsess;
+                                                    },
+                                                    (error: HttpErrorResponse) => {
+                                                        alert(error.message);
+                                                    }
+                                                );
+                                            }
+                                        }
+                                    );
                                 },
                                 (error: HttpErrorResponse) => {
                                     this.router.navigate(['/404NotFound']);

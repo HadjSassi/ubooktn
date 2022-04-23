@@ -24,7 +24,8 @@
 </header>
 <hr>
 <div class="text-center wow fadeInUp">
-    <iframe *ngIf='isUrl'
+    <h3 *ngIf="isUrl && !isPdf"><a href="{{this.doc.urlDocument}}">To Download Click Here!</a></h3>
+    <iframe *ngIf='isPdf'
             [src]="url"
             height="800px"
             width="70%"

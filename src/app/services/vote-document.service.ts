@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {VoteDocument} from '../model/VoteDocument';
+import {Document} from '../model/Document';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,10 @@ export class VoteDocumentService {
 
     public getVoteDocuments(): Observable<VoteDocument[]> {
         return this.http.get<VoteDocument[]>(`${this.apiServeurUrl}/vote_document/all`);
+    }
+
+    public getVoteDocumentsByDocument(id: number): Observable<VoteDocument[]> {
+        return this.http.get<VoteDocument[]>(`${this.apiServeurUrl}/vote_document/allForOne/${id}`);
     }
 
     public getVoteDocumentById(id: number): Observable<VoteDocument> {
