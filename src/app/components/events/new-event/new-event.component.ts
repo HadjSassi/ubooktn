@@ -164,7 +164,6 @@ export class NewEventComponent implements OnInit {
     onSubmit(form: NgForm) {
         if (this.ready) {
             this.submited = true;
-            let uid = '';
             const name = form.value['nom'];
             const address = form.value['address'];
             const email = form.value['email'];
@@ -194,41 +193,69 @@ export class NewEventComponent implements OnInit {
                 }
                 eventCfs = eventCfs.substring(0, (eventCfs.length - 1));
             }
-            firebase.auth().onAuthStateChanged(
-                (user) => {
-                    if (user) {
-                        uid = user.uid.toString();
-                        const evenement: any = {
-                            nom: name,
-                            clubs: eventclubs,
-                            institus: eventInstitus,
-                            trainingCenters: eventCfs,
-                            affiche: this.fileUrl,
-                            themes: this.themeList,
-                            capacity: this.capacitySlider.toString(),
-                            address: address,
-                            email: email,
-                            tel: tel,
-                            registrationLink: registrationLink,
-                            description: description,
-                            price: this.priceSlider.toString(),
-                            partenaires: eventPartenaires,
-                            startingDate: this.dating(this.startD),
-                            finishingDate: this.dating(this.finishings),
-                            registrationDateLimit: this.dating(this.limitDate),
-                            shown: 'false',
-                            picsUrl: '',
-                            type: eventType,
-                            uid: this.foulen
-                        }
-                        this.eventService.addEvent(evenement).subscribe(
-                            (reeesp: Event) => {
-                                this.router.navigate(['event']);
-                                this.searchUid(this.foulen.uid);
-                            }
-                        )
+            const evenement: any = {
+                nom: name,
+                clubs: eventclubs,
+                institus: eventInstitus,
+                trainingCenters: eventCfs,
+                affiche: this.fileUrl,
+                themes: this.themeList,
+                capacity: this.capacitySlider.toString(),
+                address: address,
+                email: email,
+                tel: tel,
+                registrationLink: registrationLink,
+                description: description,
+                price: this.priceSlider.toString(),
+                partenaires: eventPartenaires,
+                startingDate: this.dating(this.startD),
+                finishingDate: this.dating(this.finishings),
+                registrationDateLimit: this.dating(this.limitDate),
+                shown: 'false',
+                picsUrl: '',
+                type: eventType,
+                uid: this.foulen,
+                participants: ''
+            }
+            this.eventService.addEvent(evenement).subscribe(
+                (reeesp: Event) => {
+                    const evenements: Event = {
+                        id: reeesp.id,
+                        nom: name,
+                        clubs: eventclubs,
+                        institus: eventInstitus,
+                        trainingCenters: eventCfs,
+                        affiche: this.fileUrl,
+                        themes: this.themeList,
+                        capacity: this.capacitySlider.toString(),
+                        address: address,
+                        email: email,
+                        tel: tel,
+                        registrationLink: '/#/eventInscription/' + reeesp.id,
+                        description: description,
+                        price: this.priceSlider.toString(),
+                        partenaires: eventPartenaires,
+                        startingDate: this.dating(this.startD),
+                        finishingDate: this.dating(this.finishings),
+                        registrationDateLimit: this.dating(this.limitDate),
+                        shown: 'false',
+                        picsUrl: '',
+                        type: eventType,
+                        uid: this.foulen,
+                        participants: ''
                     }
-                });
+                    if (this.noBooking) {
+                        evenement.registrationLink = '/#/eventInscription/' + reeesp.id;
+                    }
+                    this.eventService.updateEvent(evenements).subscribe(
+                        (reeee: Event) => {
+                            console.log(reeee);
+                            this.router.navigate(['event']);
+                            this.searchUid(this.foulen.uid);
+                        }
+                    );
+                }
+            )
         }
     }
 

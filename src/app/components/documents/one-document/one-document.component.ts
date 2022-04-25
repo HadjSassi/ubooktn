@@ -227,24 +227,13 @@ export class OneDocumentComponent implements OnInit {
                         (response: User) => {
                             this.comment.user = response;
                             this.voteInit.user = response;
-
-                            /* this.voteService.getVoteDocuments().subscribe(
-                                 (responses: VoteDocument[]) => {
-                                     for (const r of responses) {
-                                         if (r.document.idDocument.toString() === id.toString()) {
-                                             this.likes.push(r);
-                                         }
-                                     }
-                                 },
-                                 error => {
-                                     alert(error.message);
-                                 }
-                             );*/
-
-
                             this.documentService.getDocumentById(id).subscribe(
                                 (responses: Document) => {
                                     this.doc = responses;
+                                    const lic = document.getElementById('licence');
+                                    if (this.doc.creative.length !== 0) {
+                                        lic.innerHTML = this.doc.creative;
+                                    }
                                     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.doc.urlDocument);
                                     if (this.doc.urlDocument !== '') {
                                         this.isUrl = true;

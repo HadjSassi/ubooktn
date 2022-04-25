@@ -19,5 +19,19 @@ body {
     border-radius: 4px
 }
 
+.btn-purple {
+    color: white;
+}
+
+.btn-purple:hover {
+    color: #8346c9;
+    background: white;
+}
+
+.btn-purple:active {
+    background: #a380c4;
+    color: black;
+}
+
 
 

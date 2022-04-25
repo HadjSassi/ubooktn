@@ -1,0 +1,23 @@
+.cordido {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.btn-licence {
+    color: #8346c9;
+}
+
+.btn-licence:hover {
+    background-color: #8346c9;
+    color: white;
+}
+
+.btn-licence:active {
+    background-color: #8346c9;
+    color: #9c76c6;
+}
+
+.linking {
+    color: #8346c9;
+    font-weight: bolder;
+}

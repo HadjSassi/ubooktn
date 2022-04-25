@@ -7,7 +7,7 @@
         <div class="motto text-center wow fadeIn">
             <a *ngIf="!isAuthor" href="{{this.comp.registrationLink}}" class="btn btn-outline-neutral btn-round "><span
                     style="font-size: 500%;">BooK UP</span></a>
-            <a *ngIf="isAuthor" href="/#/event/edit/certifications/{{this.comp.id}}"
+            <a *ngIf="isAuthor" href="/#/event/edit/{{this.comp.type}}/{{this.comp.id}}"
                class="btn btn-outline-neutral btn-round "><span
                     style="font-size: 500%;">Modify Or Delete</span></a>
         </div>

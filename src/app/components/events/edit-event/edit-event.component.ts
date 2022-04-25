@@ -49,9 +49,6 @@ export class EditEventComponent implements OnInit {
     ready = true;
     submited = false;
     isCompetition = false;
-    isFormation = true;
-    isCertification = false;
-    isJourney = false;
     event: any;
 
     constructor(private settingsService: SettingsService,
@@ -69,72 +66,13 @@ export class EditEventComponent implements OnInit {
     ngOnInit(): void {
         const id = this.route.snapshot.params['id'];
         const type = this.route.snapshot.params['type'];
-        console.log(type);
-        switch (type) {
-            case 'journey' :
-                this.isJourney = true;
-                this.eventService.getEventById(id).subscribe(
-                    (result: Event) => {
-                        this.event = result;
-                        firebase.auth().onAuthStateChanged(
-                            (user) => {
-                                if (user.uid !== this.event.uid) {
-                                    console.log(user.uid);
-                                    console.log(this.event.uid);
-                                    this.router.navigate(['/event']);
-                                }
-                            }
-                        );
-                        let d = new Date(result.startingDate);
-                        this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
-                        d = new Date(result.registrationDateLimit);
-                        this.limitDate = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
-                        d = new Date(result.finishingDate);
-                        this.finishings = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
-                        this.instituService.getInstituss().subscribe(
-                            (res: Institus[]) => {
-                                for (const x of res) {
-                                    if (result.institus.indexOf(x.id.toString()) !== -1) {
-                                        this.instituing.push(x);
-                                    }
-                                }
-                            }
-                        );
-                        this.clubService.getClubs().subscribe(
-                            (res: Club[]) => {
-                                for (const x of res) {
-                                    if (result.clubs.indexOf(x.id.toString()) !== -1) {
-                                        this.clubing.push(x);
-                                    }
-                                }
-                            }
-                        );
-                        this.cfService.getCentreFormations().subscribe(
-                            (res: CentreFormation[]) => {
-                                for (const x of res) {
-                                    if (result.trainingCenters.indexOf(x.id.toString()) !== -1) {
-                                        this.cfing.push(x);
-                                    }
-                                }
-                            }
-                        );
-                    }
-                );
-                break;
+        console.log(type.toLowerCase());
+        switch (type.toLowerCase()) {
             case 'competition':
                 this.isCompetition = true;
                 this.eventService.getEventById(id).subscribe(
                     (result: Event) => {
                         this.event = result;
-                        firebase.auth().onAuthStateChanged(
-                            (user) => {
-                                if (user.uid !== this.event.uid) {
-                                    console.log(user.uid);
-                                    console.log(this.event.uid);
-                                    this.router.navigate(['/event']);
-                                }
-                            }
-                        );
                         let d = new Date(result.startingDate);
                         this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
                         d = new Date(result.registrationDateLimit);
@@ -176,21 +114,10 @@ export class EditEventComponent implements OnInit {
                     }
                 );
                 break;
-            case 'certifications':
-                console.log('certification here we are !');
-                this.isCertification = true;
+            default :
                 this.eventService.getEventById(id).subscribe(
                     (result: Event) => {
                         this.event = result;
-                        firebase.auth().onAuthStateChanged(
-                            (user) => {
-                                if (user.uid !== this.event.uid) {
-                                    console.log(user.uid);
-                                    console.log(this.event.uid);
-                                    this.router.navigate(['/event']);
-                                }
-                            }
-                        );
                         let d = new Date(result.startingDate);
                         this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
                         d = new Date(result.registrationDateLimit);
@@ -224,59 +151,15 @@ export class EditEventComponent implements OnInit {
                                 }
                             }
                         );
-                    }
-                );
-                break;
-            case 'training':
-                this.isFormation = true;
-                this.eventService.getEventById(id).subscribe(
-                    (result: Event) => {
-                        this.event = result;
-                        firebase.auth().onAuthStateChanged(
-                            (user) => {
-                                if (user.uid !== this.event.uid) {
-                                    console.log(user.uid);
-                                    console.log(this.event.uid);
-                                    this.router.navigate(['/event']);
-                                }
-                            }
-                        );
-                        let d = new Date(result.startingDate);
-                        this.startD = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
-                        d = new Date(result.registrationDateLimit);
-                        this.limitDate = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
-                        d = new Date(result.finishingDate);
-                        this.finishings = {day: d.getDate(), month: d.getMonth() + 1, year: d.getUTCFullYear()};
-                        this.instituService.getInstituss().subscribe(
-                            (res: Institus[]) => {
-                                for (const x of res) {
-                                    if (result.institus.indexOf(x.id.toString()) !== -1) {
-                                        this.instituing.push(x);
-                                    }
-                                }
-                            }
-                        );
-                        this.clubService.getClubs().subscribe(
-                            (res: Club[]) => {
-                                for (const x of res) {
-                                    if (result.clubs.indexOf(x.id.toString()) !== -1) {
-                                        this.clubing.push(x);
-                                    }
-                                }
-                            }
-                        );
-                        this.cfService.getCentreFormations().subscribe(
-                            (res: CentreFormation[]) => {
-                                for (const x of res) {
-                                    if (result.trainingCenters.indexOf(x.id.toString()) !== -1) {
-                                        this.cfing.push(x);
-                                    }
-                                }
-                            }
-                        );
+                        console.log(result.themes);
+                        const tt = result.themes.split(',');
+                        for (const t of tt) {
+                            this.themeT.push(t);
+                        }
                     }
                 );
                 break
+
         }
     }
 

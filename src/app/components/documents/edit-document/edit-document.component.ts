@@ -1,22 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {User} from '../../../model/User';
-import {UserService} from '../../../services/user.service';
-import {Router} from '@angular/router';
-import {SettingsService} from '../../../services/settings.service';
-import {NgForm} from '@angular/forms';
 import {DocumentService} from '../../../services/document.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../services/user.service';
+import {SettingsService} from '../../../services/settings.service';
 import {Settings} from '../../../model/Settings';
+import {NgForm} from '@angular/forms';
 import * as firebase from 'firebase';
-import {any} from 'codelyzer/util/function';
 import {Document} from '../../../model/Document';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 
 @Component({
-    selector: 'app-new-document',
-    templateUrl: './new-document.component.html',
-    styleUrls: ['./new-document.component.scss']
+    selector: 'app-edit-document',
+    templateUrl: './edit-document.component.html',
+    styleUrls: ['./edit-document.component.css']
 })
-export class NewDocumentComponent implements OnInit {
+export class EditDocumentComponent implements OnInit {
     fileUploaded = false;
     fileIsUploading = false;
     fileUrl = '';
@@ -28,14 +27,23 @@ export class NewDocumentComponent implements OnInit {
     file: File = null; // Variable to store file
     isValidLicense = true;
     licence = '';
+    doc: Document = null;
+    id: number;
 
     constructor(private documentService: DocumentService,
                 private router: Router,
+                private route: ActivatedRoute,
                 private userService: UserService,
                 private settingService: SettingsService) {
     }
 
     ngOnInit(): void {
+        this.id = this.route.snapshot.params['id'] - 0;
+        this.documentService.getDocumentById(this.id).subscribe(
+            (result: Document) => {
+                this.doc = result;
+            }
+        );
         this.settingService.getSettingsById(1).subscribe(
             (response: Settings) => {
                 this.matiere = response.matiere.split(',');
@@ -79,15 +87,13 @@ export class NewDocumentComponent implements OnInit {
         );
     }
 
-
     onSubmit(form: NgForm) {
-        let uid = '';
         firebase.auth().onAuthStateChanged(
             (user) => {
                 if (user) {
-                    const mat = form.value['matiereDocument'];
-                    const niv = form.value['niveauDocument'];
-                    const ane = form.value['anneeDocument'];
+                    const mat = this.doc.settings.matiere;
+                    const niv = this.doc.settings.niveau;
+                    const ane = this.doc.settings.annee;
                     const settingg: any = {
                         'matiere': mat,
                         'niveau': niv,
@@ -96,112 +102,56 @@ export class NewDocumentComponent implements OnInit {
                     this.settingService.getSettingsByData(ane, mat, niv).subscribe(
                         (setting: Settings) => {
                             if (setting === null) {
-                                console.log('Creation of a new settings!');
                                 this.settingService.addSettings(settingg).subscribe(
                                     (response: Settings) => {
                                         setting = response;
-                                        this.userService.getUserByUid(user.uid).subscribe(
-                                            (resolves: User) => {
-                                                this.foulen = resolves;
-                                                const document = {
-                                                    nomDocument: form.value['nomDocument'],
-                                                    typeDocument: form.value['typeDocument'],
-                                                    settings: setting,
-                                                    descriptionDocument: form.value['descriptionDocument'],
-                                                    documentAssoscie: form.value['associe'],
-                                                    urlDocument: this.fileUrl,
-                                                    afficheDocument: '',
-                                                    uid: this.foulen,
-                                                    creative: this.licence
-                                                };
-                                                // @ts-ignore
-                                                this.documentService.addDocument(document).subscribe(
-                                                    // @ts-ignore
-                                                    (responsee: Document) => {
-                                                        console.log(responsee);
-                                                        this.router.navigate(['documents']);
-                                                        this.searchUid(this.foulen.uid);
-                                                    }
-                                                );
-                                            }
-                                        )
-
-                                    }
-                                )
-                            } else {
-                                this.userService.getUserByUid(user.uid).subscribe(
-                                    (resolves: User) => {
-                                        this.foulen = resolves;
-                                        const document = {
+                                        const document: Document = {
+                                            idDocument: this.doc.idDocument,
                                             nomDocument: form.value['nomDocument'],
                                             typeDocument: form.value['typeDocument'],
                                             settings: setting,
                                             descriptionDocument: form.value['descriptionDocument'],
                                             documentAssoscie: form.value['associe'],
-                                            urlDocument: this.fileUrl,
-                                            afficheDocument: '',
-                                            uid: this.foulen,
-                                            creative: this.licence
+                                            urlDocument: this.doc.urlDocument,
+                                            afficheDocument: this.doc.afficheDocument,
+                                            uid: this.doc.uid,
+                                            creative: this.doc.creative
                                         };
                                         // @ts-ignore
-                                        this.documentService.addDocument(document).subscribe(
-                                            // @ts-ignore
+                                        this.documentService.updateDocument(document).subscribe(
                                             (responsee: Document) => {
                                                 console.log(responsee);
                                                 this.router.navigate(['documents']);
-
-                                                firebase.auth().onAuthStateChanged(
-                                                    (users) => {
-                                                        if (users) {
-                                                            uid = users.uid.toString();
-                                                            this.searchUid(uid);
-                                                        } else {
-                                                            uid = 'dawa7';
-                                                            console.log('dawa7 ha mbarka');
-                                                        }
-                                                    }
-                                                );
                                             }
                                         );
                                     }
                                 )
+                            } else {
+                                const document: Document = {
+                                    idDocument: this.doc.idDocument,
+                                    nomDocument: form.value['nomDocument'],
+                                    typeDocument: form.value['typeDocument'],
+                                    settings: setting,
+                                    descriptionDocument: form.value['descriptionDocument'],
+                                    documentAssoscie: form.value['associe'],
+                                    urlDocument: this.doc.urlDocument,
+                                    afficheDocument: this.doc.afficheDocument,
+                                    uid: this.doc.uid,
+                                    creative: this.doc.creative
+                                };
+                                // @ts-ignore
+                                this.documentService.updateDocument(document).subscribe(
+                                    (responsee: Document) => {
+                                        console.log(responsee);
+                                        this.router.navigate(['documents']);
+                                    }
+                                );
                             }
                         }
                     );
                 }
             }
         );
-
-    }
-
-
-    searchUid(uid: string) {
-
-        this.userService.getUsers().subscribe(
-            (response: User[]) => {
-                this.users = response;
-                for (const i of this.users) {
-                    if (i.uid === uid) {
-                        this.foulen = i;
-                        break;
-                    }
-                }
-                this.foulen.score += 10;
-
-                this.userService.updateUser(this.foulen).subscribe(
-                    (responses: User) => {
-                        console.log(responses);
-                    },
-                    (error: HttpErrorResponse) => {
-                        alert(error.message);
-                    }
-                );
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message);
-            }
-        );
-
 
     }
 
@@ -235,4 +185,16 @@ export class NewDocumentComponent implements OnInit {
         this.licence = key;
     }
 
+    supprim() {
+        const id = this.route.snapshot.params['id'];
+        const txt = 'Are you sure to delete ' + this.doc.nomDocument;
+        if (confirm(txt)) {
+            this.documentService.deleteDocument(id).subscribe(
+                (result: void) => {
+                    this.router.navigate(['documents']);
+                }
+            );
+        }
+
+    }
 }

@@ -43,6 +43,7 @@ export class OneEventComponent implements OnInit {
             (resolve: Event) => {
                 this.comp = resolve;
                 this.img = resolve.affiche;
+                console.log(resolve);
                 firebase.auth().onAuthStateChanged(
                     (user) => {
                         console.log(user.uid, this.comp.uid, user.uid === this.comp.uid.uid);

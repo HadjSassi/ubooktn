@@ -42,6 +42,8 @@ import {OneEventComponent} from './components/events/one-event/one-event.compone
 import {NewEventComponent} from './components/events/new-event/new-event.component';
 import {EditEventComponent} from './components/events/edit-event/edit-event.component';
 import {ConfirmationComponent} from './components/not-found/confirmation/confirmation.component';
+import {EditDocumentComponent} from './components/documents/edit-document/edit-document.component';
+import {InscriptionComponent} from './components/events/inscription/inscription.component';
 
 
 const routes: Routes = [
@@ -70,9 +72,11 @@ const routes: Routes = [
     {path: 'event/training', component: FormationsComponent},
     {path: 'event/certifications', component: CertificationsComponent},
     {path: 'event/:id', component: OneEventComponent},
+    {path: 'eventInscription/:id', component: InscriptionComponent},
     {path: 'event/journey', component: JourneyComponent},
     {path: 'documents', component: DocumentsComponent},
     {path: 'documents/new', canActivate: [AuthGuard], component: NewDocumentComponent},
+    {path: 'documents/edit/:id', canActivate: [AuthGuard], component: EditDocumentComponent},
     {path: 'documents/reglementions', canActivate: [AuthGuard], component: ReglementComponent},
     {path: 'documents/view/:id', canActivate: [AuthGuard], component: OneDocumentComponent},
     {path: 'profils', canActivate: [AuthGuard], component: ProfilsComponent},

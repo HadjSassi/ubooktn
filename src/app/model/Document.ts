@@ -7,6 +7,7 @@ export interface Document {
     typeDocument: string;
     settings: Settings;
     descriptionDocument: string;
+    creative: string;
     urlDocument: string;
     documentAssoscie: string;
     afficheDocument: string;

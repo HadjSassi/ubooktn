@@ -16,6 +16,7 @@ export interface Event {
     description: string,
     price: string,
     partenaires: string,
+    participants: string,
     startingDate: string,
     finishingDate: string,
     registrationDateLimit: string,

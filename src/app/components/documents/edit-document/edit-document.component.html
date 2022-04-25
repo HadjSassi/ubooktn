@@ -1,9 +1,10 @@
-<header>
+<header xmlns="http://www.w3.org/1999/html">
     <div class="home-banner" style="margin-top: 5%">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 py-3 wow fadeInUp">
-                    <h1 class="mb-4">New Document</h1>
+                    <h1 class="mb-4">Edit Document</h1>
+                    <button class="btn btn-danger" (click)="supprim()">Supprimer ce Document</button>
                 </div>
                 <div class="col-lg-6 py-3 wow zoomIn">
                     <div class="img-place">
@@ -23,7 +24,7 @@
                             style="color: red">*</span></label>
                     <input type="text" id="nomDocument" class="form-control col" style="" name="nomDocument"
                            [ngClass]="{'is-invalid':nomDocument.invalid && nomDocument.dirty}" #nomDocument="ngModel"
-                           required ngModel>
+                           required [(ngModel)]="doc.nomDocument">
                     <div *ngIf="nomDocument.invalid && nomDocument.dirty " class="invalid-feedback">Please fill this
                         field !
                     </div>
@@ -35,7 +36,7 @@
                     <select class="form-select col" id="typeDocument" name="typeDocument"
                             [ngClass]="{'is-invalid':typeDocument.invalid && typeDocument.dirty}"
                             #typeDocument="ngModel"
-                            required ngModel>
+                            required [(ngModel)]="doc.typeDocument">
                         <option value="Autre" selected>Other</option>
                         <option value="Cours">Cours</option>
                         <option value="TD">TD</option>
@@ -55,7 +56,7 @@
                     <select class="form-select col" id="matiereDocument" name="matiereDocument"
                             [ngClass]="{'is-invalid':matiereDocument.invalid && matiereDocument.dirty}"
                             #matiereDocument="ngModel"
-                            required ngModel>
+                            required [(ngModel)]="doc.settings.matiere">
                         <option></option>
                         <option value="Autre">Other</option>
                         <option *ngFor="let s of this.matiere">{{s}}</option>
@@ -68,8 +69,8 @@
                     <label style="" class="h5 col" for="niveauDocument">Document Level<span style="color: red">*</span></label>
                     <select class="form-select col" id="niveauDocument" name="niveauDocument"
                             [ngClass]="{'is-invalid':niveauDocument.invalid && niveauDocument.dirty}"
-                            #niveauDocument="ngModel"
-                            required ngModel>
+                            #niveauDocument="ngModel" [selectedIndex]="0"
+                            required [(ngModel)]="doc.settings.niveau">
                         <option></option>
                         <option value="Autre">Other</option>
                         <option *ngFor="let s of this.niveau">{{s}}</option>
@@ -83,7 +84,7 @@
                     <select class="form-select col" id="anneeDocument" name="anneeDocument"
                             [ngClass]="{'is-invalid':anneeDocument.invalid && anneeDocument.dirty}"
                             #anneeDocument="ngModel"
-                            ngModel>
+                            [(ngModel)]="doc.settings.annee">
                         <option></option>
                         <option *ngFor="let s of this.annee">{{s}}</option>
 
@@ -96,7 +97,7 @@
                 <div class="form-group wow zoomIn">
                     <label style="" class="h5 col" for="associe">Related Documents</label>
                     <textarea type="text" id="associe" class="form-control col" style=""
-                              name="associe" #associe="ngModel" ngModel></textarea>
+                              name="associe" #associe="ngModel" [(ngModel)]="doc.documentAssoscie"></textarea>
                 </div>
                 <div class="form-group wow zoomIn">
                     <label style="" class="h5 col" for="descriptionDocument">Document Description</label>
@@ -104,7 +105,7 @@
                               name="descriptionDocument"
                               [ngClass]="{'is-invalid':descriptionDocument.invalid && descriptionDocument.dirty}"
                               #descriptionDocument="ngModel"
-                              ngModel></textarea>
+                              [(ngModel)]="doc.descriptionDocument"></textarea>
                     <div *ngIf="descriptionDocument.invalid && descriptionDocument.dirty " class="invalid-feedback">
                         Pouvez vous
                         donner la description du Document.
@@ -117,7 +118,7 @@
                     <textarea type="text" id="creative" class="form-control col" style=""
                               name="creative" placeholder="Ajouter Une licence Creative Commons"
                               #creaive="ngModel" (ngModelChange)="verifLicense(creaive.value)"
-                              ngModel></textarea>
+                              [(ngModel)]="doc.creative"></textarea>
                         <a href="https://creativecommons.org/share-your-work/" target="_blank"
                            class="form-control col btn btn-licence m-2">Ajouter</a>
                         <a href="https://www.youtube.com/watch?v=gftrFKqtUlU" target="_blank" class="col linking m-3">Regarder
