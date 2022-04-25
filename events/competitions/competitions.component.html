@@ -1,0 +1,238 @@
+<div class="wrapper">
+    <!--    la zone de recherche -->
+    <div class="" style="margin: 3% auto -3%;">
+        <div class="form-group wow fadeIn">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control border-dark" placeholder="Search">
+        </div>
+    </div>
+    <br>
+    <form>
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <!--                la zone de filtrage-->
+                    <div class="col-3">
+                        <div class="">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div>
+                                <div>
+                                    <div class="row">
+                                        <button class="btn"
+                                                [class]="{'btn-outline-default':!grille,'btn-default':grille}"
+                                                (click)="onGrille()"><i style="font-size: 150%"
+                                                                        class="fa fa-th-large"></i></button>
+                                        <button class="btn"
+                                                [class]="{'btn-outline-default':grille,'btn-default':!grille}"
+                                                (click)="onGrille()"><i style="font-size: 150%"
+                                                                        class="fa fa-th-list"></i></button>
+                                    </div>
+                                </div>
+                                <br>
+                                <form #form="ngForm" (change)="onSubmit(form)">
+
+                                    <!--Research Bar -->
+                                    <div class="wow fadeIn">
+                                        <div class="row" style="margin-left: auto">
+                                            <input class="col-5 fa-lg mb-5" type="number" id="inlineCheckbox1"
+                                                   #page="ngModel" ngModel
+                                                   name="page" placeholder="10" min="1" max="10"/>
+                                            <span class="" style="width: 5%;"></span>
+                                            <h5 class=""> /Page</h5>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: -10%;">
+
+                                        <!--taw n7eb nzid el partie mta3 el check boxes 7othom randomly for now-->
+                                        <div class="row">
+                                            <span class="fa-lg col-5 wow fadeIn">Themes</span>
+                                            <br>
+                                            <dl class="" style="margin-left: 40%;">
+                                                <dd class="text-left">
+                                                    <div class="form-check" *ngFor="let c of themes">
+                                                        <label class="form-check-label wow fadeIn">
+                                                            <input class="form-check-input" id="theme"
+                                                                   (click)="themeing(c)"
+                                                                   name="input" type="checkbox"
+                                                                   value="{{c}}"
+                                                                   ngModel>
+                                                            {{c}}
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+
+
+                                        <br>
+
+                                        <span class="fa-lg wow fadeIn">Price</span>&nbsp;<span
+                                            class="fa-lg">[{{this.freeIndicator}}
+                                        , {{priceSlider[1]}}DT]</span>
+                                        <nouislider [min]="0" [max]="5000" [step]="1" [(ngModel)]="priceSlider"
+                                                    name="price"
+                                                    (change)="onSubmit(form)"
+                                                    [connect]="true"
+                                                    class="slider slider-warning wow fadeIn"></nouislider>
+
+                                        <br>
+
+                                        <div class="">
+                                            <div class="my-3">
+                                                <span class="fa-lg wow fadeIn">Starting Date</span>
+                                            </div>
+                                            <div class="row wow fadeIn">
+                                                <div class='col-sm-6'>
+                                                    <div class="form-inline">
+                                                        <div class="form-group">
+                                                            <div class="input-group date"
+                                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                                       name="starting" [(ngModel)]="startD"
+                                                                       [minDate]="{year: startings.year, month:startings.month, day:startings.day}"
+                                                                       ngbDatepicker id="starting"
+                                                                       #starting="ngbDatepicker"
+                                                                       (ngModelChange)="startingDate(form)"
+                                                                       (click)="starting.toggle()" (focus)="focus=true"
+                                                                       (blur)="focus=false"/>
+                                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="">
+                                            <div class="my-3">
+                                                <span class="fa-lg wow fadeIn">Finishing Date</span>
+                                            </div>
+                                            <div class="row wow fadeIn">
+                                                <div class='col-sm-6'>
+                                                    <div class="form-inline">
+                                                        <div class="form-group">
+                                                            <div class="input-group date"
+                                                                 [ngClass]="{'input-group-focus':focus===true}">
+                                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                                       name="finishing" [(ngModel)]="finishings"
+                                                                       [minDate]="{year: startings.year, month:startings.month, day:startings.day}"
+                                                                       ngbDatepicker id="finishing"
+                                                                       (ngModelChange)="finishingDate(form)"
+                                                                       #finishing="ngbDatepicker"
+                                                                       (click)="finishing.toggle()" (focus)="focus=true"
+                                                                       (blur)="focus=false"/>
+                                                                <div class="input-group-append">
+                                              <span class="glyphicon glyphicon-calendar input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                les resultat-->
+                    <div class="wow fadeIn" style="margin-left: 25%;" [hidden]="!loading">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="text-center">
+                            <div class="wow fadeIn">
+                                <h4>Results :</h4>
+                                <hr>
+                                <div class="" *ngIf="grille">
+                                    <div *ngIf="Evenement.length !== 0">
+                                        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                            <div *ngFor="let s of evenement"
+                                                 class="col m-2 card bg-light mb-3 wow fadeInUp"
+                                                 (click)="onViewCompetition(s.id)"
+                                                 style="max-width: 18rem; cursor: pointer">
+                                                <div class="background blur"
+                                                     [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
+                                                <img style="clip-path: fill-box; cursor: pointer;"
+                                                     class="img-thumbnail img-no-padding img-responsive iii"
+                                                     src="{{s.affiche}}"
+                                                     alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{s.nom}}</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div *ngIf="Evenement.length === 0">
+                                        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center ">
+                                            <div *ngFor="let s of evenements"
+                                                 class="col m-2 card bg-light mb-3 wow fadeInUp"
+                                                 (click)="onViewCompetition(s.id)"
+                                                 style="max-width: 18rem; cursor: pointer">
+                                                <div class="background blur"
+                                                     [ngStyle]="{'background-image': 'url(' + s.affiche + ')'}"></div>
+                                                <img style="clip-path: fill-box; cursor: pointer;"
+                                                     class="img-thumbnail img-no-padding img-responsive iii"
+                                                     src="{{s.affiche}}"
+                                                     alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{s.nom}}</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!grille" class="">
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="Evenement.length !== 0">
+                                        <div *ngFor="let s of evenement" class="text-center" style="cursor: pointer"
+                                             (click)="onViewCompetition(s.id)">
+                                            <h5>{{s.nom}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="Evenement.length === 0">
+                                        <div *ngFor="let s of evenements" class="text-center" style="cursor: pointer"
+                                             (click)="onViewCompetition(s.id)">
+                                            <h5>{{s.nom}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="wow fadeIn">
+
+                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
+                                                (pageChange)="onPageChange(currentPage)"
+                                                [rotate]="true"></ngb-pagination>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+</div>
+

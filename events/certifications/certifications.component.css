@@ -1,0 +1,36 @@
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+    border-color: gray !important;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+    border-color: gray !important;
+    background-color: #2a2a2a !important;
+
+}
+
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+    color: black !important;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+    color: #dcdcdc !important;
+}
+
+.background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px;
+    text-align: center;
+}
+
+.blur {
+    filter: blur(8px);
+    height: 350px;
+}
+
+.iii {
+    position: absolute;
+    width: 80%;
+    transform: translate(5%, 0%);
+    align-content: center;
+}
