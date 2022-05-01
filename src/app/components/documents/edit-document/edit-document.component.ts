@@ -112,6 +112,7 @@ export class EditDocumentComponent implements OnInit {
                                             settings: setting,
                                             descriptionDocument: form.value['descriptionDocument'],
                                             documentAssoscie: form.value['associe'],
+                                            veracity: this.doc.veracity,
                                             urlDocument: this.doc.urlDocument,
                                             afficheDocument: this.doc.afficheDocument,
                                             uid: this.doc.uid,
@@ -135,6 +136,7 @@ export class EditDocumentComponent implements OnInit {
                                     descriptionDocument: form.value['descriptionDocument'],
                                     documentAssoscie: form.value['associe'],
                                     urlDocument: this.doc.urlDocument,
+                                    veracity: this.doc.veracity,
                                     afficheDocument: this.doc.afficheDocument,
                                     uid: this.doc.uid,
                                     creative: this.doc.creative
@@ -189,9 +191,16 @@ export class EditDocumentComponent implements OnInit {
         const id = this.route.snapshot.params['id'];
         const txt = 'Are you sure to delete ' + this.doc.nomDocument;
         if (confirm(txt)) {
-            this.documentService.deleteDocument(id).subscribe(
-                (result: void) => {
-                    this.router.navigate(['documents']);
+            this.userService.getUserByUid(this.doc.uid.uid).subscribe(
+                (ree: User) => {
+                    this.foulen = ree;
+                    this.foulen.score -= 10;
+                    this.userService.updateUser(this.foulen).subscribe(
+                        (result: User) => {
+                            this.documentService.deleteDocument(id).subscribe();
+                            this.router.navigate(['documents']);
+                        }
+                    );
                 }
             );
         }

@@ -120,7 +120,7 @@ export class FormationsComponent implements OnInit {
 
     onViewFormation(id: number) {
         this.router.navigate(['/event', id]);
-    }
+        }
 
     public getCompetions(): void {
         this.Evenements = [];

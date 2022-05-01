@@ -11,6 +11,7 @@
                     <h1 class="mb-4">{{this.doc.nomDocument}}</h1>
                     <h3>{{this.doc.type}} {{this.doc.settings.matiere}}<br>Niveau
                         : {{this.doc.settings.niveau}}</h3>
+                    <!--todo verified part-->
                     <p>{{this.doc["descriptionDocument"]}}</p>
                     <a href="/#/documents/edit/{{this.doc.idDocument}}" class="btn btn-purple"
                        *ngIf="this.foulen2.uid === this.doc.uid.uid">Editer les métadonnées ou Supprimer</a>

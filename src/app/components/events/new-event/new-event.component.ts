@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../../model/User';
-import {DocumentService} from '../../../services/document.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {SettingsService} from '../../../services/settings.service';

@@ -8,7 +8,6 @@ import {NgForm} from '@angular/forms';
 import {DocumentService} from '../../../services/document.service';
 import {Settings} from '../../../model/Settings';
 import * as firebase from 'firebase';
-import {any} from 'codelyzer/util/function';
 import {Document} from '../../../model/Document';
 
 @Component({
@@ -111,6 +110,7 @@ export class NewDocumentComponent implements OnInit {
                                                     documentAssoscie: form.value['associe'],
                                                     urlDocument: this.fileUrl,
                                                     afficheDocument: '',
+                                                    veracity: 'NotYet',
                                                     uid: this.foulen,
                                                     creative: this.licence
                                                 };
@@ -139,6 +139,7 @@ export class NewDocumentComponent implements OnInit {
                                             descriptionDocument: form.value['descriptionDocument'],
                                             documentAssoscie: form.value['associe'],
                                             urlDocument: this.fileUrl,
+                                            veracity: 'NotYet',
                                             afficheDocument: '',
                                             uid: this.foulen,
                                             creative: this.licence

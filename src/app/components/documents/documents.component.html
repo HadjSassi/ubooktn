@@ -102,6 +102,7 @@
                                              style="max-width: 18rem; cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
                                             <div class="card-header">{{s.typeDocument}}</div>
+                                            <!--todo verified part-->
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
                                                 <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
@@ -114,6 +115,7 @@
                                              style="max-width: 18rem; cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
                                             <div class="card-header">{{s.typeDocument}}</div>
+                                            <!--todo verified part-->
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
                                                 <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
@@ -126,7 +128,8 @@
                                          *ngIf="document.length !== 0">
                                         <div *ngFor="let s of docu" class="text-center" style="cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
-                                            <h5>[{{s.typeDocument}} {{s.settings.niveau}} {{s.settings.matiere}}
+                                            <h5>[{{s.typeDocument}}
+                                                <!--todo verified part-->{{s.settings.niveau}} {{s.settings.matiere}}
                                                 ] {{s.nomDocument}}</h5>
                                         </div>
                                     </div>
@@ -134,7 +137,8 @@
                                          *ngIf="document.length === 0">
                                         <div *ngFor="let s of docume" class="text-center" style="cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
-                                            <h5>[{{s.typeDocument}} {{s.settings.niveau}} {{s.settings.matiere}}
+                                            <h5>[{{s.typeDocument}}
+                                                <!--todo verified part-->{{s.settings.niveau}} {{s.settings.matiere}}
                                                 ] {{s.nomDocument}}</h5>
                                         </div>
                                     </div>

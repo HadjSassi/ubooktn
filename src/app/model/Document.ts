@@ -10,6 +10,7 @@ export interface Document {
     creative: string;
     urlDocument: string;
     documentAssoscie: string;
+    veracity: string;
     afficheDocument: string;
     uid: User;
 }
