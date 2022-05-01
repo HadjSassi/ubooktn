@@ -1,0 +1,83 @@
+<div class="wrapper" style="margin-top: -5%">
+    <br> <br> <br> <br> <br>
+
+    <div *ngIf="thanks" class="page-header" [ngStyle]="{'background-image': 'url(' + this.event.affiche + ')'}">
+        <div class="container">
+            <div class="row">
+                <div class="  mr-auto ml-auto wow fadeIn">
+                    <div class="card card-register">
+                        <h2 class="title"> Registration Completed! <br> Thank you for the Booking!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!thanks" class="page-header" [ngStyle]="{'background-image': 'url(' + this.event.affiche + ')'}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mr-auto ml-auto wow fadeIn">
+                    <div class="card card-register">
+                        <h3 class="title"><strong>Booking</strong> in<br>{{this.event.nom}}</h3>
+                        <div class="social-line text-center">
+                            <a (click)="facebook()" class="btn btn-neutral btn-facebook btn-just-icon">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <button (click)="gmail()" class="btn btn-neutral btn-google btn-just-icon">
+                                <i class="fa fa-google-plus"></i>
+                            </button>
+                            <a href="#pablo" disabled="true" class="btn btn-neutral btn-twitter btn-just-icon">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+
+                        <form #form="ngForm" class="register-form">
+                            <label>Email</label>
+                            <div class="input-group form-group-no-border"
+                                 [ngClass]="{'input-group-focus':focus===true}">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                      <i class="nc-icon nc-email-85"></i>
+                                  </span>
+                                </div>
+
+                                <input name="email" type="email" class="form-control" placeholder="Email"
+                                       (focus)="focus=true"
+                                       required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                       (blur)="focus=false" ngModel>
+                            </div>
+
+                            <label>Password</label>
+                            <div class="input-group form-group-no-border"
+                                 [ngClass]="{'input-group-focus':focus1===true}">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                      <i class="nc-icon nc-key-25"></i>
+                                  </span>
+                                </div>
+                                <input name="pass" type="password" class="form-control" placeholder="Password"
+                                       (focus)="focus1=true" required id="pass"
+                                       (blur)="focus1=false" ngModel>
+                                <div class="input-group-prepend" (click)="looks()" style="cursor: pointer">
+                                  <span class="input-group-text" [ngClass]="{'icon-danger':isError}">
+                                      <i *ngIf="look" class="fa fa-eye wow fadeIn"></i>
+                                      <i *ngIf="!look" class="fa fa-eye-slash wow fadeIn"></i>
+                                  </span>
+                                </div>
+                            </div>
+                            <label *ngIf="isError" class="text-danger " style="margin-left: 28%;">{{this.errorMessage}}
+                                !</label>
+                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round"
+                                    [disabled]="form.invalid">Confirm BooKing
+                            </button>
+                        </form>
+                        <br>
+                        <div class="forgot">
+                            <a (click)="OnClick()" style="margin-top: -5%;" class="btn btn-link btn-register"><strong>Create
+                                New Account</strong></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
