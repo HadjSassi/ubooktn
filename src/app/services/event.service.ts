@@ -51,4 +51,8 @@ export class EventService {
         return this.http.delete<void>(`${this.apiServeurUrl}/Event/delete/${id}`);
     }
 
+    public resetAffiche(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiServeurUrl}/Event/deleteAffiche/${id}`);
+    }
+
 }

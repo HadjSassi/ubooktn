@@ -152,7 +152,6 @@ export class ProfilsComponent implements OnInit {
 
 
     onUploadFile(file: File) {
-        // todo this is soooo importanat how to delete the older image you should do it later
         /*if (this.foulen.urlPicUser.indexOf('assets/img/icon.png') === -1) {
             const storageRef = firebase.storage().refFromURL(this.foulen.urlPicUser);
             storageRef.delete().then(
@@ -193,6 +192,7 @@ export class ProfilsComponent implements OnInit {
                 }
             }
         );
+        this.userService.resetUrlPic(this.foulen.uid).subscribe();
     }
 
     // @ts-ignore

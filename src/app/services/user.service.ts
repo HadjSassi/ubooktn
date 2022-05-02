@@ -31,6 +31,11 @@ export class UserService {
         return this.http.put<User>(`${this.apiServeurUrl}/user/update`, user);
     }
 
+    public resetUrlPic(uid: string): Observable<User> {
+        return this.http.delete<User>(`${this.apiServeurUrl}/user/deletePicUser/${uid}`);
+    }
+
+
     uploadFile(file: File): Observable<HttpEvent<{}>> {
         const data: FormData = new FormData();
         data.append('file', file);

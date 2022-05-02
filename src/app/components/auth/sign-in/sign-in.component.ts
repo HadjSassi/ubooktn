@@ -106,13 +106,10 @@ export class SignInComponent implements OnInit {
     gmail() {
         const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
         this.afAuth.signInWithPopup(googleAuthProvider).then(value => {
-            // todo just call find user by uid; if none then notfound = true
             let notFound = true;
             this.userService.getUsers().subscribe(
                 (result: User[]) => {
-                    console.log(value.user.uid.toString());
                     for (const u of result) {
-                        console.log(u.uid.toString());
                         if (u.uid.toString() === value.user.uid.toString()) {
                             notFound = false;
                             break;

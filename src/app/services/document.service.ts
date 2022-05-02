@@ -37,6 +37,10 @@ export class DocumentService {
         return this.http.delete<void>(`${this.apiServeurUrl}/document/delete/${id}`);
     }
 
+    public resetUrl(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiServeurUrl}/document/deleteUrl/${id}`);
+    }
+
     uploadFile(file: File): Observable<HttpEvent<{}>> {
         const data: FormData = new FormData();
         data.append('file', file);
