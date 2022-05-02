@@ -11,3 +11,12 @@
     color: #8E24AA;
     font-size: 80px
 }
+
+
+.cooool {
+    background-color: #6C55F9;
+}
+
+.cooool:hover {
+    background-color: #4324ff;
+}

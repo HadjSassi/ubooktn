@@ -34,6 +34,7 @@
     "angularfire2": "^5.4.2",
     "bootstrap": "4.5.3",
     "core-js": "3.8.1",
+    "file-saver": "^2.0.5",
     "firebase": "7.8",
     "jquery": "3.5.1",
     "jw-bootstrap-switch-ng2": "2.0.5",

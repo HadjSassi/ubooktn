@@ -5,8 +5,11 @@
     <div class="filter"></div>
     <div class="container">
         <div class="motto text-center wow fadeIn">
-            <a *ngIf="!isAuthor" href="{{this.comp.registrationLink}}" class="btn btn-outline-neutral btn-round "><span
-                    style="font-size: 500%;">BooK UP</span></a>
+            <a href="{{this.comp.registrationLink}}">
+                <button *ngIf="!isAuthor" [disabled]="this.booked" class="btn btn-outline-neutral btn-round "><span
+                        style="font-size: 500%;">BooK UP</span></button>
+            </a>
+            <h1 *ngIf="booked">You've BooKed already in this event !</h1>
             <a *ngIf="isAuthor" href="/#/event/edit/{{this.comp.type}}/{{this.comp.id}}"
                class="btn btn-outline-neutral btn-round "><span
                     style="font-size: 500%;">Modify Or Delete</span></a>
@@ -24,7 +27,12 @@
                     </h3>
                     <h5 class="description wow fadeIn">{{this.comp.description}}</h5>
                     <br>
-                    <a href="{{this.comp.registrationLink}}" class="btn btn-primary btn-round wow fadeIn">BooK UP</a>
+                    <a href="{{this.comp.registrationLink}}">
+                        <button [disabled]="this.booked" class="btn btn-purple btn-round wow fadeIn cooool">BooK UP
+                        </button>
+                    </a>
+                    <a *ngIf="isAuthor" href="/#/event/{{this.comp.id}}/BooKers" target="_blank"
+                       class="btn btn-primary btn-round wow fadeIn"><span>View BooKers</span></a>
                 </div>
             </div>
 

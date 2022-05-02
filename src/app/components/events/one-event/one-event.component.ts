@@ -32,6 +32,7 @@ export class OneEventComponent implements OnInit {
     institus = [];
     partenaires = [];
     isAuthor = false;
+    booked = false;
 
     constructor(private eventService: EventService, private route: ActivatedRoute,
                 private router: Router, private clubService: ClubService, private cfService: CentreFormationService,
@@ -49,6 +50,9 @@ export class OneEventComponent implements OnInit {
                         console.log(user.uid, this.comp.uid, user.uid === this.comp.uid.uid);
                         if (user.uid === this.comp.uid.uid) {
                             this.isAuthor = true;
+                        }
+                        if (this.comp.participants.indexOf(user.uid) !== -1) {
+                            this.booked = true;
                         }
                     }
                 );

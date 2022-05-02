@@ -1,0 +1,43 @@
+<br>
+<br>
+<br>
+<div class="page-header wow fadeIn" data-parallax="true"
+     [ngStyle]="{'background-image': 'url(' + this.event.affiche + ')'}">
+    <div class="filter"></div>
+    <div class="filter"></div>
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center wow fadeIn">
+            <h3><strong>{{this.reachedNumber}} has BooKed for this Event over {{this.event.capacity}} places.</strong>
+            </h3>
+            <h2>Still {{this.event.capacity - this.reachedNumber}} free Places to BooK.</h2>
+            <br>
+            <br>
+            <a (click)="csv()" class="btn btn-outline-default btn-round"><span
+                    style="font-size: 200%;">Download CSV</span></a>
+            <a (click)="excel()" class="btn btn-outline-default btn-round"><span
+                    style="font-size: 200%;">Download Excel</span></a>
+            <a (click)="json()" class="btn btn-outline-default btn-round"><span
+                    style="font-size: 200%;">Download JSON</span></a>
+            <a (click)="xml()" class="btn btn-outline-default btn-round"><span
+                    style="font-size: 200%;">Download XML</span></a>
+            <br><br><br>
+            <button class="btn btn-outline-neutral btn-round" (click)="moveTo()"><i class="nc-icon nc-minimal-down"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="section text-center container">
+    <table class="table table-dark" id="table" #table>
+        <tr>
+            <th>BooKer ID</th>
+            <th>BooKer Name</th>
+            <th>BooKer Email</th>
+        </tr>
+        <tr *ngFor="let c of this.uids; index as i">
+            <td>{{i + 1}}</td>
+            <td>{{this.names[i]}}</td>
+            <td>{{this.emails[i]}}</td>
+        </tr>
+    </table>
+</div>

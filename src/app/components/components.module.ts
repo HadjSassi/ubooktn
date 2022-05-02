@@ -49,6 +49,7 @@ import {EditEventComponent} from './events/edit-event/edit-event.component';
 import {ConfirmationComponent} from './not-found/confirmation/confirmation.component';
 import {EditDocumentComponent} from './documents/edit-document/edit-document.component';
 import {InscriptionComponent} from './events/inscription/inscription.component';
+import {BookersComponent} from './events/bookers/bookers.component';
 
 @NgModule({
     imports: [
@@ -102,7 +103,8 @@ import {InscriptionComponent} from './events/inscription/inscription.component';
         EditEventComponent,
         ConfirmationComponent,
         EditDocumentComponent,
-        InscriptionComponent
+        InscriptionComponent,
+        BookersComponent
     ],
     entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]

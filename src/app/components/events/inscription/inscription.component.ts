@@ -64,7 +64,8 @@ export class InscriptionComponent implements OnInit {
 
     reservation(): void {
         let text = '';
-        const valeur = 'Name:' + this.foulen.nomUser + ',Prename:' + this.foulen.prenomUser + ',Email:' + this.foulen.mailUser;
+        const valeur = 'UID:' + this.foulen.uid + ',Name:' + this.foulen.nomUser + ',Prename:' +
+            this.foulen.prenomUser + ',Email:' + this.foulen.mailUser;
         if (this.event.participants.length === 0) {
             text = '{' + valeur + '}'
         } else {

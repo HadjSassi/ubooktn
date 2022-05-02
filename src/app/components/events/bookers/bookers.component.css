@@ -1,0 +1,23 @@
+
+.social-list {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0
+}
+
+.social-list li {
+    padding: 10px;
+    color: #8E24AA;
+    font-size: 80px
+}
+
+.cool {
+    color: white;
+    background-color: transparent;
+}
+
+.cool :hover {
+    color: #3f3d4d;
+    background-color: white;
+}

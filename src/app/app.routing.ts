@@ -44,6 +44,7 @@ import {EditEventComponent} from './components/events/edit-event/edit-event.comp
 import {ConfirmationComponent} from './components/not-found/confirmation/confirmation.component';
 import {EditDocumentComponent} from './components/documents/edit-document/edit-document.component';
 import {InscriptionComponent} from './components/events/inscription/inscription.component';
+import {BookersComponent} from './components/events/bookers/bookers.component';
 
 
 const routes: Routes = [
@@ -72,6 +73,7 @@ const routes: Routes = [
     {path: 'event/training', component: FormationsComponent},
     {path: 'event/certifications', component: CertificationsComponent},
     {path: 'event/:id', component: OneEventComponent},
+    {path: 'event/:id/BooKers', component: BookersComponent},
     {path: 'eventInscription/:id', component: InscriptionComponent},
     {path: 'event/journey', component: JourneyComponent},
     {path: 'documents', component: DocumentsComponent},
