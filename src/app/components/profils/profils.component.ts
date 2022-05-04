@@ -138,6 +138,7 @@ export class ProfilsComponent implements OnInit {
             description: description,
             enabled: true
         }
+        this.updatePic();
         this.userService.updateUser(rajel).subscribe(
             (response: User) => {
                 console.log(response);
@@ -152,30 +153,6 @@ export class ProfilsComponent implements OnInit {
 
 
     onUploadFile(file: File) {
-        /*if (this.foulen.urlPicUser.indexOf('assets/img/icon.png') === -1) {
-            const storageRef = firebase.storage().refFromURL(this.foulen.urlPicUser);
-            storageRef.delete().then(
-                () => {
-                    console.log('photo ancien supprimé!');
-                }
-            ).catch(
-                (error) => {
-                    console.log('Fichier non trouvée :' + error);
-                }
-            );
-        }
-        this.fileIsUploading = true;
-        this.userService.uploadFile(file).then(
-            // @ts-ignore
-            (url: string) => {
-                console.log('terminé!');
-                console.log(url);
-                this.fileUrl = url;
-                this.fileIsUploading = false;
-                this.fileUploaded = true;
-                this.message = 'Chargé.';
-            }
-        );*/
         this.fileIsUploading = true;
         this.userService.uploadFile(file).subscribe(
             event => {
@@ -202,6 +179,12 @@ export class ProfilsComponent implements OnInit {
 
     test(): void {
         window.location.reload();
+    }
+
+    updatePic(): void {
+        if (this.foulen.urlPicUser !== '../../../../assets/img/icon.png') {
+            this.userService.resetUrlPic(this.foulen.uid).subscribe();
+        }
     }
 
 }

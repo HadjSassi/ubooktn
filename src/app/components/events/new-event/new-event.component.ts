@@ -218,41 +218,36 @@ export class NewEventComponent implements OnInit {
             }
             this.eventService.addEvent(evenement).subscribe(
                 (reeesp: Event) => {
-                    const evenements: Event = {
-                        id: reeesp.id,
-                        nom: name,
-                        clubs: eventclubs,
-                        institus: eventInstitus,
-                        trainingCenters: eventCfs,
-                        affiche: this.fileUrl,
-                        themes: this.themeList,
-                        capacity: this.capacitySlider.toString(),
-                        address: address,
-                        email: email,
-                        tel: tel,
-                        registrationLink: '/#/eventInscription/' + reeesp.id,
-                        description: description,
-                        price: this.priceSlider.toString(),
-                        partenaires: eventPartenaires,
-                        startingDate: this.dating(this.startD),
-                        finishingDate: this.dating(this.finishings),
-                        registrationDateLimit: this.dating(this.limitDate),
-                        shown: 'false',
-                        picsUrl: '',
-                        type: eventType,
-                        uid: this.foulen,
-                        participants: ''
-                    }
                     if (this.noBooking) {
-                        evenement.registrationLink = '/#/eventInscription/' + reeesp.id;
-                    }
-                    this.eventService.updateEvent(evenements).subscribe(
-                        (reeee: Event) => {
-                            console.log(reeee);
-                            this.router.navigate(['event']);
-                            this.searchUid(this.foulen.uid);
+                        const evenementss: Event = {
+                            id: reeesp.id,
+                            nom: name,
+                            clubs: eventclubs,
+                            institus: eventInstitus,
+                            trainingCenters: eventCfs,
+                            affiche: this.fileUrl,
+                            themes: this.themeList,
+                            capacity: this.capacitySlider.toString(),
+                            address: address,
+                            email: email,
+                            tel: tel,
+                            registrationLink: '/#/eventInscription/' + reeesp.id,
+                            description: description,
+                            price: this.priceSlider.toString(),
+                            partenaires: eventPartenaires,
+                            startingDate: this.dating(this.startD),
+                            finishingDate: this.dating(this.finishings),
+                            registrationDateLimit: this.dating(this.limitDate),
+                            shown: 'false',
+                            picsUrl: '',
+                            type: eventType,
+                            uid: this.foulen,
+                            participants: ''
                         }
-                    );
+                        this.eventService.updateEvent(evenementss).subscribe();
+                    }
+                    this.router.navigate(['event']);
+                    this.searchUid(this.foulen.uid);
                 }
             )
         }

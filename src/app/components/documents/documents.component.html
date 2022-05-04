@@ -101,8 +101,10 @@
                                         <div *ngFor="let s of docu" class="col m-2 card bg-light mb-3"
                                              style="max-width: 18rem; cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
-                                            <div class="card-header">{{s.typeDocument}}</div>
-                                            <!--todo verified part-->
+                                            <div class="card-header">{{s.typeDocument}}
+                                                <img src="assets/img/v1.jpg" *ngIf="s.veracity==='Confirmed'"
+                                                     class="float-right" width="20">
+                                            </div>
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
                                                 <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
@@ -114,8 +116,10 @@
                                         <div *ngFor="let s of docume" class="col m-2 card bg-light mb-3"
                                              style="max-width: 18rem; cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
-                                            <div class="card-header">{{s.typeDocument}}</div>
-                                            <!--todo verified part-->
+                                            <div class="card-header">{{s.typeDocument}}
+                                                <img src="assets/img/v1.jpg" *ngIf="s.veracity==='Confirmed'"
+                                                     class="float-right" width="20">
+                                            </div>
                                             <div class="card-body">
                                                 <h5 class="card-title">{{s.nomDocument}}</h5>
                                                 <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
@@ -129,8 +133,10 @@
                                         <div *ngFor="let s of docu" class="text-center" style="cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
                                             <h5>[{{s.typeDocument}}
-                                                <!--todo verified part-->{{s.settings.niveau}} {{s.settings.matiere}}
-                                                ] {{s.nomDocument}}</h5>
+                                                {{s.settings.niveau}} {{s.settings.matiere}}
+                                                ] {{s.nomDocument}}  <img *ngIf="s.veracity==='Confirmed'"
+                                                                          src="assets/img/v1.jpg" class="float-right"
+                                                                          width="20"></h5>
                                         </div>
                                     </div>
                                     <div class="col wow fadeInUp"
@@ -138,8 +144,10 @@
                                         <div *ngFor="let s of docume" class="text-center" style="cursor: pointer"
                                              (click)="onViewDocument(s.idDocument)">
                                             <h5>[{{s.typeDocument}}
-                                                <!--todo verified part-->{{s.settings.niveau}} {{s.settings.matiere}}
-                                                ] {{s.nomDocument}}</h5>
+                                                {{s.settings.niveau}} {{s.settings.matiere}}
+                                                ] {{s.nomDocument}}   <img *ngIf="s.veracity==='Confirmed'"
+                                                                           src="assets/img/v1.jpg" class="float-right"
+                                                                           width="20"></h5>
                                         </div>
                                     </div>
                                 </div>

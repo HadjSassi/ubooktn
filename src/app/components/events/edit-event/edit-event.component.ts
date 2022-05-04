@@ -49,6 +49,7 @@ export class EditEventComponent implements OnInit {
     ready = true;
     submited = false;
     isCompetition = false;
+    isRegistration = true;
     event: any;
 
     constructor(private settingsService: SettingsService,
@@ -164,6 +165,7 @@ export class EditEventComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
+        this.updatePic();
         const id = this.route.snapshot.params['id'];
         const type = this.route.snapshot.params['type'];
         if (this.ready) {
@@ -206,12 +208,12 @@ export class EditEventComponent implements OnInit {
             if (!this.limitB) {
                 this.event.registrationDateLimit = this.dating(this.limitDate);
             }
-            switch (type) {
+            switch (type.toLowerCase()) {
                 case 'journey':
                     this.eventService.updateEvent(this.event).subscribe(
                         (result: Event) => {
                             console.log(result);
-                            this.router.navigate(['/event', 'journey', id]);
+                            this.router.navigate(['/event', id]);
                         }, error => {
                             console.log(error);
                         }
@@ -221,7 +223,7 @@ export class EditEventComponent implements OnInit {
                     this.eventService.updateEvent(this.event).subscribe(
                         (result: Event) => {
                             console.log(result);
-                            this.router.navigate(['/event', 'competitions', id]);
+                            this.router.navigate(['/event', id]);
                         }, error => {
                             console.log(error);
                         }
@@ -231,7 +233,7 @@ export class EditEventComponent implements OnInit {
                     this.eventService.updateEvent(this.event).subscribe(
                         (result: Event) => {
                             console.log(result);
-                            this.router.navigate(['/event', 'certifications', id]);
+                            this.router.navigate(['/event', id]);
                         }, error => {
                             console.log(error);
                         }
@@ -241,7 +243,7 @@ export class EditEventComponent implements OnInit {
                     this.eventService.updateEvent(this.event).subscribe(
                         (result: Event) => {
                             console.log(result);
-                            this.router.navigate(['/event', 'training', id]);
+                            this.router.navigate(['/event', id]);
                         }, error => {
                             console.log(error);
                         }
@@ -348,5 +350,23 @@ export class EditEventComponent implements OnInit {
             console.log('Nothing happened !')
         }
 
+    }
+
+    updatePic(): void {
+        if (this.event.affiche !== '') {
+            this.eventService.resetAffiche(this.event.id).subscribe();
+        }
+    }
+
+    verifRegistrationLink(key: string) {
+        const xx = '/#/eventInscription/' + this.event.id;
+        const test = '(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})'
+        if (key === xx) {
+            this.isRegistration = true;
+        } else if (key.match(test)) {
+            this.isRegistration = true;
+        } else {
+            this.isRegistration = false;
+        }
     }
 }

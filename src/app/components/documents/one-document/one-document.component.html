@@ -8,8 +8,10 @@
         <div class="container h-100">
             <div class="row align-items-center h-100">
                 <div class="col-lg-6 py-3 wow fadeInUp">
-                    <h1 class="mb-4">{{this.doc.nomDocument}}</h1>
-                    <h3>{{this.doc.type}} {{this.doc.settings.matiere}}<br>Niveau
+                    <h1 class="mb-4"><img *ngIf="this.doc.veracity==='Confirmed'"
+                                          ngbPopover="This document is Verified!" style="cursor: pointer"
+                                          src="assets/img/v2.png" class="mr-3" width="40">{{this.doc.nomDocument}}</h1>
+                    <h3>{{this.doc.typeDocument}} {{this.doc.settings.matiere}}<br>Niveau
                         : {{this.doc.settings.niveau}}</h3>
                     <!--todo verified part-->
                     <p>{{this.doc["descriptionDocument"]}}</p>

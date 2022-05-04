@@ -22,7 +22,7 @@ import {environment} from '../../../../environments/environment';
 export class OneDocumentComponent implements OnInit {
 // todo the creator of this document could change some data or delete this document you should do it later okay !
 
-    doc: any;
+    doc: Document;
     // @ts-ignore
     url: SafeResourceUrl;
     isUrl = false;

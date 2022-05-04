@@ -99,6 +99,12 @@ export class EditDocumentComponent implements OnInit {
                         'niveau': niv,
                         'annee': ane
                     }
+                    let urlll = '';
+                    if (this.fileUrl.length !== 0) {
+                        urlll = this.fileUrl;
+                    } else {
+                        urlll = this.doc.urlDocument;
+                    }
                     this.settingService.getSettingsByData(ane, mat, niv).subscribe(
                         (setting: Settings) => {
                             if (setting === null) {
@@ -113,7 +119,7 @@ export class EditDocumentComponent implements OnInit {
                                             descriptionDocument: form.value['descriptionDocument'],
                                             documentAssoscie: form.value['associe'],
                                             veracity: this.doc.veracity,
-                                            urlDocument: this.doc.urlDocument,
+                                            urlDocument: urlll,
                                             afficheDocument: this.doc.afficheDocument,
                                             uid: this.doc.uid,
                                             creative: this.doc.creative
@@ -135,17 +141,18 @@ export class EditDocumentComponent implements OnInit {
                                     settings: setting,
                                     descriptionDocument: form.value['descriptionDocument'],
                                     documentAssoscie: form.value['associe'],
-                                    urlDocument: this.doc.urlDocument,
+                                    urlDocument: urlll,
                                     veracity: this.doc.veracity,
                                     afficheDocument: this.doc.afficheDocument,
                                     uid: this.doc.uid,
                                     creative: this.doc.creative
                                 };
                                 // @ts-ignore
+                                this.updateUrl();
                                 this.documentService.updateDocument(document).subscribe(
                                     (responsee: Document) => {
                                         console.log(responsee);
-                                        this.router.navigate(['documents']);
+                                        this.router.navigate(['documents', 'view', this.doc.idDocument]);
                                     }
                                 );
                             }
@@ -206,4 +213,11 @@ export class EditDocumentComponent implements OnInit {
         }
 
     }
+
+    updateUrl(): void {
+        if (this.doc.urlDocument !== '') {
+            this.documentService.resetUrl(this.doc.idDocument).subscribe();
+        }
+    }
+
 }
