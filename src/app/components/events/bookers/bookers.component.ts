@@ -81,12 +81,9 @@ export class BookersComponent implements OnInit {
         saveAs(blob, this.event.nom + ' BooKers.csv');
     }
 
-    excel(): void {
-    }
-
     json(): void {
-    }
-
-    xml(): void {
+        const theJSON = JSON.stringify(this.db);
+        const blob = new Blob([theJSON], {type: 'text/json'})
+        saveAs(blob, this.event.nom + ' BooKers.json');
     }
 }
