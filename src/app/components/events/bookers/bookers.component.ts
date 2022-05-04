@@ -3,7 +3,6 @@ import {EventService} from '../../../services/event.service';
 import {ActivatedRoute} from '@angular/router';
 import {Event} from '../../../model/Event';
 import {saveAs} from 'file-saver';
-import {join} from '@angular/compiler-cli/src/ngtsc/file_system';
 
 @Component({
     selector: 'app-bookers',
@@ -63,7 +62,6 @@ export class BookersComponent implements OnInit {
         // tslint:disable-next-line:forin
         for (const i in this.names) {
             const j = Number(i);
-            // const ch = '{"BooKer Id":' + (j + 1) + ',"BooKer Name":"' + this.names[i] + '","BooKer Email":"' + this.emails[i] + '"}'
             const obbj = {
                 'Booker Id': (j + 1),
                 'Booker Name': this.names[i],
@@ -75,20 +73,10 @@ export class BookersComponent implements OnInit {
     }
 
     csv(): void {
-        /*const headers = Object.keys(this.db[0]);
-        const csv = [headers.join('\t')];
-        this.db.forEach(function (data) {
-            const row = [];
-            headers.forEach(function (key) {
-                row.push(data[key]);
-            });
-            csv.push(row.join('\t'));
-        });
-        const ccsv = csv.join('\n');*/
         const header = Object.keys(this.db[0]);
-        const csv = this.db.map(row => header.map(fieldName => JSON.stringify(row[fieldName])).join(','));
-        csv.unshift(header.join(','));
-        const csvArray = csv.join('\r\n');
+        const csv = this.db.map(row => header.map(fieldName => JSON.stringify(row[fieldName])).join(';'));
+        csv.unshift(header.join(';'));
+        const csvArray = csv.join('\n');
         const blob = new Blob([csvArray], {type: 'text/csv'})
         saveAs(blob, this.event.nom + ' BooKers.csv');
     }
