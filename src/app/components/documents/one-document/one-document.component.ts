@@ -56,7 +56,7 @@ export class OneDocumentComponent implements OnInit {
     users: User[] = [];
     // @ts-ignore
     foulen: User;
-
+    docss: Document[] = [];
     // @ts-ignore
     foulen2: User;
     // @ts-ignore
@@ -230,6 +230,15 @@ export class OneDocumentComponent implements OnInit {
                             this.documentService.getDocumentById(id).subscribe(
                                 (responses: Document) => {
                                     this.doc = responses;
+                                    const oo = this.doc.documentAssoscie.split(',');
+                                    for (const ooo of oo) {
+                                        const o: number = Number(ooo);
+                                        this.documentService.getDocumentById(o).subscribe(
+                                            (resssss: Document) => {
+                                                this.docss.push(resssss);
+                                            }
+                                        );
+                                    }
                                     const lic = document.getElementById('licence');
                                     if (this.doc.creative.length !== 0) {
                                         lic.innerHTML = this.doc.creative;
@@ -373,5 +382,7 @@ export class OneDocumentComponent implements OnInit {
         );
     }
 
+    getAllRelated() {
+    }
 
 }

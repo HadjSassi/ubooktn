@@ -40,8 +40,9 @@
     <h5 class="wow fadeInUp" *ngIf="this.doc.settings.annee !== '' ">
         Èlaboré le : {{this.doc.settings.annee}}
     </h5>
-    <h5 *ngIf="this.doc['documentAssoscie'].length !== 0" class="wow fadeInUp">
-        Related Documents : {{this.doc["documentAssoscie"]}}
+    <h5 *ngIf="this.docss.length !== 0" class="wow fadeInUp">
+        Related Documents : <a *ngFor="let x of this.docss" target="_blank"
+                               href="/#/documents/view/{{x.idDocument}}"><br>{{x.nomDocument}}</a>
     </h5>
 </div>
 <div class="row text-center">

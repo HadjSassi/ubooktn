@@ -26,7 +26,7 @@ import {ProfilsComponent} from './profils/profils.component';
 import {PubComponent} from '../shared/pub/pub.component';
 import {SignInComponent} from './auth/sign-in/sign-in.component';
 import {SignUpComponent} from './auth/sign-up/sign-up.component';
-import {NewDocumentComponent} from './documents/new-document/new-document.component';
+import {NewDocumentComponent, NgbdModalContentDocuments} from './documents/new-document/new-document.component';
 import {OneDocumentComponent} from './documents/one-document/one-document.component';
 import {ReglementComponent} from './documents/reglement/reglement.component';
 import {ClubsComponent} from './enivronnement-universitaire/clubs/clubs.component';
@@ -50,6 +50,7 @@ import {ConfirmationComponent} from './not-found/confirmation/confirmation.compo
 import {EditDocumentComponent} from './documents/edit-document/edit-document.component';
 import {InscriptionComponent} from './events/inscription/inscription.component';
 import {BookersComponent} from './events/bookers/bookers.component';
+import {SelectRelatedComponent} from './documents/select-related/select-related.component';
 
 @NgModule({
     imports: [
@@ -63,6 +64,7 @@ import {BookersComponent} from './events/bookers/bookers.component';
     declarations: [
         NewEventComponent,
         NgbdModalContentEvents,
+        NgbdModalContentDocuments,
         ComponentsComponent,
         BasicelementsComponent,
         NavigationComponent,
@@ -104,7 +106,8 @@ import {BookersComponent} from './events/bookers/bookers.component';
         ConfirmationComponent,
         EditDocumentComponent,
         InscriptionComponent,
-        BookersComponent
+        BookersComponent,
+        SelectRelatedComponent
     ],
     entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]

@@ -1,0 +1,17 @@
+<div class="" style="margin: 5%;">
+
+    <div class="" style="margin: 3% auto -3%;">
+        <div class="form-group">
+            <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key" id="searchName"
+                   class="form-control border-dark" placeholder="Search">
+        </div>
+    </div>
+    <h3>Related Documents : </h3>
+    <h4 class="text-center text-black-50" *ngIf="this.resultsCf.length === 0">None</h4>
+    <h4 *ngFor="let x of this.resultsCf">
+        <button type="button" class="btn btn-default" (click)="cfing(x)">
+            <span style="text-transform: capitalize; font-weight: lighter ">{{x.nomDocument}}</span>
+        </button>
+    </h4>
+
+</div>

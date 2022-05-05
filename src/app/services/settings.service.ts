@@ -20,6 +20,7 @@ export class SettingsService {
     private institus = [];
     private clubs = [];
     private cfs = [];
+    private docs = [];
     public listInstitus = [];
     public listClubs = [];
     public listCfs = [];
@@ -92,6 +93,7 @@ export class SettingsService {
         this.cfs = [];
         this.clubs = [];
         this.institus = [];
+        this.docs = [];
     }
 
     getAllOrganisms() {
@@ -167,6 +169,14 @@ export class SettingsService {
             urlCfs: ''
         };
         this.listCfs.push(iii);
+    }
+
+    getDocumenting(): any[] {
+        return this.docs;
+    }
+
+    documenting(x: any) {
+        this.docs.push(x);
     }
 
 }
