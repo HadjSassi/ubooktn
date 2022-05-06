@@ -136,7 +136,7 @@ export class ProfilsComponent implements OnInit {
             urlLinkedIn: linkedin,
             score: this.foulen.score,
             description: description,
-            enabled: true
+            enabled: this.foulen.enabled
         }
         this.updatePic();
         this.userService.updateUser(rajel).subscribe(

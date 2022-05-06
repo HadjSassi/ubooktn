@@ -22,12 +22,12 @@ export class AuthGuard implements CanActivate {
     ): Observable<boolean> | Promise<boolean> | boolean {
         return new Promise(
             (resolve, reject) => {
-                /*firebase.auth().onAuthStateChanged(
+                firebase.auth().onAuthStateChanged(
                     (user) => {
                         if (user) {
                             if (this.userService.getUserByUid(user.uid).subscribe(
                                 (response: User) => {
-                                    if (response['enabled'] === true) {
+                                    if (response.enabled === true) {
                                         resolve(true);
                                     } else {
                                         this.router.navigate(['/confirmation']);
@@ -44,8 +44,8 @@ export class AuthGuard implements CanActivate {
                             resolve(false);
                         }
                     }
-                );*/
-                resolve(true);
+                );
+                // resolve(true);
             }
         );
 
