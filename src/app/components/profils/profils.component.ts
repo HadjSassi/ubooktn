@@ -182,7 +182,7 @@ export class ProfilsComponent implements OnInit {
     }
 
     updatePic(): void {
-        if (this.foulen.urlPicUser !== '../../../../assets/img/icon.png') {
+        if (this.foulen.urlPicUser !== '../../../../assets/img/icon.png' && this.foulen.urlPicUser !== './assets/img/icon.png') {
             this.userService.resetUrlPic(this.foulen.uid).subscribe();
         }
     }
