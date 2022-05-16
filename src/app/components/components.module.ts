@@ -25,7 +25,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {ProfilsComponent} from './profils/profils.component';
 import {PubComponent} from '../shared/pub/pub.component';
 import {SignInComponent} from './auth/sign-in/sign-in.component';
-import {SignUpComponent} from './auth/sign-up/sign-up.component';
+import {SignUpComponent, NgbdModalContentForgetPwd} from './auth/sign-up/sign-up.component';
 import {NewDocumentComponent, NgbdModalContentDocuments} from './documents/new-document/new-document.component';
 import {OneDocumentComponent} from './documents/one-document/one-document.component';
 import {ReglementComponent} from './documents/reglement/reglement.component';
@@ -51,6 +51,8 @@ import {EditDocumentComponent} from './documents/edit-document/edit-document.com
 import {InscriptionComponent} from './events/inscription/inscription.component';
 import {BookersComponent} from './events/bookers/bookers.component';
 import {SelectRelatedComponent} from './documents/select-related/select-related.component';
+import {ModalForgetComponent} from './auth/modal-forget/modal-forget.component';
+import {ForgetComponent} from './auth/forget/forget.component';
 
 @NgModule({
     imports: [
@@ -72,6 +74,7 @@ import {SelectRelatedComponent} from './documents/select-related/select-related.
         NucleoiconsComponent,
         NotificationComponent,
         NgbdModalComponent,
+        NgbdModalContentForgetPwd,
         NgbdModalContent,
         AboutComponent,
         AcceuilComponent,
@@ -107,7 +110,9 @@ import {SelectRelatedComponent} from './documents/select-related/select-related.
         EditDocumentComponent,
         InscriptionComponent,
         BookersComponent,
-        SelectRelatedComponent
+        SelectRelatedComponent,
+        ModalForgetComponent,
+        ForgetComponent
     ],
     entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]

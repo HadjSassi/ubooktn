@@ -35,6 +35,9 @@ export class UserService {
         return this.http.delete<User>(`${this.apiServeurUrl}/user/deletePicUser/${uid}`);
     }
 
+    public resetPassword(email: string): Observable<User> {
+        return this.http.post<User>(`${this.apiServeurUrl}/user/forget`, email);
+    }
 
     uploadFile(file: File): Observable<HttpEvent<{}>> {
         const data: FormData = new FormData();

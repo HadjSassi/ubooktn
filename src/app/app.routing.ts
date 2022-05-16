@@ -45,6 +45,7 @@ import {ConfirmationComponent} from './components/not-found/confirmation/confirm
 import {EditDocumentComponent} from './components/documents/edit-document/edit-document.component';
 import {InscriptionComponent} from './components/events/inscription/inscription.component';
 import {BookersComponent} from './components/events/bookers/bookers.component';
+import {ForgetComponent} from './components/auth/forget/forget.component';
 
 
 const routes: Routes = [
@@ -59,6 +60,7 @@ const routes: Routes = [
     {path: 'guide', component: GuideComponent},
     {path: 'FAQ', component: FaqComponent},
     {path: 'aboutUs', component: AboutComponent},
+    {path: 'forgot', component: ForgetComponent},
     {path: 'university', component: EnivronnementUniversitaireComponent},
     {path: 'university/Institus', component: InstitusComponent},
     {path: 'university/Institus/:id', component: OneInstitusComponent},

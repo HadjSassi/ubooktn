@@ -1,0 +1,14 @@
+<div *ngIf="first">
+    <form #formee="ngForm" class="register-form">
+        <input name="email" type="email" class="form-control" placeholder="Please Enter your Email"
+               required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ngModel #email="ngModel">
+        <br>
+        <button (click)="onSubmit(formee)" class="btn btn-github-bg btn-block btn-round"
+                [disabled]="formee.invalid">Continue
+        </button>
+    </form>
+</div>
+<div *ngIf="!first">
+    <h5 class="text-info text-center">Please check your email : <strong>{{this.email}}</strong> <br>If you don't found
+        it check your spam mails.</h5>
+</div>

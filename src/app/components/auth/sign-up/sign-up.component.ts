@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {NgForm} from '@angular/forms';
@@ -8,6 +8,51 @@ import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import {UserService} from '../../../services/user.service';
 import {User} from '../../../model/User';
 import {HttpErrorResponse} from '@angular/common/http';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
+
+@Component({
+    selector: 'app-modal-content',
+    template: `
+        <style>
+            .modal-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                pointer-events: auto;
+                background-color: white;
+                background-clip: padding-box;
+                border: 1px solid rgba(0, 0, 0, .2);
+                border-radius: 0.3rem;
+                outline: 0;
+            }
+        </style>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Forgot Password</h5>
+            </div>
+            <div class="modal-body">
+                <app-modal-forget></app-modal-forget>
+            </div>
+        </div>
+    `
+})
+// tslint:disable-next-line:component-class-suffix
+export class NgbdModalContentForgetPwd {
+    closed = false;
+    @Output() passEntry: EventEmitter<any> = new EventEmitter();
+
+    constructor(public activeModal: NgbActiveModal) {
+    }
+
+    bye() {
+        this.closed = true;
+        this.activeModal.close('Close click');
+        this.passEntry.emit();
+    }
+}
+
 
 @Component({
     selector: 'app-sign-up',
@@ -21,6 +66,7 @@ export class SignUpComponent implements OnInit {
     ferm = false;
     valid = true;
     email = '';
+    ready = true;
     pass = '';
     errorMessage = '';
     isError = false;
@@ -28,6 +74,7 @@ export class SignUpComponent implements OnInit {
 
     constructor(private authService: AuthService,
                 private router: Router,
+                private modalService: NgbModal,
                 private afAuth: AngularFireAuth,
                 private userService: UserService
     ) {
@@ -170,4 +217,11 @@ export class SignUpComponent implements OnInit {
         });
     }
 
+    modalOpen() {
+        this.ready = false;
+        const modalRef = this.modalService.open(NgbdModalContentForgetPwd);
+        modalRef.componentInstance.passEntry.subscribe(() => {
+            this.ready = true;
+        })
+    }
 }
