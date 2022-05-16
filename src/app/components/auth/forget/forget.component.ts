@@ -13,42 +13,12 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./forget.component.css']
 })
 export class ForgetComponent implements OnInit {
-  test: Date = new Date();
-  focus;
-  focus1;
-  ferm = false;
-  valid = true;
-  email = '';
-  ready = true;
-  pass = '';
-  errorMessage = '';
-  isError = false;
-  look = false;
 
-  constructor(private authService: AuthService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private userService: UserService
-  ) {
+
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.email = localStorage.getItem('email');
-    localStorage.removeItem('email');
-    firebase.auth().sendPasswordResetEmail(this.email)
   }
 
-  onSubmit(form: NgForm) {
-  }
-
-  looks() {
-    const x = document.getElementById('pass');
-    if (this.look) {
-      this.look = false;
-      x.type = 'password';
-    } else {
-      this.look = true;
-      x.type = 'text';
-    }
-  }
 }

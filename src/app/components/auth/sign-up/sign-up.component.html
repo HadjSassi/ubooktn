@@ -1,10 +1,16 @@
-<div class="wrapper" style="margin-top: -5%">
-    <div class="page-header" style="background-image: url('./assets/img/library/28.jpg');">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 mr-auto ml-auto wow fadeIn">
-                    <div class="card card-register">
-                        <h3 class="title">Welcome</h3>
+<br>
+<br>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="assets/img/undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="card card-register" style="margin-top: -3%;">
+                        <h3 class="title">Welcome to <img class="text-center" src="assets/img/logo/224.png"
+                                                          width="15%"/></h3>
                         <div class="social-line text-center">
                             <a (click)="facebook()" class="btn btn-neutral btn-facebook btn-just-icon">
                                 <i class="fa fa-facebook-square"></i>
@@ -53,7 +59,7 @@
                             </div>
                             <label *ngIf="isError" class="text-danger " style="margin-left: 28%;">Wrong coordinates
                                 !</label>
-                            <button (click)="onSubmit(form)" class="btn btn-github-bg btn-block btn-round"
+                            <button (click)="onSubmit(form)" class="btn btn-dark btn-block btn-round"
                                     [disabled]="form.invalid">Sign In
                             </button>
                         </form>
@@ -64,7 +70,9 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>
