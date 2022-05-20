@@ -1,78 +1,48 @@
-<div>
-    <div class="container rounded bg-white mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-3 border-right wow fadeInLeft">
-                <br>
-                <h4>Region : {{this.intitus.region}}</h4>
-                <br *ngIf="this.intitus.nbChambre.length !== 0">
-                <h5 *ngIf="this.intitus.nbChambre.length !== 0">Nombres de chambres : {{this.intitus.nbChambre}}</h5>
-                <br *ngIf="filiere[0] !== ''">
-                <h5 *ngIf="filiere[0] !== ''">Liste des filiéres associé :</h5>
-                <ul class="list-inline">
-                    <li class="list-inline-item" *ngFor="let c of this.filiere"><p>{{c}}</p></li>
-                </ul>
-                <br *ngIf="this.intitus.historique.length !== 0">
-                <h4 *ngIf="this.intitus.historique.length !== 0">About {{this.intitus.nom}}</h4>
-                <h5>{{this.intitus.historique}}</h5>
-                <br *ngIf="this.linkClub.length !== 0">
-                <h4 *ngIf="this.linkClub.length !== 0">Related Clubs : </h4>
-                <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
-                    <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
-                            href="/#/university/Clubs/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
-                </ul>
-                <br *ngIf="this.linkInstitus.length !== 0">
-                <h4 *ngIf="this.linkInstitus.length !== 0">Related Institutes : </h4>
-                <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
-                    <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
-                            href="/#/university/Institus/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
-                </ul>
-                <br *ngIf="this.urls.length !== 0 && this.urls[0] !== ''">
-                <h4 *ngIf="this.urls.length !== 0 && this.urls[0] !== ''">Related links : </h4>
-                <ul class="list-inline" *ngIf="this.urls.length !== 0 && this.urls[0] !== ''">
-                    <li class="list-inline-item" *ngFor="let c of this.urls"><a
-                            href="/#/university/Institus/{{c}}">{{c}}</a><span>&nbsp;</span></li>
-                </ul>
-                <br *ngIf="this.intitus.reglement.length !== 0">
-                <h5 *ngIf="this.intitus.reglement.length !== 0">Reglement:</h5>
-                <p>{{this.intitus.reglement}}</p>
-            </div>
-            <div class="col-md-5 border-right">
-                <div class="p-3 py-5">
-                    <div class="row mt-2  wow fadeIn">
-                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                            <div class="avatar ">
-                                <img src="{{this.intitus.logo}}" alt="Circle Image"
-                                     style=""
-                                     class=" img-no-padding img-responsive">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="p-3 py-5">
-                    <div class="text-center wow fadeInRight">
-                        <br>
-                        <br>
-                        <h1>{{this.intitus.abreviation}}</h1>
-                        <h2>{{this.intitus.nom}}</h2>
-                        <br>
-                        <br>
-                        <h5>{{this.intitus.type}}</h5>
-                        <h5>University of {{this.intitus.universite}}</h5>
-                        <br>
-                        <br>
-                        <h5><a class="text-primary" href="{{this.intitus.urlOfficiel}}">Link
-                            : {{this.intitus.urlOfficiel}}</a></h5>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<div class="page-header" data-parallax="true" [ngStyle]="{'background-image': 'url(' + this.picsUrl[0] + ')'}">
+    <div class="filter"></div>
+    <div class="container text-center">
+        <img src="{{this.intitus.logo}}" alt="institute logo"/>
     </div>
 </div>
-<div class="container wow fadeIn">
+
+<div class="text-center" style="font-size: 150%;">
+    <h2 style="font-size: 200%"><span>{{this.intitus.abreviation}}</span>
+        <h5>{{this.intitus.nom}}</h5></h2>
+    <br>
+    <p><a href="{{this.intitus.urlOfficiel}}">{{this.intitus.urlOfficiel}}</a></p>
+    <p>Region : {{this.intitus.region}} | Université : {{this.intitus.universite}}</p>
+    <p>{{this.intitus.historique}}</p>
+    <br *ngIf="this.intitus.nbChambre.length !== 0">
+    <h5 *ngIf="this.intitus.nbChambre.length !== 0">Nombres de chambres : {{this.intitus.nbChambre}}</h5>
+    <br *ngIf="filiere[0] !== ''">
+    <h5 *ngIf="filiere[0] !== ''">Liste des filiéres associé :</h5>
+    <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let c of this.filiere"><p>{{c}}</p></li>
+    </ul>
+    <br *ngIf="this.linkClub.length !== 0">
+    <h5 *ngIf="this.linkClub.length !== 0">Liste des Clubs associé :</h5>
+    <br *ngIf="this.linkClub.length !== 0">
+    <ul class="list-inline" *ngIf="this.linkClub.length !== 0">
+        <li class="list-inline-item" *ngFor="let c of this.linkClub"><a
+                href="/#/university/Clubs/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
+    </ul>
+    <br *ngIf="this.linkInstitus.length !== 0">
+    <ul class="list-inline" *ngIf="this.linkInstitus.length !== 0">
+        <li class="list-inline-item" *ngFor="let c of this.linkInstitus"><a
+                href="/#/university/Institus/{{c.id}}">{{c.nom}}</a><span>&nbsp;</span></li>
+    </ul>
+    <br *ngIf="this.urls.length !== 0">
+    <ul class="list-inline" *ngIf="this.urls.length !== 0">
+        <li class="list-inline-item" *ngFor="let c of this.urls"><a
+                href="/#/university/Institus/{{c}}">{{c}}</a><span>&nbsp;</span></li>
+    </ul>
+    <br *ngIf="this.intitus.reglement.length !== 0">
+    <h5 *ngIf="this.intitus.reglement.length !== 0">Reglement:</h5>
+    <p>{{this.intitus.reglement}}</p>
+    <br>
+</div>
+
+<div class="container">
     <div class="row">
         <div class="col-md-8 mr-auto ml-auto">
             <div class="card page-carousel">
@@ -85,7 +55,3 @@
         </div>
     </div>
 </div>
-
-
-
-
