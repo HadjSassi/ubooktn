@@ -42,7 +42,7 @@ export class SignInComponent implements OnInit {
         firebase.auth().onAuthStateChanged(
             (user) => {
                 if (user) {
-                    this.router.navigate(['home']);
+                    this.router.navigate(['acceuil']);
                 }
             }
         );
@@ -138,7 +138,7 @@ export class SignInComponent implements OnInit {
                             }
                         );
                     }
-                    this.router.navigate(['home']);
+                    this.router.navigate(['acceuil']);
                     window.location.reload();
                 }, error => {
                     console.log(error);

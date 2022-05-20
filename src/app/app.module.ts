@@ -10,7 +10,6 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
 import {FooterComponent} from './shared/footer/footer.component';
 
 import {ComponentsModule} from './components/components.module';
-import {ExamplesModule} from './examples/examples.module';
 import {HttpClientModule} from '@angular/common/http';
 import {InstitusService} from './services/institus.service';
 import {ClubService} from './services/club.service';
@@ -44,7 +43,6 @@ firebase.initializeApp(environment.firebase);
         FormsModule,
         RouterModule,
         ComponentsModule,
-        ExamplesModule,
         AppRoutingModule,
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),

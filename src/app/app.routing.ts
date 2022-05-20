@@ -3,18 +3,10 @@ import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
 
-import {ComponentsComponent} from './components/components.component';
-import {ProfileComponent} from './examples/profile/profile.component';
-import {SignupComponent} from './examples/signup/signup.component';
-import {LandingComponent} from './examples/landing/landing.component';
-import {NucleoiconsComponent} from './components/nucleoicons/nucleoicons.component';
-
-import {PubComponent} from './shared/pub/pub.component';
 import {DocumentsComponent} from './components/documents/documents.component';
 import {OneDocumentComponent} from './components/documents/one-document/one-document.component';
 import {ReglementComponent} from './components/documents/reglement/reglement.component';
 import {NewDocumentComponent} from './components/documents/new-document/new-document.component';
-import {BackgroundComponent} from './components/background/background.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {ProfilsComponent} from './components/profils/profils.component';
 import {OneProfilComponent} from './components/profils/one-profil/one-profil.component';
@@ -50,10 +42,6 @@ import {ForgetComponent} from './components/auth/forget/forget.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'acceuil', pathMatch: 'full'},
-    {path: 'home', component: ComponentsComponent},
-    {path: 'user-profile', component: ProfileComponent},
-    {path: 'landing', component: LandingComponent},
-    {path: 'nucleoicons', component: NucleoiconsComponent},
     {path: 'acceuil', component: AcceuilComponent},
     {path: 'auth/signin', component: SignUpComponent},
     {path: 'auth/signup', component: SignInComponent},
