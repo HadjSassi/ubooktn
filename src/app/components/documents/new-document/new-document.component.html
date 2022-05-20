@@ -28,72 +28,80 @@
                         field !
                     </div>
                 </div>
-                <div class="form-group wow zoomIn">
-                    <label style="" class="h5 col" for="typeDocument">Document Type<span
-                            style="color: red">*</span></label>
 
-                    <select class="form-select col" id="typeDocument" name="typeDocument"
-                            [ngClass]="{'is-invalid':typeDocument.invalid && typeDocument.dirty}"
-                            #typeDocument="ngModel"
-                            required ngModel>
-                        <option value="Autre" selected>Other</option>
-                        <option value="Cours">Cours</option>
-                        <option value="TD">TD</option>
-                        <option value="TP">TP</option>
-                        <option value="DS">DS</option>
-                        <option value="Examen">Examen</option>
-                        <option value="Résumé">Résumé</option>
-                    </select>
-                    <div *ngIf="typeDocument.invalid && typeDocument.dirty " class="invalid-feedback">Pouvez vous
-                        selectionner
-                        le type du Document.
-                    </div>
-                </div>
-                <div class="form-group wow zoomIn">
-                    <label style="" class="h5 col" for="matiereDocument">Document Subject<span
-                            style="color: red">*</span></label>
-                    <select class="form-select col" id="matiereDocument" name="matiereDocument"
-                            [ngClass]="{'is-invalid':matiereDocument.invalid && matiereDocument.dirty}"
-                            #matiereDocument="ngModel"
-                            required ngModel>
-                        <option></option>
-                        <option value="Autre">Other</option>
-                        <option *ngFor="let s of this.matiere">{{s}}</option>
-                    </select>
-                    <div *ngIf="matiereDocument.invalid && matiereDocument.dirty " class="invalid-feedback">Pouvez vous
-                        séléctionner la matiére du Document.
-                    </div>
-                </div>
-                <div class="form-group wow zoomIn">
-                    <label style="" class="h5 col" for="niveauDocument">Document Level<span style="color: red">*</span></label>
-                    <select class="form-select col" id="niveauDocument" name="niveauDocument"
-                            [ngClass]="{'is-invalid':niveauDocument.invalid && niveauDocument.dirty}"
-                            #niveauDocument="ngModel"
-                            required ngModel>
-                        <option></option>
-                        <option value="Autre">Other</option>
-                        <option *ngFor="let s of this.niveau">{{s}}</option>
-                    </select>
-                    <div *ngIf="niveauDocument.invalid && niveauDocument.dirty " class="invalid-feedback">Pouvez vous
-                        séléctionner le niveau du Document.
-                    </div>
-                </div>
-                <div class="form-group wow zoomIn">
-                    <label style="" class="h5 col" for="anneeDocument">Document Year</label>
-                    <select class="form-select col" id="anneeDocument" name="anneeDocument"
-                            [ngClass]="{'is-invalid':anneeDocument.invalid && anneeDocument.dirty}"
-                            #anneeDocument="ngModel"
-                            ngModel>
-                        <option></option>
-                        <option *ngFor="let s of this.annee">{{s}}</option>
+                <div class="row">
 
-                    </select>
-                    <div *ngIf="anneeDocument.invalid && anneeDocument.dirty " class="invalid-feedback">Pouvez vous
-                        donner
-                        l'année du Document.
-                    </div>
-                </div>
+                    <div class="col form-group wow zoomIn">
+                        <label style="" class="h5 col" for="typeDocument">Type<span
+                                style="color: red">*</span></label>
 
+                        <select class="form-select col" id="typeDocument" name="typeDocument"
+                                [ngClass]="{'is-invalid':typeDocument.invalid && typeDocument.dirty}"
+                                #typeDocument="ngModel"
+                                required ngModel>
+                            <option value="Autre" selected>Other</option>
+                            <option value="Cours">Cours</option>
+                            <option value="TD">TD</option>
+                            <option value="TP">TP</option>
+                            <option value="DS">DS</option>
+                            <option value="Examen">Examen</option>
+                            <option value="Résumé">Résumé</option>
+                        </select>
+                        <div *ngIf="typeDocument.invalid && typeDocument.dirty " class="invalid-feedback">Pouvez vous
+                            selectionner
+                            le type du Document.
+                        </div>
+                    </div>
+                    <div class="col form-group wow zoomIn">
+                        <label style="" class="h5 col" for="matiereDocument">Subject<span
+                                style="color: red">*</span></label>
+                        <select class="form-select col" id="matiereDocument" name="matiereDocument"
+                                [ngClass]="{'is-invalid':matiereDocument.invalid && matiereDocument.dirty}"
+                                #matiereDocument="ngModel"
+                                required ngModel>
+                            <option></option>
+                            <option value="Autre">Other</option>
+                            <option *ngFor="let s of this.matiere">{{s}}</option>
+                        </select>
+                        <div *ngIf="matiereDocument.invalid && matiereDocument.dirty " class="invalid-feedback">Pouvez
+                            vous
+                            séléctionner la matiére du Document.
+                        </div>
+                    </div>
+                    <div class="col form-group wow zoomIn">
+                        <label style="" class="h5 col" for="niveauDocument">Level<span
+                                style="color: red">*</span></label>
+                        <select class="form-select col" id="niveauDocument" name="niveauDocument"
+                                [ngClass]="{'is-invalid':niveauDocument.invalid && niveauDocument.dirty}"
+                                #niveauDocument="ngModel"
+                                required ngModel>
+                            <option></option>
+                            <option value="Autre">Other</option>
+                            <option *ngFor="let s of this.niveau">{{s}}</option>
+                        </select>
+                        <div *ngIf="niveauDocument.invalid && niveauDocument.dirty " class="invalid-feedback">Pouvez
+                            vous
+                            séléctionner le niveau du Document.
+                        </div>
+                    </div>
+                    <div class="col form-group wow zoomIn">
+                        <label style="" class="h5 col" for="anneeDocument">Year</label>
+                        <select class="form-select col" id="anneeDocument" name="anneeDocument"
+                                [ngClass]="{'is-invalid':anneeDocument.invalid && anneeDocument.dirty}"
+                                #anneeDocument="ngModel"
+                                ngModel>
+                            <option></option>
+                            <option *ngFor="let s of this.annee">{{s}}</option>
+
+                        </select>
+                        <div *ngIf="anneeDocument.invalid && anneeDocument.dirty " class="invalid-feedback">Pouvez vous
+                            donner
+                            l'année du Document.
+                        </div>
+                    </div>
+
+
+                </div>
 
                 <br>
                 <br>
