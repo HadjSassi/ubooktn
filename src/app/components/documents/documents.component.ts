@@ -31,6 +31,7 @@ export class DocumentsComponent implements OnInit {
     annee: string[] = [];
     nbMaxPage2 = 0;
     grille = true;
+    resultNumber = 0;
 
     constructor(private documentService: DocumentService,
                 private router: Router,
@@ -76,6 +77,7 @@ export class DocumentsComponent implements OnInit {
                         }
                     }
                 );
+                this.annee.reverse();
             },
             error => {
                 alert(error.message);
@@ -92,6 +94,7 @@ export class DocumentsComponent implements OnInit {
         this.documentService.getDocuments().subscribe(
             (response: Document[]) => {
                 this.documents = response;
+                this.resultNumber = response.length;
                 this.documents.sort(
                     function (a, b) {
                         if (a.idDocument < b.idDocument) {
@@ -173,6 +176,7 @@ export class DocumentsComponent implements OnInit {
                 results.push(doc);
             }
         }
+        this.resultNumber = results.length;
         this.nbMaxPage = Math.ceil(results.length / this.nbElmParPage);
         this.nbMaxPage2 = this.nbMaxPage * 10;
 

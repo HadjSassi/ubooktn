@@ -1,3 +1,4 @@
+<!--
 <div class="container mt-1">
     <div class="mt-5">
         <div class="row justify-content-center align-items-center h-50">
@@ -21,7 +22,7 @@
         <div class="section">
             <div class="container">
                 <div class='row'>
-                    <!--                                la zone de filtrage-->
+                    &lt;!&ndash;                                la zone de filtrage&ndash;&gt;
                     <div class="wow fadeInUp col-2">
                         <div>
                             <div class="row">
@@ -83,7 +84,7 @@
 
                         </form>
                     </div>
-                    <!--                                  les resultat-->
+                    &lt;!&ndash;                                  les resultat&ndash;&gt;
 
                     <br>
                     <div class="wow fadeIn" style="position:relative; transform: translate(1500%,-5%)"
@@ -169,3 +170,189 @@
     </form>
 
 </main>
+-->
+<div class="container mt-1">
+    <div class="mt-5">
+        <div class="row justify-content-center align-items-center h-50">
+            <div class="col-md-6">
+                <h1 class="text-center wow fadeInUp">Documents</h1>
+
+            </div>
+            <div class="col-md-6 wow zoomIn">
+                <div class="form-group ml-2 mt-5 wow fadeInUp">
+                    <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                           id="searchName"
+                           class="form-control border-dark" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<main>
+
+    <form>
+        <div class="section">
+            <div class="container">
+                <div class='row'>
+                    <!--                                la zone de filtrage-->
+
+                    <form #form="ngForm" (change)="onSubmit(form)">
+                        <div class="row wow fadeInUp">
+                            <div class="col">
+                                <div class="row">
+                                    <button class="btn" [class]="{'btn-outline-default':!grille,'btn-default':grille}"
+                                            style="height: 50%"
+                                            (click)="onGrille()"><i style="font-size: 150%" class="fa fa-th-large"></i>
+                                    </button>
+                                    <button class="btn" [class]="{'btn-outline-default':grille,'btn-default':!grille}"
+                                            style="float: left; height: 50%"
+                                            (click)="onGrille()"><i style="font-size: 150%" class="fa fa-th-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="">
+                                    <span class="fa-lg col-1">Type</span>
+                                    <select class="form-select form-select-sm col mb-5" name="typeDocument"
+                                            ngModel>
+                                        <option value="Autre">Other</option>
+                                        <option value="Cours">Course</option>
+                                        <option value="TD">TD</option>
+                                        <option value="Résumé">Resume</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="">
+                                    <span class="fa-lg ">Subject</span>
+                                    <select class="form-select form-select-sm col mb-5" name="matiereDocument"
+                                            ngModel>
+                                        <option></option>
+                                        <option value="Autre">Other</option>
+                                        <option *ngFor="let s of this.matiere">{{s}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="">
+                                    <span class="fa-lg col-1">Level</span>
+                                    <select class="form-select form-select-sm col mb-5" name="niveauDocument"
+                                            ngModel>
+                                        <option></option>
+                                        <option value="Autre">Other</option>
+                                        <option *ngFor="let s of this.niveau">{{s}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="">
+                                    <span class="fa-lg col-1">Year</span>
+                                    <select class="form-select form-select-sm col mb-5" name="anneeDocument"
+                                            ngModel>
+                                        <option></option>
+                                        <option *ngFor="let s of this.annee">{{s}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row ml-2">
+                                    <div class="row">
+                                        <span class="fa-lg col-12">N°Of Documents</span>
+                                        <input class="fa-lg col" type="number" id="inlineCheckbox1"
+                                               #page="ngModel" ngModel
+                                               name="page" placeholder="10" min="1" max="10"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--                                  les resultat-->
+
+                    <br>
+                    <div class="wow fadeIn" style="position:relative; transform: translate(1500%,-5%) ;"
+                         [hidden]="!loading">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+                    <div class="wow fadeInUp col">
+                        <div class="text-center">
+                            <div class="">
+                                <h4 class="wow fadeInUp">Results : {{this.resultNumber}} Document Found</h4>
+                                <hr>
+                                <div *ngIf="grille" class="">
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
+                                         *ngIf="document.length !== 0">
+                                        <div *ngFor="let s of docu" class="col m-2 card bg-light mb-3"
+                                             style="max-width: 18rem; cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
+                                            <div class="card-header">{{s.typeDocument}}
+                                                <img src="assets/img/v1.jpg" *ngIf="s.veracity==='Confirmed'"
+                                                     class="float-right" width="20">
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{s.nomDocument}}</h5>
+                                                <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-md-center wow fadeInUp"
+                                         *ngIf="document.length === 0">
+                                        <div *ngFor="let s of docume" class="col m-2 card bg-light mb-3"
+                                             style="max-width: 18rem; cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
+                                            <div class="card-header">{{s.typeDocument}}
+                                                <img src="assets/img/v1.jpg" *ngIf="s.veracity==='Confirmed'"
+                                                     class="float-right" width="20">
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{s.nomDocument}}</h5>
+                                                <p class="card-text">{{s.settings.niveau}} {{s.settings.matiere}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!grille" class="">
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="document.length !== 0">
+                                        <div *ngFor="let s of docu" class="text-center" style="cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
+                                            <h5>[{{s.typeDocument}}
+                                                {{s.settings.niveau}} {{s.settings.matiere}}
+                                                ] {{s.nomDocument}}  <img *ngIf="s.veracity==='Confirmed'"
+                                                                          src="assets/img/v1.jpg" class="float-right"
+                                                                          width="20"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col wow fadeInUp"
+                                         *ngIf="document.length === 0">
+                                        <div *ngFor="let s of docume" class="text-center" style="cursor: pointer"
+                                             (click)="onViewDocument(s.idDocument)">
+                                            <h5>[{{s.typeDocument}}
+                                                {{s.settings.niveau}} {{s.settings.matiere}}
+                                                ] {{s.nomDocument}}   <img *ngIf="s.veracity==='Confirmed'"
+                                                                           src="assets/img/v1.jpg" class="float-right"
+                                                                           width="20"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wow fadeInUp">
+
+                                <ngb-pagination [collectionSize]="nbMaxPage2" [(page)]="currentPage" [maxSize]="5"
+                                                (pageChange)="onPageChange(currentPage)"
+                                                [rotate]="true"></ngb-pagination>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</main>
+
+
+
+
