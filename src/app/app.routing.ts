@@ -38,6 +38,7 @@ import {EditDocumentComponent} from './components/documents/edit-document/edit-d
 import {InscriptionComponent} from './components/events/inscription/inscription.component';
 import {BookersComponent} from './components/events/bookers/bookers.component';
 import {ForgetComponent} from './components/auth/forget/forget.component';
+import {WhiteExamsComponent} from './components/white-exams/white-exams.component';
 
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
     {path: 'event/:id/BooKers', component: BookersComponent},
     {path: 'eventInscription/:id', component: InscriptionComponent},
     {path: 'event/journey', component: JourneyComponent},
+    {path: 'whiteExams', component: WhiteExamsComponent},
     {path: 'documents', component: DocumentsComponent},
     {path: 'documents/new', canActivate: [AuthGuard], component: NewDocumentComponent},
     {path: 'documents/edit/:id', canActivate: [AuthGuard], component: EditDocumentComponent},

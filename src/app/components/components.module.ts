@@ -53,6 +53,7 @@ import {BookersComponent} from './events/bookers/bookers.component';
 import {SelectRelatedComponent} from './documents/select-related/select-related.component';
 import {ModalForgetComponent} from './auth/modal-forget/modal-forget.component';
 import {ForgetComponent} from './auth/forget/forget.component';
+import {WhiteExamsComponent} from './white-exams/white-exams.component';
 
 @NgModule({
     imports: [
@@ -112,7 +113,8 @@ import {ForgetComponent} from './auth/forget/forget.component';
         BookersComponent,
         SelectRelatedComponent,
         ModalForgetComponent,
-        ForgetComponent
+        ForgetComponent,
+        WhiteExamsComponent
     ],
     entryComponents: [NgbdModalContent, NgbdModalContentEvents],
     exports: [ComponentsComponent]
