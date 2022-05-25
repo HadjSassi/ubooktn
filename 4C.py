@@ -12,7 +12,6 @@ db = mysql.connector.connect(
     auth_plugin='mysql_native_password'
 )
 sql = db.cursor()
-
 formationIds = []
 formationNames = []
 formationTypes = []
@@ -66,7 +65,7 @@ journeyRemove = []
 
 
 def compare(y):
-    # this function is to compare the event day to the actual date, if the it has passed it will be returned false
+    # this function is to compare the event day to the actual date, if it has passed it will be returned false
     if (str(y) == 'None'):
         return False
     return datetime.datetime.now() <= datetime.datetime(int(y.split(' ')[0].split('-')[0]),
@@ -75,11 +74,13 @@ def compare(y):
 
 
 def dating(y):
+    # this function transform the date displayement
     return (y.split(' ')[0].split('-')[1]) + "/" + (y.split(' ')[0].split('-')[2]) + "/" + (
         y.split(' ')[0].split('-')[0])
 
 
 def notFound(element, listElement):
+    # this function return either an event exist in the database or not
     notFound = False
     for i in listElement:
         if (element[0] != i[20]):
@@ -91,7 +92,7 @@ def notFound(element, listElement):
 
 
 def loadDataOfFormation():
-    # this method is for loading the trainings from the 4c plateform
+    # this method is for loading the trainings from the 4c platform
     cookies = {
         '__RequestVerificationToken': 'KsDqXAdRYRKPcywfMiFbWVZcbtLSFoxEa3M-khjaI5u_qS2WjyxxRs_tJsF0NxvKEvcCTOOTAJYFOrD1pn_tz2f4hzX7nhQ6p9QkxbjsZ2I1',
         'BNES___RequestVerificationToken': 'UbT45Xcn/q0HBxUBey7wes6YoTMpy5bIpMwonYoWHasLdKzEn1dMKAZ5m6EiKZ8/5G2rN9BBs3grYykI9vm9Rk4wn3kljnbFebwRLxMjZXI5hS5H5fKdko2TfE//E4U2JTp3o3PSYu4hEIXnS5lY6FvGZeo2HECHTNz/z/Fn4LMOdESWigXRCJxrPnHv9pgOnbxtOhiOV4XUa8H0SXurhl3lUin4n9UBK16GEDYijq8=',
@@ -926,6 +927,7 @@ def filtreFormation():
     # this method to keep just the recent training and to put all the passed event to delete later from the database
     for i in formation:
         if compare(i[4]):
+            print(i)
             formationFianle.append(i)
         else:
             formationRemove.append(i)
@@ -1192,38 +1194,38 @@ def scrapeJourney():
 
 
 def updateFormation():
-    sql.execute("select * from formation")
+    sql.execute("select * from event")
     resultQuery = sql.fetchall()
     for i in formationFianle2:
         if (notFound(i, resultQuery)):
-            query = f"insert into formation (address,affiche,capacity,clubs,description,email,finishing_date,institus,nom,partenaires,pics_url,price,registration_date_limit,registration_link,shown,starting_date,tel,themes,training_centers,uid) values ('{i[6]}','{i[7]}','{i[10]}','','{i[8]}','{i[11]}','{dating(i[4])}','','{i[1]}','','','','{dating(i[5])}','{i[9]}','true','{dating(i[3])}','{i[12]}','{i[2]}','','{i[0]}');"
+            query = f"insert into event (address,affiche,capacity,clubs,description,email,finishing_date,institus,nom,partenaires,pics_url,price,registration_date_limit,registration_link,shown,starting_date,tel,themes,training_centers,uid,type) values ('{i[6]}','{i[7]}','{i[10]}','','{i[8]}','{i[11]}','{dating(i[4])}','','{i[1]}','','','','{dating(i[5])}','{i[9]}','true','{dating(i[3])}','{i[12]}','{i[2]}','','{i[0]}',\'Formation\');"
             print(query)
             sql.execute(query)
             db.commit()
 
 
 def updateCertification():
-    sql.execute("select * from certification")
+    sql.execute("select * from event")
     resultQuery = sql.fetchall()
     for i in certicationFinale2:
         if (notFound(i, resultQuery)):
-            query = f"insert into certification (address,affiche,capacity,clubs,description,email,finishing_date,institus,nom,partenaires,pics_url,price,registration_date_limit,registration_link,shown,starting_date,tel,themes,training_centers,uid) values ('{i[6]}','{i[7]}','{i[10]}','','{i[8]}','','{dating(i[4])}','','{i[1]}','','','','{dating(i[5])}','{i[9]}','true','{dating(i[3])}','','{i[2]}','','{i[0]}');"
+            query = f"insert into event (address,affiche,capacity,clubs,description,email,finishing_date,institus,nom,partenaires,pics_url,price,registration_date_limit,registration_link,shown,starting_date,tel,themes,training_centers,uid,type) values ('{i[6]}','{i[7]}','{i[10]}','','{i[8]}','','{dating(i[4])}','','{i[1]}','','','','{dating(i[5])}','{i[9]}','true','{dating(i[3])}','','{i[2]}','','{i[0]}'\'Certification\');"
             print(query)
             sql.execute(query)
             db.commit()
 
 
 def updateJourney():
-    sql.execute("select * from journey")
+    sql.execute("select * from event")
     resultQuery = sql.fetchall()
     for i in journeyFinale2:
         if (notFound(i, resultQuery)):
-            query = f"insert into journey (address,affiche,capacity,clubs,description,email,finishing_date,institus,nom,partenaires,pics_url,price,registration_date_limit,registration_link,shown,starting_date,tel,themes,training_centers,uid) values ('{i[6]}','{i[7]}','{i[10]}','','{i[8]}','{i[11]}','{dating(i[4])}','','{i[1]}','','','','{dating(i[5])}','{i[9]}','true','{dating(i[3])}','{i[12]}','{i[2]}','','{i[0]}');"
+            query = f"insert into event (address,affiche,capacity,clubs,description,email,finishing_date,institus,nom,partenaires,pics_url,price,registration_date_limit,registration_link,shown,starting_date,tel,themes,training_centers,uid,type) values ('{i[6]}','{i[7]}','{i[10]}','','{i[8]}','{i[11]}','{dating(i[4])}','','{i[1]}','','','','{dating(i[5])}','{i[9]}','true','{dating(i[3])}','{i[12]}','{i[2]}','','{i[0]}'\'Journey\');"
             print(query)
             sql.execute(query)
             db.commit()
 
 
 loadDataOfFormation()
-loadDataOfCertification()
-loadDataOfJourney()
+# loadDataOfCertification()
+# loadDataOfJourney()
