@@ -97,12 +97,18 @@ export class DocumentsComponent implements OnInit {
                 this.resultNumber = response.length;
                 this.documents.sort(
                     function (a, b) {
-                        if (a.idDocument < b.idDocument) {
-                            return 1;
-                        } else if (a.idDocument > b.idDocument) {
+                        if ((a.veracity === 'Confirmed' && b.veracity === 'Confirmed') || (a.veracity !== 'Confirmed' && b.veracity !== 'Confirmed')) {
+                            if (a.idDocument < b.idDocument) {
+                                return 1;
+                            } else if (a.idDocument > b.idDocument) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        } else if (a.veracity === 'Confirmed' && b.veracity !== 'Confirmed') {
                             return -1;
                         } else {
-                            return 0;
+                            return 1;
                         }
                     }
                 );
